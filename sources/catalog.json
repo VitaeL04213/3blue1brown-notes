@@ -1,0 +1,757 @@
+{
+  "snapshot_date": "2026-10-24",
+  "catalog_url": "https://www.3blue1brown.com/",
+  "metadata_asset": "https://www.3blue1brown.com/assets/lessons-D6OVIHdp.js",
+  "topic_asset": "https://www.3blue1brown.com/assets/Header-D97eyjMR.js",
+  "metadata_sha256": "f89e393e2e8afbc4d1a5a4705b604a2c871c9ebc9df397aa3e907a0ba45df85a",
+  "scope": "Five course-style topic sequences on the official website, plus the explicitly numbered Compression & Intelligence series.",
+  "courses": [
+    {
+      "id": "linear-algebra",
+      "title": "Linear Algebra",
+      "lessons": [
+        {
+          "title": "Vectors, what even are they?",
+          "date": "2016-08-06",
+          "video": "fNk_zzaMoSs",
+          "source": "_2016/eola/chapter1.py",
+          "chapter": 1.0,
+          "slug": "vectors",
+          "year": 2016,
+          "url": "https://www.3blue1brown.com/lessons/vectors/",
+          "youtube": "https://www.youtube.com/watch?v=fNk_zzaMoSs"
+        },
+        {
+          "title": "Linear combinations, span, and basis vectors",
+          "date": "2016-08-06",
+          "video": "k7RM-ot2NWY",
+          "source": "_2016/eola/chapter2.py",
+          "chapter": 2.0,
+          "slug": "span",
+          "year": 2016,
+          "url": "https://www.3blue1brown.com/lessons/span/",
+          "youtube": "https://www.youtube.com/watch?v=k7RM-ot2NWY"
+        },
+        {
+          "title": "Linear transformations and matrices",
+          "date": "2016-08-07",
+          "video": "kYB8IZa5AuE",
+          "source": "_2016/eola/chapter3.py",
+          "chapter": 3.0,
+          "slug": "linear-transformations",
+          "year": 2016,
+          "url": "https://www.3blue1brown.com/lessons/linear-transformations/",
+          "youtube": "https://www.youtube.com/watch?v=kYB8IZa5AuE"
+        },
+        {
+          "title": "Matrix multiplication as composition",
+          "date": "2016-08-08",
+          "video": "XkY2DOUCWMU",
+          "source": "_2016/eola/chapter4.py",
+          "chapter": 4.0,
+          "slug": "matrix-multiplication",
+          "year": 2016,
+          "url": "https://www.3blue1brown.com/lessons/matrix-multiplication/",
+          "youtube": "https://www.youtube.com/watch?v=XkY2DOUCWMU"
+        },
+        {
+          "title": "Three-dimensional linear transformations",
+          "date": "2016-08-09",
+          "video": "rHLEWRxRGiM",
+          "source": "_2016/eola/footnote.py",
+          "chapter": 5.0,
+          "slug": "3d-transformations",
+          "year": 2016,
+          "url": "https://www.3blue1brown.com/lessons/3d-transformations/",
+          "youtube": "https://www.youtube.com/watch?v=rHLEWRxRGiM"
+        },
+        {
+          "title": "The determinant",
+          "date": "2016-08-10",
+          "video": "Ip3X9LOh2dk",
+          "source": "_2016/eola/chapter5.py",
+          "chapter": 6.0,
+          "slug": "determinant",
+          "year": 2016,
+          "url": "https://www.3blue1brown.com/lessons/determinant/",
+          "youtube": "https://www.youtube.com/watch?v=Ip3X9LOh2dk"
+        },
+        {
+          "title": "Inverse matrices, column space, and null space",
+          "date": "2016-08-15",
+          "video": "uQhTuRlWMxw",
+          "source": "_2016/eola/chapter6.py",
+          "chapter": 7.0,
+          "slug": "inverse-matrices",
+          "year": 2016,
+          "url": "https://www.3blue1brown.com/lessons/inverse-matrices/",
+          "youtube": "https://www.youtube.com/watch?v=uQhTuRlWMxw"
+        },
+        {
+          "title": "Nonsquare matrices as transformations between dimensions",
+          "date": "2016-08-16",
+          "video": "v8VSDg_WQlA",
+          "source": "_2016/eola/footnote2.py",
+          "chapter": 8.0,
+          "slug": "nonsquare-matrices",
+          "year": 2016,
+          "url": "https://www.3blue1brown.com/lessons/nonsquare-matrices/",
+          "youtube": "https://www.youtube.com/watch?v=v8VSDg_WQlA"
+        },
+        {
+          "title": "Dot products and duality",
+          "date": "2016-08-24",
+          "video": "LyGKycYT2v0",
+          "source": "_2016/eola/chapter7.py",
+          "chapter": 9.0,
+          "slug": "dot-products",
+          "year": 2016,
+          "url": "https://www.3blue1brown.com/lessons/dot-products/",
+          "youtube": "https://www.youtube.com/watch?v=LyGKycYT2v0"
+        },
+        {
+          "title": "Cross products",
+          "date": "2016-09-01",
+          "video": "eu6i7WJeinw",
+          "source": "_2016/eola/chapter8p2.py",
+          "chapter": 10.0,
+          "slug": "cross-products",
+          "year": 2016,
+          "url": "https://www.3blue1brown.com/lessons/cross-products/",
+          "youtube": "https://www.youtube.com/watch?v=eu6i7WJeinw"
+        },
+        {
+          "title": "Cross products in the light of linear transformations",
+          "date": "2016-09-01",
+          "video": "BaM7OCEm3G0",
+          "source": "_2016/eola/chapter8.py",
+          "chapter": 11.0,
+          "slug": "cross-products-extended",
+          "year": 2016,
+          "url": "https://www.3blue1brown.com/lessons/cross-products-extended/",
+          "youtube": "https://www.youtube.com/watch?v=BaM7OCEm3G0"
+        },
+        {
+          "title": "Cramer's rule, explained geometrically",
+          "date": "2019-03-17",
+          "video": "jBsC34PxzoM",
+          "source": "_2018/cramer.py",
+          "chapter": 12.0,
+          "slug": "cramers-rule",
+          "year": 2019,
+          "url": "https://www.3blue1brown.com/lessons/cramers-rule/",
+          "youtube": "https://www.youtube.com/watch?v=jBsC34PxzoM"
+        },
+        {
+          "title": "Change of basis",
+          "date": "2016-09-11",
+          "video": "P2LTAUO1TdA",
+          "source": "_2016/eola/chapter9.py",
+          "chapter": 13.0,
+          "slug": "change-of-basis",
+          "year": 2016,
+          "url": "https://www.3blue1brown.com/lessons/change-of-basis/",
+          "youtube": "https://www.youtube.com/watch?v=P2LTAUO1TdA"
+        },
+        {
+          "title": "Eigenvectors and eigenvalues",
+          "date": "2016-09-15",
+          "video": "PFDu9oVAE-g",
+          "source": "_2016/eola/chapter10.py",
+          "chapter": 14.0,
+          "slug": "eigenvalues",
+          "year": 2016,
+          "url": "https://www.3blue1brown.com/lessons/eigenvalues/",
+          "youtube": "https://www.youtube.com/watch?v=PFDu9oVAE-g"
+        },
+        {
+          "title": "A quick trick for computing eigenvalues",
+          "date": "2021-05-07",
+          "video": "e50Bj7jn9IQ",
+          "source": "_2021/quick_eigen.py",
+          "chapter": 15.0,
+          "slug": "quick-eigen",
+          "year": 2021,
+          "url": "https://www.3blue1brown.com/lessons/quick-eigen/",
+          "youtube": "https://www.youtube.com/watch?v=e50Bj7jn9IQ"
+        },
+        {
+          "title": "Abstract vector spaces",
+          "date": "2016-09-24",
+          "video": "TgKwz5Ikpc8",
+          "source": "_2016/eola/chapter11.py",
+          "chapter": 16.0,
+          "slug": "abstract-vector-spaces",
+          "year": 2016,
+          "url": "https://www.3blue1brown.com/lessons/abstract-vector-spaces/",
+          "youtube": "https://www.youtube.com/watch?v=TgKwz5Ikpc8"
+        }
+      ]
+    },
+    {
+      "id": "calculus",
+      "title": "Calculus",
+      "lessons": [
+        {
+          "title": "The Essence of Calculus",
+          "date": "2017-04-28",
+          "video": "WUvTyaaNkzM",
+          "source": "_2017/eoc/chapter1.py",
+          "chapter": 1.0,
+          "slug": "essence-of-calculus",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/essence-of-calculus/",
+          "youtube": "https://www.youtube.com/watch?v=WUvTyaaNkzM"
+        },
+        {
+          "title": "The paradox of the derivative",
+          "date": "2017-04-29",
+          "video": "9vKqVkMQHKk",
+          "source": "_2017/eoc/chapter2.py",
+          "chapter": 2.0,
+          "slug": "derivatives",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/derivatives/",
+          "youtube": "https://www.youtube.com/watch?v=9vKqVkMQHKk"
+        },
+        {
+          "title": "Power Rule through geometry",
+          "date": "2017-04-30",
+          "video": "S0_qX4VJhMQ",
+          "source": "_2017/eoc/chapter3.py",
+          "chapter": 3.0,
+          "slug": "derivatives-power-rule",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/derivatives-power-rule/",
+          "youtube": "https://www.youtube.com/watch?v=S0_qX4VJhMQ"
+        },
+        {
+          "title": "Trig Derivatives through geometry",
+          "date": "2017-04-30",
+          "source": "_2017/eoc/chapter3.py",
+          "chapter": 4.0,
+          "slug": "derivatives-trig-functions",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/derivatives-trig-functions/"
+        },
+        {
+          "title": "Visualizing the chain rule and product rule",
+          "date": "2017-05-01",
+          "video": "YG15m2VwSjA",
+          "source": "_2017/eoc/chapter4.py",
+          "chapter": 5.0,
+          "slug": "chain-rule-and-product-rule",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/chain-rule-and-product-rule/",
+          "youtube": "https://www.youtube.com/watch?v=YG15m2VwSjA"
+        },
+        {
+          "title": "What's so special about Euler's number e?",
+          "date": "2017-05-02",
+          "video": "m2MIpDrF7Es",
+          "source": "_2017/eoc/chapter5.py",
+          "chapter": 6.0,
+          "slug": "eulers-number",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/eulers-number/",
+          "youtube": "https://www.youtube.com/watch?v=m2MIpDrF7Es"
+        },
+        {
+          "title": "Implicit differentiation, what's going on here?",
+          "date": "2017-05-03",
+          "video": "qb40J4N1fa4",
+          "source": "_2017/eoc/chapter6.py",
+          "chapter": 7.0,
+          "slug": "implicit-differentiation",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/implicit-differentiation/",
+          "youtube": "https://www.youtube.com/watch?v=qb40J4N1fa4"
+        },
+        {
+          "title": "Limits and the definition of derivatives",
+          "date": "2017-05-04",
+          "video": "kfF40MiS7zA",
+          "source": "_2017/eoc/chapter7.py",
+          "chapter": 8.0,
+          "slug": "limits",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/limits/",
+          "youtube": "https://www.youtube.com/watch?v=kfF40MiS7zA"
+        },
+        {
+          "title": "(ε, δ) \"epsilon delta\" definitions of limits",
+          "date": "2017-05-04",
+          "source": "_2017/eoc/chapter7.py",
+          "chapter": 9.0,
+          "slug": "epsilon-delta",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/epsilon-delta/"
+        },
+        {
+          "title": "L'Hôpital's rule",
+          "date": "2017-05-04",
+          "source": "_2017/eoc/chapter7.py",
+          "chapter": 10.0,
+          "slug": "l-hopitals-rule",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/l-hopitals-rule/"
+        },
+        {
+          "title": "Integration and the fundamental theorem of calculus",
+          "date": "2017-05-05",
+          "video": "rfG8ce4nNh0",
+          "source": "_2017/eoc/chapter8.py",
+          "chapter": 11.0,
+          "slug": "integration",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/integration/",
+          "youtube": "https://www.youtube.com/watch?v=rfG8ce4nNh0"
+        },
+        {
+          "title": "What does area have to do with slope?",
+          "date": "2017-05-06",
+          "video": "FnJqaIESC2s",
+          "source": "_2017/eoc/chapter9.py",
+          "chapter": 12.0,
+          "slug": "area-and-slope",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/area-and-slope/",
+          "youtube": "https://www.youtube.com/watch?v=FnJqaIESC2s"
+        },
+        {
+          "title": "Higher order derivatives",
+          "date": "2017-05-07",
+          "video": "BLkz5LGWihw",
+          "source": "_2017/eoc/footnote.py",
+          "chapter": 13.0,
+          "slug": "higher-order-derivatives",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/higher-order-derivatives/",
+          "youtube": "https://www.youtube.com/watch?v=BLkz5LGWihw"
+        },
+        {
+          "title": "Taylor series",
+          "date": "2017-05-07",
+          "video": "3d6DsjIBzJ4",
+          "source": "_2017/eoc/chapter10.py",
+          "chapter": 14.0,
+          "slug": "taylor-series",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/taylor-series/",
+          "youtube": "https://www.youtube.com/watch?v=3d6DsjIBzJ4"
+        },
+        {
+          "title": "Taylor series (geometric view)",
+          "date": "2017-05-07",
+          "source": "_2017/eoc/chapter10.py",
+          "chapter": 15.0,
+          "slug": "taylor-series-geometric-view",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/taylor-series-geometric-view/"
+        },
+        {
+          "title": "The other way to visualize derivatives",
+          "date": "2018-05-19",
+          "video": "CfW845LNObM",
+          "source": "_2018/alt_calc.py",
+          "chapter": 16.0,
+          "slug": "derivatives-and-transforms",
+          "year": 2018,
+          "url": "https://www.3blue1brown.com/lessons/derivatives-and-transforms/",
+          "youtube": "https://www.youtube.com/watch?v=CfW845LNObM"
+        },
+        {
+          "title": "Divergence and curl:  The language of Maxwell's equations, fluid flow, and more",
+          "date": "2018-06-21",
+          "video": "rB83DpBJQsE",
+          "source": "_2018/div_curl.py",
+          "slug": "divergence-and-curl",
+          "year": 2018,
+          "url": "https://www.3blue1brown.com/lessons/divergence-and-curl/",
+          "youtube": "https://www.youtube.com/watch?v=rB83DpBJQsE"
+        }
+      ]
+    },
+    {
+      "id": "neural-networks",
+      "title": "Neural Networks",
+      "lessons": [
+        {
+          "title": "But what is a Neural Network?",
+          "date": "2017-10-05",
+          "video": "aircAruvnKk",
+          "source": "_2017/nn/part1.py",
+          "chapter": 1.0,
+          "slug": "neural-networks",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/neural-networks/",
+          "youtube": "https://www.youtube.com/watch?v=aircAruvnKk"
+        },
+        {
+          "title": "Gradient descent, how neural networks learn",
+          "date": "2017-10-16",
+          "video": "IHZwWFHWa-w",
+          "source": "_2017/nn/part2.py",
+          "chapter": 2.0,
+          "slug": "gradient-descent",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/gradient-descent/",
+          "youtube": "https://www.youtube.com/watch?v=IHZwWFHWa-w"
+        },
+        {
+          "title": "Analyzing our neural network",
+          "date": "2017-10-16",
+          "chapter": 3.0,
+          "slug": "neural-network-analysis",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/neural-network-analysis/"
+        },
+        {
+          "title": "What is backpropagation really doing?",
+          "date": "2017-11-03",
+          "video": "Ilg3gGewQ5U",
+          "source": "_2017/nn/part3.py",
+          "chapter": 4.0,
+          "slug": "backpropagation",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/backpropagation/",
+          "youtube": "https://www.youtube.com/watch?v=Ilg3gGewQ5U"
+        },
+        {
+          "title": "Backpropagation calculus",
+          "date": "2017-11-03",
+          "video": "tIeHLnjs5U8",
+          "source": "_2017/nn/part3.py",
+          "chapter": 5.0,
+          "slug": "backpropagation-calculus",
+          "year": 2017,
+          "url": "https://www.3blue1brown.com/lessons/backpropagation-calculus/",
+          "youtube": "https://www.youtube.com/watch?v=tIeHLnjs5U8"
+        },
+        {
+          "title": "Large Language Models explained briefly",
+          "date": "2024-11-20",
+          "video": "LPZh9BOjkQs",
+          "source": "_2024/transformers/",
+          "slug": "mini-llm",
+          "year": 2024,
+          "url": "https://www.3blue1brown.com/lessons/mini-llm/",
+          "youtube": "https://www.youtube.com/watch?v=LPZh9BOjkQs"
+        },
+        {
+          "title": "Transformers, the tech behind LLMs | Deep Learning Chapter 5",
+          "date": "2024-04-01",
+          "video": "wjZofJX0v4M",
+          "source": "_2024/transformers/",
+          "slug": "gpt",
+          "year": 2024,
+          "url": "https://www.3blue1brown.com/lessons/gpt/",
+          "youtube": "https://www.youtube.com/watch?v=wjZofJX0v4M"
+        },
+        {
+          "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6",
+          "date": "2024-04-07",
+          "video": "eMlx5fFNoYc",
+          "source": "_2024/transformers/",
+          "slug": "attention",
+          "year": 2024,
+          "url": "https://www.3blue1brown.com/lessons/attention/",
+          "youtube": "https://www.youtube.com/watch?v=eMlx5fFNoYc"
+        },
+        {
+          "title": "How might LLMs store facts | Deep Learning Chapter 7",
+          "date": "2024-08-31",
+          "video": "9-Jl0dxWQs8",
+          "source": "_2024/transformers/",
+          "slug": "mlp",
+          "year": 2024,
+          "url": "https://www.3blue1brown.com/lessons/mlp/",
+          "youtube": "https://www.youtube.com/watch?v=9-Jl0dxWQs8"
+        },
+        {
+          "title": "But what is Cross-Entropy? | Compression is Intelligence Part 2",
+          "date": "2026-07-16",
+          "video": "GlYgs6v2YfU",
+          "source": "_2026/cross_entropy/",
+          "slug": "cross-entropy",
+          "year": 2026,
+          "url": "https://www.3blue1brown.com/lessons/cross-entropy/",
+          "youtube": "https://www.youtube.com/watch?v=GlYgs6v2YfU"
+        },
+        {
+          "date": "2025-07-25",
+          "title": "But how do AI images and videos actually work? | Guest video by Welch Labs",
+          "video": "iv-5mZ_9CPY",
+          "slug": "diffusion-models",
+          "year": 2025,
+          "url": "https://www.3blue1brown.com/lessons/diffusion-models/",
+          "youtube": "https://www.youtube.com/watch?v=iv-5mZ_9CPY"
+        }
+      ]
+    },
+    {
+      "id": "differential-equations",
+      "title": "Differential Equations",
+      "lessons": [
+        {
+          "title": "Differential equations, studying the unsolvable",
+          "date": "2019-03-31",
+          "video": "p_di4Zn4wz4",
+          "source": "_2019/diffyq/part1",
+          "chapter": 1.0,
+          "slug": "differential-equations",
+          "year": 2019,
+          "url": "https://www.3blue1brown.com/lessons/differential-equations/",
+          "youtube": "https://www.youtube.com/watch?v=p_di4Zn4wz4"
+        },
+        {
+          "title": "But what is a partial differential equation?",
+          "date": "2019-04-21",
+          "video": "ly4S0oi3Yz8",
+          "source": "_2019/diffyq/par $T_2$",
+          "chapter": 2.0,
+          "slug": "pdes",
+          "year": 2019,
+          "url": "https://www.3blue1brown.com/lessons/pdes/",
+          "youtube": "https://www.youtube.com/watch?v=ly4S0oi3Yz8"
+        },
+        {
+          "title": "Solving the heat equation",
+          "date": "2019-06-16",
+          "video": "ToIXSwZ1pJU",
+          "source": "_2019/diffyq/part3",
+          "chapter": 3.0,
+          "slug": "heat-equation",
+          "year": 2019,
+          "url": "https://www.3blue1brown.com/lessons/heat-equation/",
+          "youtube": "https://www.youtube.com/watch?v=ToIXSwZ1pJU"
+        },
+        {
+          "title": "But what is a Fourier series? From heat flow to circle drawings",
+          "date": "2019-06-30",
+          "video": "r6sGWTCMz2k",
+          "source": "_2019/diffyq/part4",
+          "chapter": 4.0,
+          "slug": "fourier-series",
+          "year": 2019,
+          "url": "https://www.3blue1brown.com/lessons/fourier-series/",
+          "youtube": "https://www.youtube.com/watch?v=r6sGWTCMz2k"
+        },
+        {
+          "date": "2025-10-05",
+          "source": "_2025/laplace/",
+          "title": "The Physics of Euler's Formula | Laplace Transform Prelude",
+          "video": "-j8PzkZ70Lg",
+          "slug": "complex-exponents",
+          "year": 2025,
+          "url": "https://www.3blue1brown.com/lessons/complex-exponents/",
+          "youtube": "https://www.youtube.com/watch?v=-j8PzkZ70Lg"
+        },
+        {
+          "title": "But what is a Laplace Transform?",
+          "date": "2025-10-11",
+          "video": "j0wJBEZdwLs",
+          "source": "_2025/laplace/",
+          "slug": "laplace-transform",
+          "year": 2025,
+          "url": "https://www.3blue1brown.com/lessons/laplace-transform/",
+          "youtube": "https://www.youtube.com/watch?v=j0wJBEZdwLs"
+        },
+        {
+          "date": "2025-11-05",
+          "source": "_2025/laplace/",
+          "title": "Why Laplace transforms are so useful",
+          "video": "FE-hM1kRK4Y",
+          "slug": "laplace-for-odes",
+          "year": 2025,
+          "url": "https://www.3blue1brown.com/lessons/laplace-for-odes/",
+          "youtube": "https://www.youtube.com/watch?v=FE-hM1kRK4Y"
+        },
+        {
+          "title": "e^(iπ) in 3.14 minutes, using dynamics",
+          "date": "2019-07-07",
+          "video": "v0YEaeIClKY",
+          "source": "_2019/diffyq/part5",
+          "chapter": 5.0,
+          "slug": "eulers-formula-dynamically",
+          "year": 2019,
+          "url": "https://www.3blue1brown.com/lessons/eulers-formula-dynamically/",
+          "youtube": "https://www.youtube.com/watch?v=v0YEaeIClKY"
+        },
+        {
+          "title": "How (and why) to raise e to the power of a matrix",
+          "date": "2021-04-01",
+          "video": "O85OWBJ2ayo",
+          "source": "_2021/matrix_exp.py",
+          "chapter": 6.0,
+          "slug": "matrix-exponents",
+          "year": 2021,
+          "url": "https://www.3blue1brown.com/lessons/matrix-exponents/",
+          "youtube": "https://www.youtube.com/watch?v=O85OWBJ2ayo"
+        },
+        {
+          "title": "Exponential growth and epidemics",
+          "date": "2020-03-08",
+          "video": "Kas0tIxDvrg",
+          "source": "_2020/covid.py",
+          "slug": "exponential-and-epidemics",
+          "year": 2020,
+          "url": "https://www.3blue1brown.com/lessons/exponential-and-epidemics/",
+          "youtube": "https://www.youtube.com/watch?v=Kas0tIxDvrg"
+        }
+      ]
+    },
+    {
+      "id": "lockdown-math",
+      "title": "Lockdown Math",
+      "lessons": [
+        {
+          "title": "Lockdown math announcement",
+          "date": "2020-04-16",
+          "video": "ppWPuXsnf1Q",
+          "source": "_2020/ldm.py",
+          "slug": "lockdown-math-announcement",
+          "year": 2020,
+          "url": "https://www.3blue1brown.com/lessons/lockdown-math-announcement/",
+          "youtube": "https://www.youtube.com/watch?v=ppWPuXsnf1Q"
+        },
+        {
+          "title": "The simpler quadratic formula",
+          "date": "2020-04-17",
+          "video": "MHXO86wKeDY",
+          "source": "_2020/ldm.py",
+          "chapter": 1.0,
+          "slug": "ldm-quadratic",
+          "year": 2020,
+          "url": "https://www.3blue1brown.com/lessons/ldm-quadratic/",
+          "youtube": "https://www.youtube.com/watch?v=MHXO86wKeDY"
+        },
+        {
+          "title": "Trigonometry fundamentals",
+          "date": "2020-04-21",
+          "video": "yBw67Fb31Cs",
+          "source": "_2020/ldm.py",
+          "chapter": 2.0,
+          "slug": "ldm-trigonometry",
+          "year": 2020,
+          "url": "https://www.3blue1brown.com/lessons/ldm-trigonometry/",
+          "youtube": "https://www.youtube.com/watch?v=yBw67Fb31Cs"
+        },
+        {
+          "title": "Complex number fundamentals",
+          "date": "2020-04-24",
+          "video": "5PcpBw5Hbwo",
+          "source": "_2020/ldm.py",
+          "chapter": 3.0,
+          "slug": "ldm-complex-numbers",
+          "year": 2020,
+          "url": "https://www.3blue1brown.com/lessons/ldm-complex-numbers/",
+          "youtube": "https://www.youtube.com/watch?v=5PcpBw5Hbwo"
+        },
+        {
+          "title": "What is Euler's formula actually saying?",
+          "date": "2020-04-28",
+          "video": "ZxYOEwM6Wbk",
+          "source": "_2020/ldm.py",
+          "chapter": 4.0,
+          "slug": "ldm-eulers-formula",
+          "year": 2020,
+          "url": "https://www.3blue1brown.com/lessons/ldm-eulers-formula/",
+          "youtube": "https://www.youtube.com/watch?v=ZxYOEwM6Wbk"
+        },
+        {
+          "title": "Imaginary interest rates",
+          "date": "2020-05-01",
+          "video": "IAEASE5GjdI",
+          "source": "_2020/ldm.py",
+          "chapter": 5.0,
+          "slug": "ldm-imaginary-interest",
+          "year": 2020,
+          "url": "https://www.3blue1brown.com/lessons/ldm-imaginary-interest/",
+          "youtube": "https://www.youtube.com/watch?v=IAEASE5GjdI"
+        },
+        {
+          "title": "Logarithm Fundamentals",
+          "date": "2020-05-05",
+          "video": "cEvgcoyZvB4",
+          "source": "_2020/ldm.py",
+          "chapter": 6.0,
+          "slug": "ldm-logarithms",
+          "year": 2020,
+          "url": "https://www.3blue1brown.com/lessons/ldm-logarithms/",
+          "youtube": "https://www.youtube.com/watch?v=cEvgcoyZvB4"
+        },
+        {
+          "title": "What makes the natural log \"natural\"?",
+          "date": "2020-05-08",
+          "video": "4PDoT7jtxmw",
+          "source": "_2020/ldm.py",
+          "chapter": 7.0,
+          "slug": "ldm-natural-logs",
+          "year": 2020,
+          "url": "https://www.3blue1brown.com/lessons/ldm-natural-logs/",
+          "youtube": "https://www.youtube.com/watch?v=4PDoT7jtxmw"
+        },
+        {
+          "title": "The power tower puzzle",
+          "date": "2020-05-12",
+          "video": "elQVZLLiod4",
+          "source": "_2020/ldm.py",
+          "chapter": 8.0,
+          "slug": "ldm-power-towers",
+          "year": 2020,
+          "url": "https://www.3blue1brown.com/lessons/ldm-power-towers/",
+          "youtube": "https://www.youtube.com/watch?v=elQVZLLiod4"
+        },
+        {
+          "title": "Intuition for i to the power i",
+          "date": "2020-05-15",
+          "video": "pq9LcwC7CoY",
+          "source": "_2020/ldm.py",
+          "chapter": 9.0,
+          "slug": "ldm-i-to-i",
+          "year": 2020,
+          "url": "https://www.3blue1brown.com/lessons/ldm-i-to-i/",
+          "youtube": "https://www.youtube.com/watch?v=pq9LcwC7CoY"
+        },
+        {
+          "title": "Tips to be a better problem solver",
+          "date": "2020-05-22",
+          "video": "QvuQH4_05LI",
+          "source": "_2020/ldm.py",
+          "chapter": 10.0,
+          "slug": "ldm-tips-to-problem-solving",
+          "year": 2020,
+          "url": "https://www.3blue1brown.com/lessons/ldm-tips-to-problem-solving/",
+          "youtube": "https://www.youtube.com/watch?v=QvuQH4_05LI"
+        }
+      ]
+    },
+    {
+      "id": "compression",
+      "title": "Compression & Intelligence",
+      "lessons": [
+        {
+          "title": "Reinventing Entropy | Compression is Intelligence Part 1",
+          "date": "2026-06-07",
+          "video": "l6DKRf-fAAM",
+          "source": "_2026/cross_entropy/",
+          "slug": "entropy",
+          "year": 2026,
+          "url": "https://www.3blue1brown.com/lessons/entropy/",
+          "youtube": "https://www.youtube.com/watch?v=l6DKRf-fAAM"
+        },
+        {
+          "title": "But what is Cross-Entropy? | Compression is Intelligence Part 2",
+          "date": "2026-07-16",
+          "video": "GlYgs6v2YfU",
+          "source": "_2026/cross_entropy/",
+          "slug": "cross-entropy",
+          "year": 2026,
+          "url": "https://www.3blue1brown.com/lessons/cross-entropy/",
+          "youtube": "https://www.youtube.com/watch?v=GlYgs6v2YfU"
+        }
+      ]
+    }
+  ]
+}

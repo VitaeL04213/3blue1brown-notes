@@ -1,0 +1,27 @@
+\chapter{压缩与智能：熵和交叉熵}
+官网截至目录快照日公开的这组编号课程有两集。本章先用二进制位解释编码，再用自然对数写 Lean 公式；两种单位只相差常数 $\ln2$。
+
+\lesson{entropy}{熵：平均要问多少个二选一问题}{Information.entropy_term_nonnegative}
+\idea 常见事件可以分配短码，罕见事件用长码。编码的平均长度取决于整个概率分布，而不只是符号总数。
+\mathpart 对有限分布 $p_i\ge0,\sum_i p_i=1$，Shannon 熵为
+\[H_2(p)=-\sum_i p_i\log_2p_i,\qquad 0\log_2 0:=0.\]
+理想信息长度为 $-\log_2p_i$。独立同分布源的长块编码能让平均每符号长度逼近熵；单符号前缀码的整数长度通常有额外开销。
+\examplepart 分布 $(1/2,1/4,1/4)$ 可用前缀码 $0,10,11$，平均长度为 $\tfrac12\cdot1+\tfrac14\cdot2+\tfrac14\cdot2=1.5$ 位，恰好等于熵。
+\pitfall 熵不是某个特定字符串的长度，也不直接等同于人类语义。对有相关性的序列，要用条件熵或熵率，而不能只看单个符号频率。
+\exercise 四个等概率符号的熵是多少？$2$ 位；一个概率为 $1$ 的确定符号的熵为零。
+\leanpart{验证正概率 $p\le1$ 的单项 $-p\ln p$ 非负。代码还定义了有限分布的熵；编码下界、可达性和熵率并未形式化。}
+\nextlesson
+
+\lesson{cross-entropy}{交叉熵：错误概率模型的编码代价}{Information.cross_entropy_decomposition}
+\idea 数据真实分布是 $p$，编码或预测使用的模型是 $q$。模型给真实常见事件过小的概率，就会在这些事件上支付更长的编码代价。
+\mathpart 在 $p_i,q_i>0$ 时，
+\begin{align*}
+H(p,q)&=-\sum_i p_i\ln q_i,\\
+D_{\rm KL}(p\|q)&=\sum_i p_i\ln\frac{p_i}{q_i},\\
+H(p,q)&=H(p)+D_{\rm KL}(p\|q).
+\end{align*}
+若 $p,q$ 均归一化，则 $D_{\rm KL}\ge0$。用 $\ln u\le u-1$，对 $u=q_i/p_i$ 逐项乘以 $p_i$ 并求和，即可证明该不等式。
+\examplepart 真实分布为 $(1/2,1/2)$，模型为 $(3/4,1/4)$。以位为单位，真实熵为 $1$，交叉熵为 $-\tfrac12\log_2(3/4)-\tfrac12\log_2(1/4)\approx1.20752$，多付约 $0.20752$ 位。
+\pitfall $D_{\rm KL}(p\|q)$ 一般不对称，不是距离。若 $p_i>0$ 而 $q_i=0$，扩展意义下代价为无穷，不能直接套普通实数对数代数。
+\exercise 正确标签是类别 $j$ 时，单样本交叉熵为何为 $-\ln q_j$？因为 one-hot 标签使其余求和系数均为零。$q_j=1$ 时损失为零。
+\leanpart{完整验证严格正有限向量的熵、交叉熵与 KL 代数分解；此分解本身不要求归一化。同文件的 \texttt{kl\_nonnegative} 进一步在两分布归一化时证明 KL 非负；零概率与无穷代价情形不在这两个定理的覆盖范围内。}

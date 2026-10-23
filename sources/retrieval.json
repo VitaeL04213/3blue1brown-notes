@@ -1,0 +1,467 @@
+{
+  "retrieved": "2026-10-24",
+  "pages": [
+    {
+      "slug": "vectors",
+      "url": "https://www.3blue1brown.com/lessons/vectors/",
+      "ok": true,
+      "characters": 11163,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "span",
+      "url": "https://www.3blue1brown.com/lessons/span/",
+      "ok": true,
+      "characters": 11490,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "linear-transformations",
+      "url": "https://www.3blue1brown.com/lessons/linear-transformations/",
+      "ok": true,
+      "characters": 14860,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "matrix-multiplication",
+      "url": "https://www.3blue1brown.com/lessons/matrix-multiplication/",
+      "ok": true,
+      "characters": 16278,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "3d-transformations",
+      "url": "https://www.3blue1brown.com/lessons/3d-transformations/",
+      "ok": true,
+      "characters": 6736,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "determinant",
+      "url": "https://www.3blue1brown.com/lessons/determinant/",
+      "ok": true,
+      "characters": 10981,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "inverse-matrices",
+      "url": "https://www.3blue1brown.com/lessons/inverse-matrices/",
+      "ok": true,
+      "characters": 18428,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "nonsquare-matrices",
+      "url": "https://www.3blue1brown.com/lessons/nonsquare-matrices/",
+      "ok": true,
+      "characters": 4359,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "dot-products",
+      "url": "https://www.3blue1brown.com/lessons/dot-products/",
+      "ok": true,
+      "characters": 17117,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "cross-products",
+      "url": "https://www.3blue1brown.com/lessons/cross-products/",
+      "ok": true,
+      "characters": 10552,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "cross-products-extended",
+      "url": "https://www.3blue1brown.com/lessons/cross-products-extended/",
+      "ok": true,
+      "characters": 14036,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "cramers-rule",
+      "url": "https://www.3blue1brown.com/lessons/cramers-rule/",
+      "ok": true,
+      "characters": 16506,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "change-of-basis",
+      "url": "https://www.3blue1brown.com/lessons/change-of-basis/",
+      "ok": true,
+      "characters": 15411,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "eigenvalues",
+      "url": "https://www.3blue1brown.com/lessons/eigenvalues/",
+      "ok": true,
+      "characters": 29933,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "quick-eigen",
+      "url": "https://www.3blue1brown.com/lessons/quick-eigen/",
+      "ok": true,
+      "characters": 19782,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "abstract-vector-spaces",
+      "url": "https://www.3blue1brown.com/lessons/abstract-vector-spaces/",
+      "ok": true,
+      "characters": 15731,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "essence-of-calculus",
+      "url": "https://www.3blue1brown.com/lessons/essence-of-calculus/",
+      "ok": true,
+      "characters": 25735,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "derivatives",
+      "url": "https://www.3blue1brown.com/lessons/derivatives/",
+      "ok": true,
+      "characters": 18973,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "derivatives-power-rule",
+      "url": "https://www.3blue1brown.com/lessons/derivatives-power-rule/",
+      "ok": true,
+      "characters": 14688,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "derivatives-trig-functions",
+      "url": "https://www.3blue1brown.com/lessons/derivatives-trig-functions/",
+      "ok": true,
+      "characters": 7894,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "chain-rule-and-product-rule",
+      "url": "https://www.3blue1brown.com/lessons/chain-rule-and-product-rule/",
+      "ok": true,
+      "characters": 17219,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "eulers-number",
+      "url": "https://www.3blue1brown.com/lessons/eulers-number/",
+      "ok": true,
+      "characters": 15719,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "implicit-differentiation",
+      "url": "https://www.3blue1brown.com/lessons/implicit-differentiation/",
+      "ok": true,
+      "characters": 14903,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "limits",
+      "url": "https://www.3blue1brown.com/lessons/limits/",
+      "ok": true,
+      "characters": 7984,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "epsilon-delta",
+      "url": "https://www.3blue1brown.com/lessons/epsilon-delta/",
+      "ok": true,
+      "characters": 7047,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "l-hopitals-rule",
+      "url": "https://www.3blue1brown.com/lessons/l-hopitals-rule/",
+      "ok": true,
+      "characters": 8230,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "integration",
+      "url": "https://www.3blue1brown.com/lessons/integration/",
+      "ok": true,
+      "characters": 20072,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "area-and-slope",
+      "url": "https://www.3blue1brown.com/lessons/area-and-slope/",
+      "ok": true,
+      "characters": 13938,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "higher-order-derivatives",
+      "url": "https://www.3blue1brown.com/lessons/higher-order-derivatives/",
+      "ok": true,
+      "characters": 6126,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "taylor-series",
+      "url": "https://www.3blue1brown.com/lessons/taylor-series/",
+      "ok": true,
+      "characters": 20813,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "taylor-series-geometric-view",
+      "url": "https://www.3blue1brown.com/lessons/taylor-series-geometric-view/",
+      "ok": true,
+      "characters": 3304,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "derivatives-and-transforms",
+      "url": "https://www.3blue1brown.com/lessons/derivatives-and-transforms/",
+      "ok": true,
+      "characters": 15778,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "divergence-and-curl",
+      "url": "https://www.3blue1brown.com/lessons/divergence-and-curl/",
+      "ok": true,
+      "characters": 2889,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "neural-networks",
+      "url": "https://www.3blue1brown.com/lessons/neural-networks/",
+      "ok": true,
+      "characters": 26694,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "gradient-descent",
+      "url": "https://www.3blue1brown.com/lessons/gradient-descent/",
+      "ok": true,
+      "characters": 17168,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "neural-network-analysis",
+      "url": "https://www.3blue1brown.com/lessons/neural-network-analysis/",
+      "ok": true,
+      "characters": 6951,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "backpropagation",
+      "url": "https://www.3blue1brown.com/lessons/backpropagation/",
+      "ok": true,
+      "characters": 16447,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "backpropagation-calculus",
+      "url": "https://www.3blue1brown.com/lessons/backpropagation-calculus/",
+      "ok": true,
+      "characters": 25213,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "mini-llm",
+      "url": "https://www.3blue1brown.com/lessons/mini-llm/",
+      "ok": true,
+      "characters": 8321,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "gpt",
+      "url": "https://www.3blue1brown.com/lessons/gpt/",
+      "ok": true,
+      "characters": 26552,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "attention",
+      "url": "https://www.3blue1brown.com/lessons/attention/",
+      "ok": true,
+      "characters": 33165,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "mlp",
+      "url": "https://www.3blue1brown.com/lessons/mlp/",
+      "ok": true,
+      "characters": 29067,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "cross-entropy",
+      "url": "https://www.3blue1brown.com/lessons/cross-entropy/",
+      "ok": true,
+      "characters": 540,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "diffusion-models",
+      "url": "https://www.3blue1brown.com/lessons/diffusion-models/",
+      "ok": true,
+      "characters": 2571,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "differential-equations",
+      "url": "https://www.3blue1brown.com/lessons/differential-equations/",
+      "ok": true,
+      "characters": 3747,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "pdes",
+      "url": "https://www.3blue1brown.com/lessons/pdes/",
+      "ok": true,
+      "characters": 20639,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "heat-equation",
+      "url": "https://www.3blue1brown.com/lessons/heat-equation/",
+      "ok": true,
+      "characters": 4043,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "fourier-series",
+      "url": "https://www.3blue1brown.com/lessons/fourier-series/",
+      "ok": true,
+      "characters": 32278,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "complex-exponents",
+      "url": "https://www.3blue1brown.com/lessons/complex-exponents/",
+      "ok": true,
+      "characters": 650,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "laplace-transform",
+      "url": "https://www.3blue1brown.com/lessons/laplace-transform/",
+      "ok": true,
+      "characters": 505,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "laplace-for-odes",
+      "url": "https://www.3blue1brown.com/lessons/laplace-for-odes/",
+      "ok": true,
+      "characters": 461,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "eulers-formula-dynamically",
+      "url": "https://www.3blue1brown.com/lessons/eulers-formula-dynamically/",
+      "ok": true,
+      "characters": 5292,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "matrix-exponents",
+      "url": "https://www.3blue1brown.com/lessons/matrix-exponents/",
+      "ok": true,
+      "characters": 6473,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "exponential-and-epidemics",
+      "url": "https://www.3blue1brown.com/lessons/exponential-and-epidemics/",
+      "ok": true,
+      "characters": 4525,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "lockdown-math-announcement",
+      "url": "https://www.3blue1brown.com/lessons/lockdown-math-announcement/",
+      "ok": true,
+      "characters": 283,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "ldm-quadratic",
+      "url": "https://www.3blue1brown.com/lessons/ldm-quadratic/",
+      "ok": true,
+      "characters": 6154,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "ldm-trigonometry",
+      "url": "https://www.3blue1brown.com/lessons/ldm-trigonometry/",
+      "ok": true,
+      "characters": 6151,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "ldm-complex-numbers",
+      "url": "https://www.3blue1brown.com/lessons/ldm-complex-numbers/",
+      "ok": true,
+      "characters": 6164,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "ldm-eulers-formula",
+      "url": "https://www.3blue1brown.com/lessons/ldm-eulers-formula/",
+      "ok": true,
+      "characters": 6176,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "ldm-imaginary-interest",
+      "url": "https://www.3blue1brown.com/lessons/ldm-imaginary-interest/",
+      "ok": true,
+      "characters": 6154,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "ldm-logarithms",
+      "url": "https://www.3blue1brown.com/lessons/ldm-logarithms/",
+      "ok": true,
+      "characters": 6149,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "ldm-natural-logs",
+      "url": "https://www.3blue1brown.com/lessons/ldm-natural-logs/",
+      "ok": true,
+      "characters": 6162,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "ldm-power-towers",
+      "url": "https://www.3blue1brown.com/lessons/ldm-power-towers/",
+      "ok": true,
+      "characters": 6156,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "ldm-i-to-i",
+      "url": "https://www.3blue1brown.com/lessons/ldm-i-to-i/",
+      "ok": true,
+      "characters": 6161,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "ldm-tips-to-problem-solving",
+      "url": "https://www.3blue1brown.com/lessons/ldm-tips-to-problem-solving/",
+      "ok": true,
+      "characters": 6133,
+      "review_basis": "official page and independently derived mathematics"
+    },
+    {
+      "slug": "entropy",
+      "url": "https://www.3blue1brown.com/lessons/entropy/",
+      "ok": true,
+      "characters": 426,
+      "review_basis": "official page and independently derived mathematics"
+    }
+  ]
+}

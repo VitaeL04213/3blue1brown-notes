@@ -1,0 +1,50 @@
+name: Notes and Lean
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: leanprover/lean-action@24581d74d674803a25a81b10b059c5c0cdd344c6 # v1
+        with:
+          auto-config: false
+          build: true
+          use-mathlib-cache: true
+      - name: Check lesson coverage and generated indexes
+        run: |
+          python3 scripts/audit.py --write-index
+          git diff --exit-code -- COURSES.md FORMALIZATION.md sources/coverage.json scripts/AxiomAudit.lean
+      - name: Check theorem axiom dependencies
+        run: |
+          lake env lean scripts/AxiomAudit.lean > axioms.log
+          if grep -E 'sorryAx|Lean.ofReduceBool|Lean.trustCompiler' axioms.log; then exit 1; fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: lean-axiom-audit
+          path: axioms.log
+  pdf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Install pinned official Tectonic
+        run: |
+          curl --fail --location --retry 3 'https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-x86_64-unknown-linux-gnu.tar.gz' --output tectonic.tar.gz
+          echo '1a715688baf591e650c8aeb160ae934e181685eecbb38b317de30b269ac5d606  tectonic.tar.gz' | sha256sum --check
+          mkdir -p "$RUNNER_TEMP/tectonic"
+          tar -xzf tectonic.tar.gz -C "$RUNNER_TEMP/tectonic"
+          echo "$RUNNER_TEMP/tectonic" >> "$GITHUB_PATH"
+      - name: Compile Chinese book
+        run: python3 scripts/build_pdf.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: 3blue1brown-notes-zh
+          path: dist/3blue1brown-notes-zh.pdf

@@ -1,0 +1,169 @@
+\chapter{微积分：局部变化与累积}
+本章以实变量为主，角度使用弧度。导数是局部线性近似的系数，积分是有向累积；极限把近似推进为精确陈述。
+
+\lesson{essence-of-calculus}{从面积发现微积分}{Calculus.area_derivative}
+\idea 把圆切成许多薄圆环，半径 $r$ 处的环面积近似为 $2\pi r\,\Delta r$。将所有圆环加起来，自然得到面积是周长的累积。
+\mathpart $A(R)=\int_0^R2\pi r\dd r=\pi R^2$，而 $A'(R)=2\pi R$。一般地，连续 $f$ 的累积函数 $F(x)=\int_a^x f(t)\dd t$ 满足 $F'=f$。
+\examplepart 对更简单的 $f(t)=t$，面积函数为 $F(x)=x^2/2$，因此增加小宽度 $h$ 的面积是 $xh+h^2/2$；除以 $h$ 后趋向高度 $x$。
+\pitfall 薄圆环“长方形化”是极限近似，不能把有限厚度圆环直接当作精确矩形。
+\exercise 半径从 $2$ 增到 $2+h$，圆面积多多少？精确值 $4\pi h+\pi h^2$，一阶近似 $4\pi h$。
+\leanpart{完整验证简化面积函数 $x^2/2$ 的导数为 $x$；圆环几何分割未形式化。}
+\nextlesson
+
+\lesson{derivatives}{导数的“零除以零”悖论}{Calculus.square_secant}
+\idea 瞬时速度不是把两个零相除，而是观察非零时间间隔的平均速度在间隔趋零时的趋势。
+\mathpart $f'(x)=\lim_{h\to0,h\ne0}\frac{f(x+h)-f(x)}h$。对 $f(x)=x^2$，
+\[\frac{(x+h)^2-x^2}{h}=2x+h\quad(h\ne0),\qquad f'(x)=2x.\]
+\examplepart $x=3,h=0.01$ 时割线斜率为 $6.01$，它接近切线斜率 $6$，却并不等于它。
+\pitfall 不应在约去 $h$ 之前代入 $h=0$；可导也比连续更强，$|x|$ 在零点连续但不可导。
+\exercise $|x|$ 在零点的左右斜率？右边 $1$，左边 $-1$，所以双侧导数不存在。
+\leanpart{验证非零步长下的差商恒等式，分母条件显式写为 $h\ne0$。导数极限由下一节的形式化幂法则保证。}
+\nextlesson
+
+\lesson{derivatives-power-rule}{幂法则的几何来源}{Calculus.power_rule}
+\idea 边长增加 $h$ 时，正方形多出两条窄带和一个小角；小角面积是二阶量。立方体的第一阶体积变化来自三个面。
+\mathpart 对自然数 $n$，
+\[(x+h)^n=x^n+nx^{n-1}h+O(h^2),\qquad (x^n)'=nx^{n-1}.\]
+这里的余项表述对固定 $x$、有限多项式成立。实数非整数幂需要额外的定义域条件。
+\examplepart $x^3$ 的变化为 $3x^2h+3xh^2+h^3$。差商去极限得到 $3x^2$，在 $x=2$ 处为 $12$。
+\pitfall “高阶项很小”必须相对于 $h$ 比较；常数 $n=0$ 的导数为零。
+\exercise 求 $f(x)=5x^4-2x^2+7$ 的导数。答案 $20x^3-4x$。
+\leanpart{完整调用并验证自然数幂的一般导数定理；Lean 中自然数的 $n-1$ 是截断减法，$n=0$ 由前面的零系数正确处理。}
+\nextlesson
+
+\lesson{derivatives-trig-functions}{三角函数的导数}{Calculus.sine_derivative}
+\idea 单位圆上匀速运动的切向量，把位置向量旋转 $90^\circ$。因此横坐标 $\cos\theta$ 的速度是 $-\sin\theta$，纵坐标 $\sin\theta$ 的速度是 $\cos\theta$。
+\mathpart
+\[(\sin x)'=\cos x,\qquad (\cos x)'=-\sin x.\]
+弧度让单位圆上的角度增量等于弧长增量，这是导数没有额外比例系数的原因。
+\examplepart 在 $x=\pi/3$ 处，正弦高度为 $\sqrt3/2$，变化率为 $1/2$。峰值 $x=\pi/2$ 处的变化率为零。
+\pitfall 若输入用“度”，函数其实是 $\sin(\pi x/180)$，导数要乘 $\pi/180$。
+\exercise $\sin(2x)$ 的导数是什么？答案 $2\cos(2x)$，需要链式法则。
+\leanpart{完整验证实正弦在任意实点的导数；采用 mathlib 的弧度三角函数。}
+\nextlesson
+
+\lesson{chain-rule-and-product-rule}{乘积法则与链式法则}{Calculus.chain_rule}
+\idea 面积 $fg$ 的增量来自两条边的改变；复合函数的局部伸缩倍率则相乘。
+\mathpart
+\[(fg)'=f'g+fg',\qquad (g\circ f)'(x)=g'(f(x))f'(x).\]
+乘积展开中还有 $\Delta f\Delta g$，可导性保证它除以 $h$ 后趋零。链式法则中的外层导数要在内层输出处求值。
+\examplepart $\frac{d}{dx}(x^2\sin x)=2x\sin x+x^2\cos x$；$\frac{d}{dx}\sin(x^2)=2x\cos(x^2)$。
+\pitfall 乘积的导数一般不是导数的乘积；把外层求导点写成 $x$ 也常出错。
+\exercise $\e^{3x^2}$ 的导数？答案 $6x\e^{3x^2}$。
+\leanpart{\texttt{chain\_rule} 与同文件的 \texttt{product\_rule} 完整保留两函数在相应点可导的假设。}
+\nextlesson
+
+\lesson{eulers-number}{为什么自然常数 e 特别}{Calculus.exponential_derivative}
+\idea 指数增长的变化速度与当前数量成比例。当这个比例常数为 $1$ 时，对应的底数就是 $\e$。
+\mathpart $\frac{d}{dx}\e^x=\e^x$，且对 $a>0$，$a^x=\e^{x\ln a}$，所以 $(a^x)'=a^x\ln a$。
+\examplepart 连续增长模型 $N(t)=N_0\e^{rt}$ 满足 $N'=rN$。当 $r=\ln2$ 且时间单位为一时，$N(1)=2N_0$。
+\pitfall 增长率 $r$ 的单位是时间的倒数；“每年增长 $100\%$”的离散模型与 $r=1$ 的连续模型不同。
+\exercise $2^x$ 在零点的斜率？答案 $\ln2$，不是 $1$。
+\leanpart{完整验证实指数在每个实点的导数；增长模型只作为数学例子。}
+\nextlesson
+
+\lesson{implicit-differentiation}{隐函数求导}{Calculus.circle_tangent}
+\idea 曲线由关系式定义，不必先显式解出 $y$。沿曲线移动时，定义关系的总变化必须为零。
+\mathpart 若 $F(x,y(x))=0$ 且相关函数可微，则 $F_x+F_y y'=0$。对 $x^2+y^2=1$，当 $y\ne0$ 时 $y'=-x/y$。
+\examplepart 在 $(3/5,4/5)$ 处，切线斜率为 $-3/4$，切线方程为 $3x+4y=5$。
+\pitfall 圆不全局定义单值 $y(x)$；在 $(\pm1,0)$ 处上述商不能使用，切线垂直。
+\exercise 在同一点沿切线有 $dx=0.04$，一阶估计 $dy$。答案 $-0.03$。
+\leanpart{从微分约束 $2x\,dx+2y\,dy=0$ 和 $y\ne0$ 推导 $dy=-x\,dx/y$；隐函数存在性定理未形式化。}
+\nextlesson
+
+\lesson{limits}{极限与导数的定义}{Calculus.square_limit}
+\idea 极限描述输入接近某处时输出是否能被控制到任意精度，并不要求函数在该点已有定义。
+\mathpart 连续性是 $\lim_{x\to a}f(x)=f(a)$；导数是另一函数“差商”的去心极限。多项式连续，所以 $\lim_{x\to a}x^2=a^2$。
+\examplepart $(x^2-1)/(x-1)$ 在 $x=1$ 未定义，但对 $x\ne1$ 等于 $x+1$，因此极限为 $2$，可用补值修复连续性。
+\pitfall 极限存在并不意味着原函数在该点连续；左右极限也可能不同。
+\exercise 把上例在 $x=1$ 处定义成 $7$，极限变了吗？没有，仍为 $2$，但不连续。
+\leanpart{完整验证平方函数的双侧极限；使用邻域过滤器表达“趋近”。}
+\nextlesson
+
+\lesson{epsilon-delta}{把任意精度写清楚}{Calculus.epsilon_delta_linear}
+\idea 对方先指定输出容忍误差 $\varepsilon$，我们再给输入误差上限 $\delta$。顺序不能反过来，也不能让 $\delta$ 随后来选择的 $x$ 改变。
+\mathpart
+\[\forall\varepsilon>0\ \exists\delta>0\ \forall x,
+\quad 0<|x-a|<\delta\Rightarrow |f(x)-L|<\varepsilon.\]
+\examplepart 对 $f(x)=3x+2,L=3a+2$，选择 $\delta=\varepsilon/3$，因为输出误差恰为 $3|x-a|$。
+\pitfall 证明极限不能只代几个小步长。对于平方函数，$|x^2-a^2|=|x-a||x+a|$ 还需要控制第二个因子。
+\exercise 若 $f(x)=5x-1$，可取怎样的 $\delta$？取 $\varepsilon/5$ 即可。
+\leanpart{显式构造并验证斜率 $3$ 的函数的 $\varepsilon$--$\delta$ 证明；该结论允许 $x=a$，比去心版本更强。}
+\nextlesson
+
+\lesson{l-hopitals-rule}{洛必达法则：比较消失速度}{Calculus.removable_limit}
+\idea 当分子分母同时趋零时，比值取决于它们接近零的速度。导数可揭示这个速度，但需要足够的可微性条件。
+\mathpart 一个常用 $0/0$ 版本要求：$f,g$ 在去心区间可微，$g'\ne0$，$f,g\to0$，且 $f'/g'\to L$；在相应单侧区间条件下可推出 $f/g\to L$。双侧结论须两侧一致。
+\examplepart $\lim_{x\to1}(x^2-1)/(x-1)=2$。可以用导数比值 $2x/1$，也可以先因式分解，后者在此更直接。
+\pitfall 原比值不是未定式时不能随便求导。例如 $(x+1)/(x+2)$ 在零点的极限为 $1/2$，导数比值却为 $1$。
+\exercise 求 $\lim_{x\to0}(\e^x-1)/x$。答案 $1$，由指数函数在零点的导数定义即可得到。
+\leanpart{完整验证上述有理函数的去心极限，方法是局部化简与连续性；没有把它标成一般洛必达法则的形式化证明。}
+\nextlesson
+
+\lesson{integration}{积分与微积分基本定理}{Calculus.fundamental_theorem}
+\idea 积分把每个位置的微小贡献累积起来。如果已知一个变化率的原函数，就能用端点差得到总变化。
+\mathpart 若 $F$ 在包含区间的范围内可导且 $F'$ 在区间可积，则
+\[\int_a^b F'(x)\dd x=F(b)-F(a).\]
+连续被积函数的原函数可由累积积分构造，这是基本定理的另一方向。
+\examplepart $\int_1^3 2x\dd x=3^2-1^2=8$。把积分上下限交换，结果变成 $-8$。
+\pitfall 定积分是有向累积，不总是几何面积；被积函数为负的部分带负号。原函数的常数在端点差中抵消。
+\exercise $\int_{-1}^1 x\dd x$？答案 $0$；两侧几何面积之和却是 $1$。
+\leanpart{调用完整的基本定理第二部分，保留区间上处处可导及导函数区间可积的精确假设。}
+\nextlesson
+
+\lesson{area-and-slope}{面积为什么与斜率相连}{Calculus.triangle_area}
+\idea 右边界移动 $h$，新增窄条的高度接近 $f(x)$。窄条面积除以宽度，便接近原图的高度。
+\mathpart $F(x+h)-F(x)=\int_x^{x+h}f(t)\dd t$。若 $f$ 在 $x$ 连续，平均高度趋向 $f(x)$，所以 $F'(x)=f(x)$。
+\examplepart $f(t)=t$ 时，$F(x)=\int_0^x t\dd t=x^2/2$。在 $x=2$ 的累积面积为 $2$，面积增长速度也为 $2$，两者单位不同。
+\pitfall 累积函数的高度与斜率是不同量；其数值偶然相同并无普遍意义。
+\exercise 从 $x=2$ 移到 $2+h$ 的精确面积增量？$2h+h^2/2$；一次近似忽略的部分是三角形面积。
+\leanpart{完整验证 $\int_0^a x\dd x=a^2/2$，也涵盖有向积分 $a<0$ 的情况。}
+\nextlesson
+
+\lesson{higher-order-derivatives}{高阶导数}{Calculus.second_derivative_cubic}
+\idea 一阶导数描述变化，二阶导数描述变化率怎样改变。运动中分别对应速度和加速度；函数图像中二阶导数控制局部凹凸。
+\mathpart 对 $f(x)=x^3$，$f'=3x^2$，$f''=6x$，$f'''=6$。一般 $f''(a)>0$ 意味着附近斜率正在增加，但不保证 $f'(a)>0$。
+\examplepart $f(x)=x^2$ 在 $x=-1$ 处仍在下降，因为 $f'=-2$，同时向上弯曲，因为 $f''=2$。
+\pitfall $f''(a)=0$ 不是拐点的充分条件；$x^4$ 在零点二阶导数为零，但凹凸性不变。
+\exercise $f(x)=\sin x$ 的四阶导数？答案仍为 $\sin x$，每四次循环。
+\leanpart{完整计算三次函数的二阶导数为 $6x$，同时核实中间的一阶导函数。}
+\nextlesson
+
+\lesson{taylor-series}{泰勒多项式与余项}{Calculus.cubic_taylor_exact}
+\idea 用多项式逐次匹配函数在一点的值、斜率、曲率等信息。匹配更多导数改善局部近似，但不自动保证无限级数等于原函数。
+\mathpart
+\[T_n(a+h)=\sum_{k=0}^n\frac{f^{(k)}(a)}{k!}h^k.\]
+在相应区间有足够连续导数时，拉格朗日余项为 $f^{(n+1)}(\xi)h^{n+1}/(n+1)!$，其中 $\xi$ 位于两端之间。
+\examplepart 对 $f(x)=x^3$，$f(a+h)=a^3+3a^2h+3ah^2+h^3$ 是精确等式；在 $a=1,h=0.1$ 得 $1.331$。
+\pitfall 无穷可微不等于解析。把 $\e^{-1/x^2}$ 在零点补为零后，其零点泰勒级数恒零，却不等于邻域中的函数。
+\exercise $\e^{0.1}$ 的二阶近似？$1+0.1+0.005=1.105$，须用余项界判断精度。
+\leanpart{验证三次多项式的精确泰勒恒等式；一般泰勒定理、级数收敛和余项界未纳入这一形式命题。}
+\nextlesson
+
+\lesson{taylor-series-geometric-view}{泰勒展开的面积解释}{Calculus.quadratic_error}
+\idea 一阶近似对应窄条的矩形面积；若高度也在变化，再加入三角形面积，就出现二阶修正中的 $1/2$。
+\mathpart 由 $F'=f$，在足够光滑时
+\[F(a+h)-F(a)=f(a)h+\frac12f'(a)h^2+o(h^2).\]
+它正是 $F$ 的二阶泰勒式。
+\examplepart 取 $F(x)=x^2$，$f(x)=2x$。矩形贡献为 $2ah$，三角形贡献为 $h^2$，且此时余项恰为零。
+\pitfall 三角形近似依赖 $f$ 的局部线性性；对一般曲线、有限大 $h$，不能把它当精确面积。
+\exercise $F(x)=x^2/2$ 的一次近似误差？精确为 $h^2/2$，不随展开点 $a$ 改变。
+\leanpart{精确验证平方函数减去一次近似后等于 $h^2$；这给出二阶修正的可核查例子。}
+\nextlesson
+
+\lesson{derivatives-and-transforms}{导数作为局部变换}{Calculus.derivative_composition_scale}
+\idea 把函数看成移动数轴上的点。导数说明一点附近的间距被放大多少，以及是否反向；这种看法可自然推广为多变量的线性映射。
+\mathpart 可导性也可写作 $f(a+h)=f(a)+f'(a)h+o(h)$。复合的线性部分相乘，正是链式法则。
+\examplepart $x\mapsto x^2$ 在 $a=3$ 附近约放大 $6$ 倍，在 $a=-3$ 附近反向并放大 $6$ 倍。在零点导数为零，但函数没有在整个邻域变成常数。
+\pitfall 局部倍率为零并不排除高阶变化；导数是某点的一阶信息。
+\exercise 先缩放 $b$ 倍，再缩放 $a$ 倍，总倍率？$ab$；若 $a,b$ 均为负，复合保持方向。
+\leanpart{完整验证两个线性缩放复合后的导数为 $ab$。一般非线性链式法则另见本章对应定理。}
+\nextlesson
+
+\lesson{divergence-and-curl}{散度与旋度}{Calculus.planar_divergence}
+\idea 散度衡量微小区域的净流出趋势，旋度衡量局部环流趋势。二者是不同的局部测量。
+\mathpart 对平面向量场 $F=(P,Q)$，$\nabla\cdot F=P_x+Q_y$，标量旋度为 $Q_x-P_y$。对于 $F=(ax,by)$，散度为 $a+b$；对于 $F=(-y,x)$，散度为零、旋度为 $2$。
+\examplepart 场 $(x,y)$ 让面积按瞬时相对速率 $2$ 膨胀；旋转场 $(-y,x)$ 保持局部面积却产生旋转。
+\pitfall 一个点散度为零只意味着局部净流出抵消，不表示场向量为零；旋度为零的全局势函数结论还与区域拓扑有关。
+\exercise $F=(2x,-2y)$ 的散度和旋度？均为零，但它仍会拉伸一个方向并压缩另一个方向。
+\leanpart{计算对角线性向量场的两个偏方向导数之和；未形式化散度定理或斯托克斯定理。}

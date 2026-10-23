@@ -1,0 +1,104 @@
+\chapter{Lockdown Math：重新组织基础数学}
+这一组从高中代数、三角函数和复数出发，把看似独立的公式联成一条学习路径。公告是导读，其余十节有数学正文与对应 Lean 结果。
+
+\lesson{lockdown-math-announcement}{课程公告与学习路线}{not-applicable}
+\idea 这是一组由基础概念逐步深入的直播课程。学习时可以把“定义”“例子”“猜想”“证明”分别记下；直播中的探索过程不应被压缩成只有结论的公式表。
+\mathpart 推荐先掌握二次方程和单位圆，再学复数、复指数与对数，最后处理幂塔和复数幂。每一步都检查新符号的定义域与旧代数规律是否仍成立。
+\examplepart 将 $\sqrt{x^2}=x$ 写入笔记前，应代入 $x=-1$。反例提示正确实数恒等式是 $\sqrt{x^2}=|x|$。
+\pitfall 看懂讲解不等于能独立重建推导。复习时先遮住答案，画图、做特殊例、检查边界，再写一般论证。
+\exercise 用自己的话区分“例子支持猜想”和“证明结论”。答案要点：有限个例子不能穷尽一般情形，但一个反例足以否定全称命题。
+\leanpart{不适用：这是公告和学习方法页，没有需要机器证明的课程命题。仓库的覆盖统计对此显式豁免。}
+\nextlesson
+
+\lesson{ldm-quadratic}{更简洁的二次公式}{Lockdown.quadratic_centering}
+\idea 把两个根看成“中心 $m$ 加减偏移 $d$”，和与积就变为 $2m$ 与 $m^2-d^2$。
+\mathpart 对 $x^2-2mx+p=0$，配方得到 $(x-m)^2=m^2-p$，所以 $x=m\pm\sqrt{m^2-p}$。一般二次式须先除以非零二次项系数。
+\examplepart $x^2-10x+21=0$，根的中心为 $5$，偏移平方为 $25-21=4$，故根为 $3,7$。
+\pitfall 根号内为负时没有实根，但可以有复根；使用中心形式并没有免除域的选择。
+\exercise 根的和为 $8$、积为 $12$，求根。中心 $4$，偏移 $2$，答案 $2,6$。
+\leanpart{完整验证配方恒等式；从平方等式分类实根或复根需另行处理。}
+\nextlesson
+
+\lesson{ldm-trigonometry}{三角函数从单位圆出发}{Lockdown.unit_circle}
+\idea 单位圆将角度和坐标联系起来：$\cos\theta$ 是横坐标，$\sin\theta$ 是纵坐标。三角恒等式可由旋转、投影和勾股关系产生。
+\mathpart $\sin^2\theta+\cos^2\theta=1$，且旋转矩阵为
+\[R_\theta=\begin{bmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{bmatrix}.\]
+$R_\alpha R_\beta=R_{\alpha+\beta}$ 可导出和角公式。
+\examplepart 对 $\theta=\pi/3$，坐标为 $(1/2,\sqrt3/2)$，平方和为 $1/4+3/4=1$。
+\pitfall $\sin(\alpha+\beta)$ 通常不等于 $\sin\alpha+\sin\beta$。角度单位改变时，涉及导数的公式需相应换算。
+\exercise $\cos(\pi-\theta)$ 和 $\sin(\pi-\theta)$？分别为 $-\cos\theta$、$\sin\theta$。
+\leanpart{完整验证实数任意角度的单位圆恒等式。}
+\nextlesson
+
+\lesson{ldm-complex-numbers}{复数：缩放与旋转}{Lockdown.complex_square_i}
+\idea 实数乘法能缩放数轴，复数乘法还能旋转平面。新单位 $\ii$ 满足 $\ii^2=-1$，与二维坐标运算一致。
+\mathpart $(a+b\ii)(c+d\ii)=(ac-bd)+(ad+bc)\ii$。若写成极坐标 $r\e^{\ii\theta}$，相乘时模长相乘、角度相加。
+\examplepart $(1+\ii)^2=2\ii$：两个 $45^\circ$ 旋转合为 $90^\circ$，模长从 $\sqrt2$ 平方为 $2$。
+\pitfall 复数不能像实数那样建立兼容乘法的全序；“更大”必须说明比较模长、实部或其他量。
+\exercise $1/(1+\ii)$ 是什么？乘共轭得 $(1-\ii)/2$。
+\leanpart{验证复数单位的核心关系 $\ii^2=-1$；其余运算公式可通过复数域的代数规则推出。}
+\nextlesson
+
+\lesson{ldm-eulers-formula}{欧拉公式在说什么}{Lockdown.exponential_add}
+\idea 指数将加法转换为乘法；纯虚数指数把角度相加转换为旋转复合。这统一了三角恒等式与指数规律。
+\mathpart $\e^{\ii\theta}=\cos\theta+\ii\sin\theta$，并且 $\e^{z+w}=\e^z\e^w$。比较实部与虚部便得到和角公式。
+\examplepart $\e^{\ii\pi/3}\e^{\ii\pi/6}=\e^{\ii\pi/2}=\ii$；这比逐项展开两个三角表达式更短。
+\pitfall 欧拉公式不是把实指数的图像“转过去”就自动成立；可以由幂级数或微分方程严谨建立。
+\exercise $\e^{x+\ii y}$ 的模长是多少？$\e^x$，角度在模 $2\pi$ 意义下为 $y$。
+\leanpart{完整验证复指数的加法到乘法规则。欧拉特值另由微分方程模块中的 \texttt{euler\_identity} 验证。}
+\nextlesson
+
+\lesson{ldm-imaginary-interest}{虚数利率与连续旋转}{Lockdown.imaginary_step_norm}
+\idea 把复利每一步的增长率改成纯虚数，每个小步就增加一个切向位移；步长越来越小时，轨迹趋于圆周运动。
+\mathpart 离散近似为 $(1+\ii t/n)^n$。单步模长平方为 $1+(t/n)^2$，整个模长为 $(1+t^2/n^2)^{n/2}$，其极限为 $1$。
+\examplepart 单步取 $h=0.1$，$1+0.1\ii$ 的模长是 $\sqrt{1.01}>1$；有限步的轨迹略向外扩张，这个误差在连续极限消失。
+\pitfall 每一个离散步骤都不是精确旋转；其模长大于一。不能把极限性质反过来当成有限步恒等式。
+\exercise $h=1$ 时，乘 $1+\ii$ 后角度和模长怎样变化？增加 $\pi/4$，模长乘 $\sqrt2$。
+\leanpart{验证单步复数的模长平方公式。复利序列收敛到复指数的极限定理未在此命题中形式化。}
+\nextlesson
+
+\lesson{ldm-logarithms}{对数的基础结构}{Lockdown.logarithm_product}
+\idea 对数把乘法关系改写为加法关系。它是指数函数的反函数，因此必须清楚底数和定义域。
+\mathpart 对实数 $a,b>0$，$\ln(ab)=\ln a+\ln b$；对底数 $c>0,c\ne1$，$\log_c a=\ln a/\ln c$。
+\examplepart $\log_2 8=3$，因为 $2^3=8$。$\log_2(8\cdot4)=3+2=5$，乘法变成指数相加。
+\pitfall 实对数不能直接输入负数；$\log(a+b)$ 没有一般的加法拆分式。复对数的乘法公式还受分支影响。
+\exercise $\log_3(1/9)$？答案 $-2$。负的是对数值，真数仍为正。
+\leanpart{完整验证正实数乘积的自然对数公式，并显式要求两个真数为正。}
+\nextlesson
+
+\lesson{ldm-natural-logs}{自然对数为何自然}{Lockdown.natural_log_derivative}
+\idea $\ln$ 把相对变化变成加性变化：若 $x$ 小幅增加 $dx$，则 $d\ln x\approx dx/x$。这让相同比例的增长具有相同对数增量。
+\mathpart 对 $x>0$，$(\ln x)'=1/x$，且 $\ln x=\int_1^x dt/t$。与 $\e^x$ 互逆给出 $\ln(\e^x)=x$。
+\examplepart $x$ 从 $100$ 增为 $101$，对数增量 $\ln1.01\approx0.00995$，一阶估计为 $0.01$。
+\pitfall 近似 $\ln(1+h)\approx h$ 只适用于 $h$ 接近零且 $1+h>0$；它不是全局恒等式。
+\exercise $\ln(x^2)$ 在 $x>0$ 时的导数？$2/x$；也可先写成 $2\ln x$。
+\leanpart{完整验证正实数处的自然对数导数，写明 $x>0$ 避免除零和实定义域误解。}
+\nextlesson
+
+\lesson{ldm-power-towers}{幂塔与不动点}{Lockdown.tower_limit_fixed_point}
+\idea 无限幂塔应先定义为有限迭代，再讨论其极限。如果迭代确实收敛，极限才必须满足不动点方程。
+\mathpart 对 $a>0$，令 $x_0=1,x_{n+1}=a^{x_n}$。若 $x_n\to L$，由连续性得到 $L=a^L$。局部稳定性的常用线性判据是 $|a^L\ln a|=|L\ln a|<1$。
+\examplepart $a=\sqrt2$ 时 $L=2$ 和 $L=4$ 都满足方程；在前者的导数为 $\ln2<1$，后者为 $2\ln2>1$。不动点不一定是从给定初值可达的稳定极限。
+\pitfall 解出 $L=a^L$ 仅给必要条件，不能用它证明迭代收敛。完整参数范围还需要单调性、有界性等分析。
+\exercise $a=1$ 时该迭代的每一项与极限？都为 $1$。
+\leanpart{完整证明一般连续迭代在已知收敛时，其极限为不动点；收敛是假设，绝不隐含在代数方程里。}
+\nextlesson
+
+\lesson{ldm-i-to-i}{为什么 i 的 i 次方可以是实数}{Lockdown.i_log_branch_exponent}
+\idea 复数幂通过复对数定义。复对数记录角度，而角度相差整圈时对应相同复数，因此必须指定分支。
+\mathpart $\log\ii=\ii(\pi/2+2\pi k)$，$k\in\mathbb Z$。于是多值解释下
+\[\ii^{\ii}=\exp\bigl[-(\pi/2+2\pi k)\bigr].\]
+选择主对数时 $k=0$，主值为 $\e^{-\pi/2}\approx0.20788$。
+\examplepart 关键代数是 $\ii\cdot(\ii\theta)=-\theta$，使指数变成实数。不同 $k$ 给出不同正实值，而非单个必然唯一的答案。
+\pitfall 不指定对数分支就使用 $(z^a)^b=z^{ab}$ 可能出错；该实数幂习惯不能原样推广。
+\exercise 主值 $\ii^{2\ii}$ 是多少？$\e^{-\pi}$，使用相同主对数定义。
+\leanpart{验证任意实角度的关键指数恒等式 $\ii(\theta\ii)=-\theta$；并未将多值复幂误写成全局单值定理。}
+\nextlesson
+
+\lesson{ldm-tips-to-problem-solving}{解题：找表示、找不变量、查边界}{Lockdown.symmetric_problem_reduction}
+\idea 遇到困难时可以先做小例子、画图、改变表示，或寻找在变换下不变的量。目标是减少独立信息，而不是堆积运算。
+\mathpart 对称表达式常改用和 $s=x+y$ 与积 $p=xy$，因为 $x^2+y^2=s^2-2p$。这种替换也连接到二次方程与矩阵的迹、行列式。
+\examplepart 已知 $x+y=7,xy=10$，不必先求 $x,y$，就能得到 $x^2+y^2=49-20=29$。再求根会得到 $2,5$，作为交叉检查。
+\pitfall 一种表示简化目标后，还需保留可行性条件。例如实数 $x,y$ 要满足 $s^2-4p\ge0$。
+\exercise 已知 $x+y=3,xy=1$，求 $x^3+y^3$。用 $s^3-3ps$ 得 $27-9=18$。
+\leanpart{完整验证对称二次式的代数变换。一般解题策略不是数学全称定理，不声称已被形式化证明。}

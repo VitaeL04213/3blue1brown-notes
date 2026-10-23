@@ -1,0 +1,102 @@
+\chapter{微分方程：从局部规律到整体演化}
+微分方程给出状态的变化规则，初始条件选择具体轨迹，边界条件限制空间上的可行行为。一个显式解公式不是理解系统的唯一方式。
+
+\lesson{differential-equations}{微分方程与向量场}{DifferentialEquations.exponential_solution}
+\idea 与其先寻找闭式解，不如在每个状态处画出速度。解曲线必须始终沿着这些箭头前进；相空间把位置和速度合并为状态。
+\mathpart 一阶系统写成 $x'=F(t,x)$。二阶摆方程 $\theta''=-(g/L)\sin\theta$ 可改写为 $\theta'=\omega,\ \omega'=-(g/L)\sin\theta$。
+\examplepart 最简单的 $x'=kx$ 有解 $x(t)=x_0\e^{kt}$。若 $k<0$，它趋近零；若 $k>0$，非零初值的绝对值增大。
+\pitfall 画出方向场不自动保证唯一解；存在唯一性定理需要连续性、局部 Lipschitz 等相应条件。欧拉法也只是近似。
+\exercise $x'=2x,x(0)=3$ 的解？$3\e^{2t}$，代回可直接检查。
+\leanpart{完整验证 $\e^{kt}$ 的导数等于 $k\e^{kt}$；不是对所有微分方程的存在唯一性证明。}
+\nextlesson
+
+\lesson{pdes}{偏微分方程与热扩散}{DifferentialEquations.heat_stencil}
+\idea 温度同时依赖位置和时间。热从较热处流向较冷处，局部的“比邻居更高还是更低”决定温度怎样变化。
+\mathpart 一维均匀介质模型为 $u_t=\kappa u_{xx}$，$\kappa>0$。离散空间中，
+\[u_{xx}(x)\approx\frac{u(x-h)-2u(x)+u(x+h)}{h^2}.\]
+这个二阶差分是局部平均恢复趋势的代数版本。
+\examplepart 邻点温度为 $4,10,6$，中心二阶差分分子为 $-10$，所以中心倾向降温。若为 $6,2,8$，分子为 $10$，中心倾向升温。
+\pitfall 需要给初始温度分布及边界条件；固定端温度与绝热边界是不同问题。显式数值时间步也受稳定性限制。
+\exercise 为什么两个解相加仍满足齐次热方程？时间导数与空间二阶导数都线性。
+\leanpart{验证三点二阶差分算子对相加的线性性；连续 PDE 的分析及离散极限未由此命题覆盖。}
+\nextlesson
+
+\lesson{heat-equation}{用基本模式求解热方程}{DifferentialEquations.heat_mode_decay}
+\idea 找到形状在扩散中保持、只改变振幅的波形，再将一般初始数据组合成这些模式。高频因弯曲更强而衰减更快。
+\mathpart 对 $0<x<L$ 的零温边界，模式为
+\[u_n(x,t)=b_n\sin\frac{n\pi x}{L}\,
+\exp\!\left[-\kappa\left(\frac{n\pi}{L}\right)^2t\right].\]
+因正弦的二阶导数为频率平方的负倍数，代入后两边相等。
+\examplepart 取 $L=\pi,\kappa=1$，$u=\sin x\e^{-t}+2\sin(3x)\e^{-9t}$。第三模式的衰减指数是第一模式的九倍。
+\pitfall 无限求和与求导交换需要收敛或正则性条件；边界不是零温时需换模式或先减去稳态。
+\exercise 初值仅为 $\sin(2x)$，同样参数下解是什么？$\sin(2x)\e^{-4t}$。
+\leanpart{完整验证模式振幅的时间导数。空间正弦导数可由微积分模块组合；无限级数解与边界条件未形式化。}
+\nextlesson
+
+\lesson{fourier-series}{傅里叶级数：旋转与叠加}{DifferentialEquations.fourier_superposition}
+\idea 正弦、余弦可以合并成复平面上的旋转。不同频率的旋转向量相加，能表示复杂的周期变化。
+\mathpart 对周期 $T$，令 $\omega_0=2\pi/T$，
+\[f(t)\sim\sum_{n\in\mathbb Z}c_n\e^{\ii n\omega_0t},\qquad
+c_n=\frac1T\int_0^T f(t)\e^{-\ii n\omega_0t}\dd t.\]
+正交性使积分能够挑出对应频率。
+\examplepart $f(t)=3+2\cos t$ 的非零复系数为 $c_0=3,c_1=c_{-1}=1$。常数项不转，其余两个方向相反地旋转。
+\pitfall 对不连续周期函数，点态收敛需条件；常见分段光滑情形在跳跃点趋向左右极限的平均值，且会出现 Gibbs 振铃。
+\exercise $\sin t$ 的复系数？$c_1=1/(2\ii),c_{-1}=-1/(2\ii)$。
+\leanpart{验证单频复指数模式的线性叠加恒等式；不将它冒充傅里叶完备性或收敛定理。}
+\nextlesson
+
+\lesson{complex-exponents}{复指数与旋转的物理图像}{DifferentialEquations.rotating_exponential_norm}
+\idea 乘以 $\ii$ 表示旋转 $90^\circ$。若速度始终是位置旋转后的向量，运动便沿圆周持续进行。
+\mathpart $z'=(\sigma+\ii\omega)z$ 的解为 $z(t)=z_0\e^{\sigma t}\e^{\ii\omega t}$。实部 $\sigma$ 控制增长或衰减，虚部 $\omega$ 控制角速度。
+\examplepart $z'=(-1+2\ii)z$ 产生向内螺旋：模长按 $\e^{-t}$ 衰减，角度每单位时间增加 $2$ 弧度。
+\pitfall 复数在这里把两个实维度的系统压缩为一个表达式，并不引入“虚假的”物理量；测量量常取实部。
+\exercise $\e^{3\ii t}$ 的模长和周期？模长 $1$，周期 $2\pi/3$。
+\leanpart{完整验证任意实角度的纯旋转复指数模长为一。}
+\nextlesson
+
+\lesson{laplace-transform}{拉普拉斯变换：带衰减的频率探测}{DifferentialEquations.laplace_kernel}
+\idea 傅里叶核只旋转；拉普拉斯核同时旋转和指数加权。加入衰减可让原本无法绝对积分的函数变得可处理。
+\mathpart 单边变换为 $F(s)=\int_0^\infty f(t)\e^{-st}\dd t$，$s=\sigma+\ii\omega$。对实 $a$，
+\[\mathcal L\{\e^{at}\}(s)=\frac1{s-a},\qquad \operatorname{Re}s>a.\]
+这个条件保证积分在无穷远收敛。
+\examplepart $f(t)=\e^{2t}$ 的变换在实 $s=3$ 处为 $1$，在 $s=1$ 处原积分发散，不能仅把形式有理式代进去当作积分值。
+\pitfall 代数表达式与收敛域共同构成变换信息；有理式在某点有值不等于定义积分收敛。
+\exercise 常数函数 $1$ 的单边变换？$1/s$，要求 $\operatorname{Re}s>0$。
+\leanpart{验证实指数与拉普拉斯核相乘后合并为 $\e^{-(s-a)t}$ 的恒等式；不声称该恒等式本身证明了反演定理。}
+\nextlesson
+
+\lesson{laplace-for-odes}{把微分方程变成代数方程}{DifferentialEquations.transformed_oscillator}
+\idea 积分分部把求导转换为乘 $s$，同时保留初始值。于是线性常系数方程可以在变换域中求解。
+\mathpart 在所需光滑、增长及收敛条件下，$\mathcal L(y')=sY-y(0)$，$\mathcal L(y'')=s^2Y-sy(0)-y'(0)$。若 $y''+\omega^2y=f$，则
+\[Y(s)=\frac{F(s)+sy_0+v_0}{s^2+\omega^2}.\]
+\examplepart $f=0,y_0=0,v_0=1$ 给 $Y=1/(s^2+\omega^2)$，当 $\omega>0$ 时对应 $y(t)=\sin(\omega t)/\omega$。
+\pitfall 漏掉初始值项会改变所求解。极点描述模态，但只有结合收敛域与变换约定才能正确反演。
+\exercise $y'+2y=0,y(0)=3$ 的变换与解？$Y=3/(s+2)$，$y=3\e^{-2t}$。
+\leanpart{从已得到的变换域等式及非零分母推导商公式。积分分部、拉普拉斯存在性和反演不在该形式命题中。}
+\nextlesson
+
+\lesson{eulers-formula-dynamically}{动态理解欧拉恒等式}{DifferentialEquations.euler_identity}
+\idea 复指数 $\e^{\ii t}$ 从 $1$ 出发沿单位圆运动，走过 $\pi$ 弧度后到达 $-1$。
+\mathpart $\e^{\ii t}=\cos t+\ii\sin t$，所以 $\e^{\ii\pi}+1=0$。也可比较两边的微分方程 $z'=\ii z$ 与初始值 $z(0)=1$，在唯一性定理下识别二者。
+\examplepart $t=\pi/2$ 时值为 $\ii$，$t=2\pi$ 时回到 $1$。四个四分之一圈的乘积为 $\ii^4=1$。
+\pitfall $\e^{z+w}=\e^z\e^w$ 在复数上成立，但取复对数后要考虑分支，不能直接取消周期性。
+\exercise $\e^{-\ii\pi}$ 是多少？同样为 $-1$；方向不同，终点相同。
+\leanpart{完整验证复指数的欧拉恒等式，复用 mathlib 已证明的结论。}
+\nextlesson
+
+\lesson{matrix-exponents}{矩阵指数与线性动力系统}{DifferentialEquations.nilpotent_exponential_add}
+\idea 标量指数把“按当前大小增长”变成演化；矩阵指数把“速度由当前向量线性决定”变成多维演化。
+\mathpart $\e^{tA}=\sum_{n\ge0}t^nA^n/n!$，线性系统 $x'=Ax$ 的解为 $x(t)=\e^{tA}x_0$。若 $A^2=0$，级数截断为 $I+tA$。
+\examplepart $A=\left[\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\right]$ 满足 $A^2=0$，所以 $\e^{tA}=\left[\begin{smallmatrix}1&t\\0&1\end{smallmatrix}\right]$。初值 $(0,2)$ 演化为 $(2t,2)$。
+\pitfall 一般 $\e^{A+B}\ne\e^A\e^B$，交换条件至关重要。逐元素取指数也不是矩阵指数。
+\exercise 为什么上例先演化 $s$ 再演化 $t$ 等于演化 $s+t$？$(I+sA)(I+tA)=I+(s+t)A$，因为 $A^2=0$。
+\leanpart{完整证明平方零矩阵的上述半群恒等式；矩阵指数级数的收敛与求导由正文解释，未包含于此定理。}
+\nextlesson
+
+\lesson{exponential-and-epidemics}{指数增长与饱和}{DifferentialEquations.logistic_threshold}
+\idea 若增长速度正比于当前数量，就会出现指数增长。资源或易感群体有限时，固定相对增长率通常只适合早期阶段。
+\mathpart 指数模型 $N'=rN$ 的倍增时间为 $\ln2/r$（$r>0$）。一个简化饱和模型是 $N'=rN(1-N/K)$，其中 $K>0$；在 $0<N<K$ 时仍增长，但相对增长率逐渐降低。
+\examplepart 若相对增长率从 $r$ 降为 $r/2$，在指数近似下倍增时间翻倍。对 Logistic 模型，$N=K/2$ 时增长率为 $rK/4$。
+\pitfall 这是数学教学模型；观测数据、报告延迟和行为改变均可能使真实时间序列偏离模型，不能仅凭曲线外形确认机制。
+\exercise Logistic 模型的平衡点有哪些？$N=0$ 和 $N=K$；对 $r>0$，区间 $(0,K)$ 内导数为正。
+\leanpart{验证正增长率、正容量且状态处于 $(0,K)$ 时导数严格为正；未形式化流行病预测或参数估计。}

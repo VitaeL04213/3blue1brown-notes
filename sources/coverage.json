@@ -1,0 +1,528 @@
+{
+  "vectors": {
+    "title_zh": "向量究竟是什么",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.vectors_distribute",
+    "scope_tex": "在实数对上完整验证数乘分配律；没有把几何直觉替代成浮点数计算。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 7
+  },
+  "span": {
+    "title_zh": "线性组合、张成与基",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.coordinates_span",
+    "scope_tex": "验证标准基的张成等式。一般基的线性无关性与坐标唯一性在本节纸笔解释中给出，未在此命题中形式化。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 10
+  },
+  "linear-transformations": {
+    "title_zh": "线性变换与矩阵",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.linear_combination",
+    "scope_tex": "对任意实向量空间间的线性映射验证线性组合保持律，形式化范围比二维例子更广。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 14
+  },
+  "matrix-multiplication": {
+    "title_zh": "矩阵乘法就是复合",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.matrix_composition",
+    "scope_tex": "复用 mathlib 的矩阵作用复合定理，在任意实 $2\\times2$ 矩阵和向量上验证等式。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 18
+  },
+  "3d-transformations": {
+    "title_zh": "三维线性变换",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.rotation_preserves_square_norm",
+    "scope_tex": "验证该 $90^\\circ$ 旋转保持平方长度。未宣称已经证明一般三维旋转的分类。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 22
+  },
+  "determinant": {
+    "title_zh": "行列式：有向体积倍率",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.determinant_product",
+    "scope_tex": "通过坐标展开严格证明两个一般实 $2\\times2$ 矩阵的行列式乘法公式。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 25
+  },
+  "inverse-matrices": {
+    "title_zh": "逆矩阵、列空间与零空间",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.kernel_translation",
+    "scope_tex": "证明给任意输入加上核中的向量不会改变输出；形式化的是解集结构的核心方向。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 29
+  },
+  "nonsquare-matrices": {
+    "title_zh": "非方阵与维度变化",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.projection_surjective",
+    "scope_tex": "完整证明这一坐标投影满射，构造每个输出 $(x,y)$ 的原像 $(x,y,0)$。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 32
+  },
+  "dot-products": {
+    "title_zh": "点积与对偶",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.dot_linear",
+    "scope_tex": "验证二维点积对第二个输入可加，即固定向量所定义测量的线性结构之一。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 37
+  },
+  "cross-products": {
+    "title_zh": "叉积与有向面积",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.cross_orthogonal",
+    "scope_tex": "完整验证一般三维实坐标下，叉积与第一个输入正交。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 40
+  },
+  "cross-products-extended": {
+    "title_zh": "从线性测量重新认识叉积",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.scalar_triple_product",
+    "scope_tex": "展开并验证一般实坐标下的标量三重积等式；唯一表示的抽象论证未包含在该命题中。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 43
+  },
+  "cramers-rule": {
+    "title_zh": "克拉默法则",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.cramers_rule",
+    "scope_tex": "给定两条线性方程和非零行列式，完整推导这两个商公式。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 47
+  },
+  "change-of-basis": {
+    "title_zh": "换基：改变坐标语言",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.change_of_basis",
+    "scope_tex": "用可逆线性等价验证“换回旧坐标后得到原动作”的恒等式，明确要求坐标变换可逆。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 58
+  },
+  "eigenvalues": {
+    "title_zh": "特征向量与特征值",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.eigenvector_scaling",
+    "scope_tex": "证明特征方程在向量缩放后仍成立。若要称缩放结果为特征向量，还须另加原向量及缩放系数非零的条件。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 62
+  },
+  "quick-eigen": {
+    "title_zh": "快速求二维特征值",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.characteristic_centering",
+    "scope_tex": "验证配方后的特征多项式恒等式。平方根的取值与实根存在性在正文中单独讨论。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 67
+  },
+  "abstract-vector-spaces": {
+    "title_zh": "抽象向量空间",
+    "note": "notes/chapters/linear-algebra.tex",
+    "theorem": "LinearAlgebra.function_space_distribute",
+    "scope_tex": "验证整个实函数空间的数乘分配律。这里只形式化向量空间操作，未把任意函数都错误地视为可微。",
+    "file": "ThreeBlueOneBrown/LinearAlgebra.lean",
+    "line": 70
+  },
+  "essence-of-calculus": {
+    "title_zh": "从面积发现微积分",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.area_derivative",
+    "scope_tex": "完整验证简化面积函数 $x^2/2$ 的导数为 $x$；圆环几何分割未形式化。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 7
+  },
+  "derivatives": {
+    "title_zh": "导数的“零除以零”悖论",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.square_secant",
+    "scope_tex": "验证非零步长下的差商恒等式，分母条件显式写为 $h\\ne0$。导数极限由下一节的形式化幂法则保证。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 12
+  },
+  "derivatives-power-rule": {
+    "title_zh": "幂法则的几何来源",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.power_rule",
+    "scope_tex": "完整调用并验证自然数幂的一般导数定理；Lean 中自然数的 $n-1$ 是截断减法，$n=0$ 由前面的零系数正确处理。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 15
+  },
+  "derivatives-trig-functions": {
+    "title_zh": "三角函数的导数",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.sine_derivative",
+    "scope_tex": "完整验证实正弦在任意实点的导数；采用 mathlib 的弧度三角函数。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 18
+  },
+  "chain-rule-and-product-rule": {
+    "title_zh": "乘积法则与链式法则",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.chain_rule",
+    "scope_tex": "\\texttt{chain\\_rule} 与同文件的 \\texttt{product\\_rule} 完整保留两函数在相应点可导的假设。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 25
+  },
+  "eulers-number": {
+    "title_zh": "为什么自然常数 e 特别",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.exponential_derivative",
+    "scope_tex": "完整验证实指数在每个实点的导数；增长模型只作为数学例子。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 29
+  },
+  "implicit-differentiation": {
+    "title_zh": "隐函数求导",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.circle_tangent",
+    "scope_tex": "从微分约束 $2x\\,dx+2y\\,dy=0$ 和 $y\\ne0$ 推导 $dy=-x\\,dx/y$；隐函数存在性定理未形式化。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 32
+  },
+  "limits": {
+    "title_zh": "极限与导数的定义",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.square_limit",
+    "scope_tex": "完整验证平方函数的双侧极限；使用邻域过滤器表达“趋近”。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 37
+  },
+  "epsilon-delta": {
+    "title_zh": "把任意精度写清楚",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.epsilon_delta_linear",
+    "scope_tex": "显式构造并验证斜率 $3$ 的函数的 $\\varepsilon$--$\\delta$ 证明；该结论允许 $x=a$，比去心版本更强。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 41
+  },
+  "l-hopitals-rule": {
+    "title_zh": "洛必达法则：比较消失速度",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.removable_limit",
+    "scope_tex": "完整验证上述有理函数的去心极限，方法是局部化简与连续性；没有把它标成一般洛必达法则的形式化证明。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 50
+  },
+  "integration": {
+    "title_zh": "积分与微积分基本定理",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.fundamental_theorem",
+    "scope_tex": "调用完整的基本定理第二部分，保留区间上处处可导及导函数区间可积的精确假设。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 64
+  },
+  "area-and-slope": {
+    "title_zh": "面积为什么与斜率相连",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.triangle_area",
+    "scope_tex": "完整验证 $\\int_0^a x\\dd x=a^2/2$，也涵盖有向积分 $a<0$ 的情况。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 70
+  },
+  "higher-order-derivatives": {
+    "title_zh": "高阶导数",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.second_derivative_cubic",
+    "scope_tex": "完整计算三次函数的二阶导数为 $6x$，同时核实中间的一阶导函数。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 73
+  },
+  "taylor-series": {
+    "title_zh": "泰勒多项式与余项",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.cubic_taylor_exact",
+    "scope_tex": "验证三次多项式的精确泰勒恒等式；一般泰勒定理、级数收敛和余项界未纳入这一形式命题。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 82
+  },
+  "taylor-series-geometric-view": {
+    "title_zh": "泰勒展开的面积解释",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.quadratic_error",
+    "scope_tex": "精确验证平方函数减去一次近似后等于 $h^2$；这给出二阶修正的可核查例子。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 85
+  },
+  "derivatives-and-transforms": {
+    "title_zh": "导数作为局部变换",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.derivative_composition_scale",
+    "scope_tex": "完整验证两个线性缩放复合后的导数为 $ab$。一般非线性链式法则另见本章对应定理。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 87
+  },
+  "divergence-and-curl": {
+    "title_zh": "散度与旋度",
+    "note": "notes/chapters/calculus.tex",
+    "theorem": "Calculus.planar_divergence",
+    "scope_tex": "计算对角线性向量场的两个偏方向导数之和；未形式化散度定理或斯托克斯定理。",
+    "file": "ThreeBlueOneBrown/Calculus.lean",
+    "line": 91
+  },
+  "neural-networks": {
+    "title_zh": "神经网络的基本单元",
+    "note": "notes/chapters/neural-networks.tex",
+    "theorem": "NeuralNetworks.affine_composition",
+    "scope_tex": "精确验证两个标量仿射层的复合公式，说明非线性激活为何重要。",
+    "file": "ThreeBlueOneBrown/NeuralNetworks.lean",
+    "line": 5
+  },
+  "gradient-descent": {
+    "title_zh": "梯度下降如何学习",
+    "note": "notes/chapters/neural-networks.tex",
+    "theorem": "NeuralNetworks.quadratic_gradient_step",
+    "scope_tex": "完整证明上述一维二次损失在闭区间步长条件下不增加；没有推广为所有网络的收敛保证。",
+    "file": "ThreeBlueOneBrown/NeuralNetworks.lean",
+    "line": 8
+  },
+  "neural-network-analysis": {
+    "title_zh": "检查网络究竟学到了什么",
+    "note": "notes/chapters/neural-networks.tex",
+    "theorem": "NeuralNetworks.affine_input_sensitivity",
+    "scope_tex": "精确验证单输入仿射模型的扰动等式；范数界、校准与泛化的经验主张未形式化。",
+    "file": "ThreeBlueOneBrown/NeuralNetworks.lean",
+    "line": 14
+  },
+  "backpropagation": {
+    "title_zh": "反向传播的直觉",
+    "note": "notes/chapters/neural-networks.tex",
+    "theorem": "NeuralNetworks.gradient_accumulation",
+    "scope_tex": "完整证明两条可导损失分支相加时导数相加，作为共享梯度累积的标量核心。",
+    "file": "ThreeBlueOneBrown/NeuralNetworks.lean",
+    "line": 17
+  },
+  "backpropagation-calculus": {
+    "title_zh": "反向传播的微积分",
+    "note": "notes/chapters/neural-networks.tex",
+    "theorem": "NeuralNetworks.squared_loss_weight_gradient",
+    "scope_tex": "完整证明线性输出的平方损失对权重的导数。非线性层及矩阵反传公式在正文推导，未由此单命题覆盖。",
+    "file": "ThreeBlueOneBrown/NeuralNetworks.lean",
+    "line": 21
+  },
+  "mini-llm": {
+    "title_zh": "语言模型的简明图景",
+    "note": "notes/chapters/neural-networks.tex",
+    "theorem": "NeuralNetworks.conditional_product_bounds",
+    "scope_tex": "验证两个合法概率的乘积仍在 $[0,1]$；完整条件概率的测度论链式法则未形式化。",
+    "file": "ThreeBlueOneBrown/NeuralNetworks.lean",
+    "line": 27
+  },
+  "gpt": {
+    "title_zh": "Transformer 的整体结构",
+    "note": "notes/chapters/neural-networks.tex",
+    "theorem": "NeuralNetworks.softmax_shift",
+    "scope_tex": "完整证明双分类 Softmax 的平移不变性。定理使用精确实指数；浮点稳定性仍属于数值实现问题。",
+    "file": "ThreeBlueOneBrown/NeuralNetworks.lean",
+    "line": 34
+  },
+  "attention": {
+    "title_zh": "注意力：按上下文加权信息",
+    "note": "notes/chapters/neural-networks.tex",
+    "theorem": "NeuralNetworks.attention_convex",
+    "scope_tex": "完整证明两标量值的凸组合处在二者之间，保留权重 $0\\le w\\le1$ 的条件。",
+    "file": "ThreeBlueOneBrown/NeuralNetworks.lean",
+    "line": 44
+  },
+  "mlp": {
+    "title_zh": "前馈层如何表达特征与关联",
+    "note": "notes/chapters/neural-networks.tex",
+    "theorem": "NeuralNetworks.mlp_rank_one",
+    "scope_tex": "验证二维检测后写回等于相应外积矩阵作用的坐标公式；不是对模型知识存储机制的经验证明。",
+    "file": "ThreeBlueOneBrown/NeuralNetworks.lean",
+    "line": 50
+  },
+  "cross-entropy": {
+    "title_zh": "交叉熵：错误概率模型的编码代价",
+    "note": "notes/chapters/compression.tex",
+    "theorem": "Information.cross_entropy_decomposition",
+    "scope_tex": "完整验证严格正有限向量的熵、交叉熵与 KL 代数分解；此分解本身不要求归一化。同文件的 \\texttt{kl\\_nonnegative} 进一步在两分布归一化时证明 KL 非负；零概率与无穷代价情形不在这两个定理的覆盖范围内。",
+    "file": "ThreeBlueOneBrown/Information.lean",
+    "line": 19
+  },
+  "diffusion-models": {
+    "title_zh": "扩散模型：从噪声中逐步恢复",
+    "note": "notes/chapters/neural-networks.tex",
+    "theorem": "NeuralNetworks.denoising_reconstruction",
+    "scope_tex": "完整验证非零信号系数下的代数恢复式；未形式化随机扩散过程、训练有效性或生成质量。客座原课署名 Stephen Welch。",
+    "file": "ThreeBlueOneBrown/NeuralNetworks.lean",
+    "line": 56
+  },
+  "differential-equations": {
+    "title_zh": "微分方程与向量场",
+    "note": "notes/chapters/differential-equations.tex",
+    "theorem": "DifferentialEquations.exponential_solution",
+    "scope_tex": "完整验证 $\\e^{kt}$ 的导数等于 $k\\e^{kt}$；不是对所有微分方程的存在唯一性证明。",
+    "file": "ThreeBlueOneBrown/DifferentialEquations.lean",
+    "line": 5
+  },
+  "pdes": {
+    "title_zh": "偏微分方程与热扩散",
+    "note": "notes/chapters/differential-equations.tex",
+    "theorem": "DifferentialEquations.heat_stencil",
+    "scope_tex": "验证三点二阶差分算子对相加的线性性；连续 PDE 的分析及离散极限未由此命题覆盖。",
+    "file": "ThreeBlueOneBrown/DifferentialEquations.lean",
+    "line": 10
+  },
+  "heat-equation": {
+    "title_zh": "用基本模式求解热方程",
+    "note": "notes/chapters/differential-equations.tex",
+    "theorem": "DifferentialEquations.heat_mode_decay",
+    "scope_tex": "完整验证模式振幅的时间导数。空间正弦导数可由微积分模块组合；无限级数解与边界条件未形式化。",
+    "file": "ThreeBlueOneBrown/DifferentialEquations.lean",
+    "line": 13
+  },
+  "fourier-series": {
+    "title_zh": "傅里叶级数：旋转与叠加",
+    "note": "notes/chapters/differential-equations.tex",
+    "theorem": "DifferentialEquations.fourier_superposition",
+    "scope_tex": "验证单频复指数模式的线性叠加恒等式；不将它冒充傅里叶完备性或收敛定理。",
+    "file": "ThreeBlueOneBrown/DifferentialEquations.lean",
+    "line": 17
+  },
+  "complex-exponents": {
+    "title_zh": "复指数与旋转的物理图像",
+    "note": "notes/chapters/differential-equations.tex",
+    "theorem": "DifferentialEquations.rotating_exponential_norm",
+    "scope_tex": "完整验证任意实角度的纯旋转复指数模长为一。",
+    "file": "ThreeBlueOneBrown/DifferentialEquations.lean",
+    "line": 21
+  },
+  "laplace-transform": {
+    "title_zh": "拉普拉斯变换：带衰减的频率探测",
+    "note": "notes/chapters/differential-equations.tex",
+    "theorem": "DifferentialEquations.laplace_kernel",
+    "scope_tex": "验证实指数与拉普拉斯核相乘后合并为 $\\e^{-(s-a)t}$ 的恒等式；不声称该恒等式本身证明了反演定理。",
+    "file": "ThreeBlueOneBrown/DifferentialEquations.lean",
+    "line": 24
+  },
+  "laplace-for-odes": {
+    "title_zh": "把微分方程变成代数方程",
+    "note": "notes/chapters/differential-equations.tex",
+    "theorem": "DifferentialEquations.transformed_oscillator",
+    "scope_tex": "从已得到的变换域等式及非零分母推导商公式。积分分部、拉普拉斯存在性和反演不在该形式命题中。",
+    "file": "ThreeBlueOneBrown/DifferentialEquations.lean",
+    "line": 30
+  },
+  "eulers-formula-dynamically": {
+    "title_zh": "动态理解欧拉恒等式",
+    "note": "notes/chapters/differential-equations.tex",
+    "theorem": "DifferentialEquations.euler_identity",
+    "scope_tex": "完整验证复指数的欧拉恒等式，复用 mathlib 已证明的结论。",
+    "file": "ThreeBlueOneBrown/DifferentialEquations.lean",
+    "line": 36
+  },
+  "matrix-exponents": {
+    "title_zh": "矩阵指数与线性动力系统",
+    "note": "notes/chapters/differential-equations.tex",
+    "theorem": "DifferentialEquations.nilpotent_exponential_add",
+    "scope_tex": "完整证明平方零矩阵的上述半群恒等式；矩阵指数级数的收敛与求导由正文解释，未包含于此定理。",
+    "file": "ThreeBlueOneBrown/DifferentialEquations.lean",
+    "line": 39
+  },
+  "exponential-and-epidemics": {
+    "title_zh": "指数增长与饱和",
+    "note": "notes/chapters/differential-equations.tex",
+    "theorem": "DifferentialEquations.logistic_threshold",
+    "scope_tex": "验证正增长率、正容量且状态处于 $(0,K)$ 时导数严格为正；未形式化流行病预测或参数估计。",
+    "file": "ThreeBlueOneBrown/DifferentialEquations.lean",
+    "line": 45
+  },
+  "lockdown-math-announcement": {
+    "title_zh": "课程公告与学习路线",
+    "note": "notes/chapters/lockdown-math.tex",
+    "theorem": "not-applicable",
+    "scope_tex": "不适用：这是公告和学习方法页，没有需要机器证明的课程命题。仓库的覆盖统计对此显式豁免。"
+  },
+  "ldm-quadratic": {
+    "title_zh": "更简洁的二次公式",
+    "note": "notes/chapters/lockdown-math.tex",
+    "theorem": "Lockdown.quadratic_centering",
+    "scope_tex": "完整验证配方恒等式；从平方等式分类实根或复根需另行处理。",
+    "file": "ThreeBlueOneBrown/Lockdown.lean",
+    "line": 5
+  },
+  "ldm-trigonometry": {
+    "title_zh": "三角函数从单位圆出发",
+    "note": "notes/chapters/lockdown-math.tex",
+    "theorem": "Lockdown.unit_circle",
+    "scope_tex": "完整验证实数任意角度的单位圆恒等式。",
+    "file": "ThreeBlueOneBrown/Lockdown.lean",
+    "line": 8
+  },
+  "ldm-complex-numbers": {
+    "title_zh": "复数：缩放与旋转",
+    "note": "notes/chapters/lockdown-math.tex",
+    "theorem": "Lockdown.complex_square_i",
+    "scope_tex": "验证复数单位的核心关系 $\\ii^2=-1$；其余运算公式可通过复数域的代数规则推出。",
+    "file": "ThreeBlueOneBrown/Lockdown.lean",
+    "line": 11
+  },
+  "ldm-eulers-formula": {
+    "title_zh": "欧拉公式在说什么",
+    "note": "notes/chapters/lockdown-math.tex",
+    "theorem": "Lockdown.exponential_add",
+    "scope_tex": "完整验证复指数的加法到乘法规则。欧拉特值另由微分方程模块中的 \\texttt{euler\\_identity} 验证。",
+    "file": "ThreeBlueOneBrown/Lockdown.lean",
+    "line": 13
+  },
+  "ldm-imaginary-interest": {
+    "title_zh": "虚数利率与连续旋转",
+    "note": "notes/chapters/lockdown-math.tex",
+    "theorem": "Lockdown.imaginary_step_norm",
+    "scope_tex": "验证单步复数的模长平方公式。复利序列收敛到复指数的极限定理未在此命题中形式化。",
+    "file": "ThreeBlueOneBrown/Lockdown.lean",
+    "line": 16
+  },
+  "ldm-logarithms": {
+    "title_zh": "对数的基础结构",
+    "note": "notes/chapters/lockdown-math.tex",
+    "theorem": "Lockdown.logarithm_product",
+    "scope_tex": "完整验证正实数乘积的自然对数公式，并显式要求两个真数为正。",
+    "file": "ThreeBlueOneBrown/Lockdown.lean",
+    "line": 20
+  },
+  "ldm-natural-logs": {
+    "title_zh": "自然对数为何自然",
+    "note": "notes/chapters/lockdown-math.tex",
+    "theorem": "Lockdown.natural_log_derivative",
+    "scope_tex": "完整验证正实数处的自然对数导数，写明 $x>0$ 避免除零和实定义域误解。",
+    "file": "ThreeBlueOneBrown/Lockdown.lean",
+    "line": 23
+  },
+  "ldm-power-towers": {
+    "title_zh": "幂塔与不动点",
+    "note": "notes/chapters/lockdown-math.tex",
+    "theorem": "Lockdown.tower_limit_fixed_point",
+    "scope_tex": "完整证明一般连续迭代在已知收敛时，其极限为不动点；收敛是假设，绝不隐含在代数方程里。",
+    "file": "ThreeBlueOneBrown/Lockdown.lean",
+    "line": 28
+  },
+  "ldm-i-to-i": {
+    "title_zh": "为什么 i 的 i 次方可以是实数",
+    "note": "notes/chapters/lockdown-math.tex",
+    "theorem": "Lockdown.i_log_branch_exponent",
+    "scope_tex": "验证任意实角度的关键指数恒等式 $\\ii(\\theta\\ii)=-\\theta$；并未将多值复幂误写成全局单值定理。",
+    "file": "ThreeBlueOneBrown/Lockdown.lean",
+    "line": 41
+  },
+  "ldm-tips-to-problem-solving": {
+    "title_zh": "解题：找表示、找不变量、查边界",
+    "note": "notes/chapters/lockdown-math.tex",
+    "theorem": "Lockdown.symmetric_problem_reduction",
+    "scope_tex": "完整验证对称二次式的代数变换。一般解题策略不是数学全称定理，不声称已被形式化证明。",
+    "file": "ThreeBlueOneBrown/Lockdown.lean",
+    "line": 47
+  },
+  "entropy": {
+    "title_zh": "熵：平均要问多少个二选一问题",
+    "note": "notes/chapters/compression.tex",
+    "theorem": "Information.entropy_term_nonnegative",
+    "scope_tex": "验证正概率 $p\\le1$ 的单项 $-p\\ln p$ 非负。代码还定义了有限分布的熵；编码下界、可达性和熵率并未形式化。",
+    "file": "ThreeBlueOneBrown/Information.lean",
+    "line": 8
+  }
+}

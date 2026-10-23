@@ -1,0 +1,159 @@
+\chapter{线性代数：把矩阵看成动作}
+本章固定列向量约定：$Av$ 表示先给定向量 $v$，再作用矩阵 $A$；$ABv$ 中 $B$ 先作用。几何图像帮助发现结论，坐标与线性映射负责精确定义。
+
+\lesson{vectors}{向量究竟是什么}{LinearAlgebra.vectors_distribute}
+\idea 向量可以看成位移、按顺序排列的特征，或满足加法与数乘规则的对象。坐标依赖基的选择，而向量本身不必依赖某一组坐标。
+\mathpart 在 $\R^2$ 中，$(x,y)+(u,v)=(x+u,y+v)$，$a(x,y)=(ax,ay)$。数乘对加法分配：$a(u+v)=au+av$，这保证“先合并再缩放”和“先缩放再合并”一致。
+\examplepart 取 $u=(2,-1),v=(-1,3)$，则 $u+v=(1,2)$，$2(u+v)=(2,4)=2u+2v$。箭头首尾相接给出同一个结果。
+\pitfall 点的位置与位移不是同一个概念；讨论位置向量时已经选了原点。列坐标的顺序也不能交换。
+\exercise 求 $3(1,-2)-2(-1,1)$。答案为 $(5,-8)$；交换数乘与相减顺序不会改变结果。
+\leanpart{在实数对上完整验证数乘分配律；没有把几何直觉替代成浮点数计算。}
+\nextlesson
+
+\lesson{span}{线性组合、张成与基}{LinearAlgebra.coordinates_span}
+\idea 张成空间是“给定方向通过任意拉伸、相加能到达哪里”。基要求既能到达整个空间，又没有多余方向。
+\mathpart $\operatorname{span}(u,v)=\{au+bv:a,b\in\R\}$。标准基 $e_1=(1,0),e_2=(0,1)$ 满足 $x e_1+y e_2=(x,y)$。若 $u,v$ 不共线，表达式 $au+bv$ 的系数唯一。
+\examplepart 对 $u=(1,1),v=(1,-1)$，解 $a+b=4,a-b=2$ 得 $(4,2)=3u+v$。若把 $v$ 换成 $2u$，只能得到直线 $y=x$。
+\pitfall “有两个向量”不等于“有二维基”；零向量或共线向量不会增加维数。
+\exercise $(3,5)$ 在上述 $u,v$ 基下的坐标是什么？答案 $(4,-1)$，代回为 $(4,4)+(-1,1)$。
+\leanpart{验证标准基的张成等式。一般基的线性无关性与坐标唯一性在本节纸笔解释中给出，未在此命题中形式化。}
+\nextlesson
+
+\lesson{linear-transformations}{线性变换与矩阵}{LinearAlgebra.linear_combination}
+\idea 线性变换保持向量相加与缩放。平面上的网格可以被拉伸、剪切或压扁，但原点固定，平行的直线仍保持平行或塌缩。
+\mathpart $T(au+bv)=aT(u)+bT(v)$。矩阵的第 $j$ 列就是 $T(e_j)$，所以
+\[A=\begin{bmatrix}2&1\\0&3\end{bmatrix}\quad\Longrightarrow\quad A(x,y)=(2x+y,3y).\]
+\examplepart $A(1,2)=(4,6)$，也等于 $T(e_1)+2T(e_2)=(2,0)+2(1,3)$。这从基向量图像直接导出矩阵乘法。
+\pitfall 平移 $v\mapsto v+b$ 在 $b\ne0$ 时不是线性变换；它是仿射变换。
+\exercise $T(x,y)=(x,y+x^2)$ 是否线性？不是，例如 $T(2,0)=(2,4)\ne2T(1,0)$。
+\leanpart{对任意实向量空间间的线性映射验证线性组合保持律，形式化范围比二维例子更广。}
+\nextlesson
+
+\lesson{matrix-multiplication}{矩阵乘法就是复合}{LinearAlgebra.matrix_composition}
+\idea 矩阵乘法的列，是后一动作的基向量像经过前一动作后的结果。因此乘法次序有实际意义。
+\mathpart $(AB)v=A(Bv)$，且 $(AB)_{ij}=\sum_k A_{ik}B_{kj}$。令
+\[A=\begin{bmatrix}1&1\\0&1\end{bmatrix},\quad B=\begin{bmatrix}2&0\\0&1\end{bmatrix};\quad
+AB=\begin{bmatrix}2&1\\0&1\end{bmatrix},\quad BA=\begin{bmatrix}2&2\\0&1\end{bmatrix}.\]
+\examplepart 对 $v=(0,1)$，先 $B$ 后 $A$ 得 $(1,1)$，反过来得到 $(2,1)$。这是不交换性的直接见证。
+\pitfall $AB$ 的右边先做；“每个位置对应相乘”是逐元素乘法，不是线性变换复合。
+\exercise 为什么 $(AB)C=A(BC)$？两边都对向量执行 $C$、$B$、$A$，或展开有限求和验证。
+\leanpart{复用 mathlib 的矩阵作用复合定理，在任意实 $2\times2$ 矩阵和向量上验证等式。}
+\nextlesson
+
+\lesson{3d-transformations}{三维线性变换}{LinearAlgebra.rotation_preserves_square_norm}
+\idea 三维矩阵有三列，分别记录三个基向量去向。二维的“面积”将在三维变成“体积”。
+\mathpart 绕 $z$ 轴逆时针旋转 $90^\circ$ 的矩阵为
+\[R=\begin{bmatrix}0&-1&0\\1&0&0\\0&0&1\end{bmatrix},\quad R(x,y,z)=(-y,x,z).\]
+\examplepart $(2,1,3)$ 变为 $(-1,2,3)$。两者平方长度均为 $14$，且 $z$ 坐标保持不变；连续作用四次回到原向量。
+\pitfall 三维旋转通常不交换；绕不同轴的两个旋转要按顺序处理。
+\exercise 对 $(1,0,0)$ 连续作用两次 $R$。答案 $(-1,0,0)$，不是原向量。
+\leanpart{验证该 $90^\circ$ 旋转保持平方长度。未宣称已经证明一般三维旋转的分类。}
+\nextlesson
+
+\lesson{determinant}{行列式：有向体积倍率}{LinearAlgebra.determinant_product}
+\idea 行列式记录面积或体积缩放，同时用符号记录定向是否翻转。压成更低维时，体积归零。
+\mathpart 对 $A=\left[\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right]$，$\det A=ad-bc$。复合的倍率相乘：$\det(AB)=\det A\det B$。
+\examplepart 剪切 $S=\left[\begin{smallmatrix}1&3\\0&1\end{smallmatrix}\right]$ 把单位方形推斜，面积仍为 $1$。反射 $F=\operatorname{diag}(-1,1)$ 的行列式为 $-1$，面积大小不变但方向反转。
+\pitfall 行列式为负不表示几何面积为负；普通面积倍率是 $|\det A|$。非方阵没有这种同维体积行列式。
+\exercise $A=\left[\begin{smallmatrix}2&1\\1&3\end{smallmatrix}\right]$ 的面积倍率？答案 $5$；$A^2$ 为 $25$。
+\leanpart{通过坐标展开严格证明两个一般实 $2\times2$ 矩阵的行列式乘法公式。}
+\nextlesson
+
+\lesson{inverse-matrices}{逆矩阵、列空间与零空间}{LinearAlgebra.kernel_translation}
+\idea $Ax=b$ 是寻找能被送到 $b$ 的输入。列空间描述可到达的输出，零空间描述被压成零的方向。
+\mathpart 若 $x_0$ 是一个解，则所有解为 $x_0+\ker A$。方阵可逆当且仅当其零空间只有零向量，也等价于行列式非零。
+\examplepart $A=\left[\begin{smallmatrix}1&1\\2&2\end{smallmatrix}\right]$ 的列空间为 $\operatorname{span}(1,2)$，零空间为 $\operatorname{span}(1,-1)$。$Ax=(3,6)$ 的解是 $(3,0)+t(1,-1)$；右端若为 $(3,7)$ 则无解。
+\pitfall “不能求逆”不等于“没有解”，也可能有无穷多个解。
+\exercise 可逆矩阵的两个不同输入能有同一输出吗？不能；相减后得到一个非零零空间向量，与可逆性矛盾。
+\leanpart{证明给任意输入加上核中的向量不会改变输出；形式化的是解集结构的核心方向。}
+\nextlesson
+
+\lesson{nonsquare-matrices}{非方阵与维度变化}{LinearAlgebra.projection_surjective}
+\idea $m\times n$ 矩阵把 $n$ 维输入映到 $m$ 维输出。行数与列数分别对应输出和输入维度。
+\mathpart
+\[P=\begin{bmatrix}1&0&0\\0&1&0\end{bmatrix},\quad P(x,y,z)=(x,y),\quad
+\ker P=\{(0,0,z):z\in\R\}.\]
+它满射但不单射。相反，$J(x,y)=(x,y,0)$ 单射但不是到整个 $\R^3$ 的满射，且 $PJ=I_2$。
+\examplepart $(2,5,7)$ 和 $(2,5,-1)$ 都被投到 $(2,5)$。丢失的 $z$ 信息无法从输出恢复。
+\pitfall 有左逆或右逆并不一定同时有双侧逆；矩阵形状先于运算公式。
+\exercise $JP$ 是什么？它把 $(x,y,z)$ 变为 $(x,y,0)$，不是 $I_3$。
+\leanpart{完整证明这一坐标投影满射，构造每个输出 $(x,y)$ 的原像 $(x,y,0)$。}
+\nextlesson
+
+\lesson{dot-products}{点积与对偶}{LinearAlgebra.dot_linear}
+\idea 固定一个向量 $u$，点积 $v\mapsto u\cdot v$ 就是一个线性测量。几何上它把 $v$ 沿 $u$ 的投影长度乘以 $\|u\|$。
+\mathpart $u\cdot v=\sum_i u_iv_i=\|u\|\|v\|\cos\theta$。对 $u\ne0$，投影为 $\operatorname{proj}_u v=\frac{u\cdot v}{u\cdot u}u$。
+\examplepart $u=(1,2),v=(3,1)$ 的点积为 $5$，所以投影恰为 $(1,2)$，残差 $(2,-1)$ 与 $u$ 正交。
+\pitfall 点积的坐标求和式默认标准正交基。一般基下需使用 Gram 矩阵 $G$，得到 $[u]^T G[v]$。
+\exercise 写出线性测量 $L(x,y)=4x-y$ 对应的向量。标准内积下答案 $(4,-1)$。
+\leanpart{验证二维点积对第二个输入可加，即固定向量所定义测量的线性结构之一。}
+\nextlesson
+
+\lesson{cross-products}{叉积与有向面积}{LinearAlgebra.cross_orthogonal}
+\idea 在定向三维欧氏空间中，叉积垂直于两个输入向量；长度等于它们张成的平行四边形面积，方向由右手规则决定。
+\mathpart
+\[(a,b,c)\times(x,y,z)=(bz-cy,cx-az,ay-bx).\]
+从坐标展开可得 $u\cdot(u\times v)=0$；交换顺序改变符号。
+\examplepart $(1,2,0)\times(0,1,3)=(6,-3,1)$。与第一个向量点积为 $6-6=0$，与第二个点积也为 $-3+3=0$。
+\pitfall 叉积不同于点积：一个输出向量，一个输出标量。其熟悉的三维形式需要内积和定向。
+\exercise $(1,0,0)\times(0,1,0)$ 是什么？答案 $(0,0,1)$；反过来为 $(0,0,-1)$。
+\leanpart{完整验证一般三维实坐标下，叉积与第一个输入正交。}
+\nextlesson
+
+\lesson{cross-products-extended}{从线性测量重新认识叉积}{LinearAlgebra.scalar_triple_product}
+\idea 固定 $u,v$，把第三个向量 $w$ 送到有向体积的运算是线性的。这个线性测量可由唯一向量点积表示，而该向量就是 $u\times v$。
+\mathpart 对以 $u,v,w$ 为列的矩阵，$\det[u\ v\ w]=(u\times v)\cdot w$。这个标量三重积连接线性代数中的对偶、行列式与几何体积。
+\examplepart $u=(1,0,0),v=(0,2,0),w=(a,b,3)$，三重积为 $6$，与 $a,b$ 无关：平行于底面的剪切不改变体积。
+\pitfall 行向量和列向量约定混用会造成符号错误；交换任意两列会使有向体积反号。
+\exercise 若 $w=u+v$，体积是多少？为零，因为三个向量共面，也可由叉积正交性算出。
+\leanpart{展开并验证一般实坐标下的标量三重积等式；唯一表示的抽象论证未包含在该命题中。}
+\nextlesson
+
+\lesson{cramers-rule}{克拉默法则}{LinearAlgebra.cramers_rule}
+\idea 若矩阵可逆，把一列替换为目标向量，新的有向体积与原体积之比就是相应的坐标系数。
+\mathpart 对 $ax+by=p,cx+dy=q$，在 $\Delta=ad-bc\ne0$ 时，
+\[x=\frac{pd-bq}{\Delta},\qquad y=\frac{aq-pc}{\Delta}.\]
+\examplepart $2x+y=5,x+3y=5$ 给出 $\Delta=5$，故 $x=2,y=1$。几何上新列体积分别为 $10$ 和 $5$。
+\pitfall $\Delta=0$ 时不能除以它；此时应改用秩、相容性或零空间判断。该公式也不总是大型数值求解的高效算法。
+\exercise 解 $x+2y=4,3x+y=7$。$\Delta=-5$，答案 $x=2,y=1$。
+\leanpart{给定两条线性方程和非零行列式，完整推导这两个商公式。}
+\nextlesson
+
+\lesson{change-of-basis}{换基：改变坐标语言}{LinearAlgebra.change_of_basis}
+\idea 换基改变的是向量的描述。同一个物理动作在不同坐标系统中有不同矩阵。
+\mathpart 若 $P$ 的列为新基在旧基下的坐标，则 $[v]_{\rm old}=P[v]_{\rm new}$，且 $[T]_{\rm new}=P^{-1}[T]_{\rm old}P$。
+\examplepart 对交换坐标的映射 $A=\left[\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right]$，选新基 $(1,1),(1,-1)$，得到对角表示 $\operatorname{diag}(1,-1)$。
+\pitfall $P$ 的方向必须先定义清楚；如果定义为旧坐标到新坐标，公式中的逆就会对调。
+\exercise 上例的 $(3,1)$ 新坐标是什么？解 $a+b=3,a-b=1$，得 $(2,1)$。
+\leanpart{用可逆线性等价验证“换回旧坐标后得到原动作”的恒等式，明确要求坐标变换可逆。}
+\nextlesson
+
+\lesson{eigenvalues}{特征向量与特征值}{LinearAlgebra.eigenvector_scaling}
+\idea 某些方向经过线性变换后只被缩放而不偏离原直线。这些方向常使反复作用变得容易理解。
+\mathpart 特征向量满足 $Av=\lambda v$ 且 $v\ne0$。特征值由 $\det(A-\lambda I)=0$ 决定。若有足够多独立特征向量，可写 $A=PDP^{-1}$，进而 $A^n=PD^nP^{-1}$。
+\examplepart $A=\left[\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\right]$ 在 $(1,1)$ 上倍率为 $3$，在 $(1,-1)$ 上倍率为 $1$。
+\pitfall 零向量虽满足方程却不是特征向量；实矩阵也可能没有实特征值，例如平面 $90^\circ$ 旋转。
+\exercise 上例 $A^4(1,1)$？答案 $(81,81)$，无需展开矩阵乘法。
+\leanpart{证明特征方程在向量缩放后仍成立。若要称缩放结果为特征向量，还须另加原向量及缩放系数非零的条件。}
+\nextlesson
+
+\lesson{quick-eigen}{快速求二维特征值}{LinearAlgebra.characteristic_centering}
+\idea 两个根的平均值由迹的一半决定，偏离平均值的距离由判别式决定。先中心化，再处理平方根，比直接套长公式清楚。
+\mathpart 令 $m=(a+d)/2$，则
+\[\lambda_{\pm}=m\pm\sqrt{((a-d)/2)^2+bc}.\]
+根号内为负时，应在复数域解释。来源是特征多项式配方。
+\examplepart $A=\left[\begin{smallmatrix}4&2\\1&3\end{smallmatrix}\right]$，$m=3.5$，根号内 $0.25+2=2.25$，故特征值 $5,2$。和为迹 $7$，积为行列式 $10$。
+\pitfall 对角元平均值只是根的中心，通常不是其中一个根。
+\exercise $\left[\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right]$ 的根？根号内 $-1$，为 $\pm\ii$。
+\leanpart{验证配方后的特征多项式恒等式。平方根的取值与实根存在性在正文中单独讨论。}
+\nextlesson
+
+\lesson{abstract-vector-spaces}{抽象向量空间}{LinearAlgebra.function_space_distribute}
+\idea “向量”不必是箭头。多项式、函数、矩阵都可以成为向量，只要其加法与数乘满足同一组公理。
+\mathpart 函数空间采用逐点运算：$(f+g)(x)=f(x)+g(x)$，$(af)(x)=af(x)$。微分算子 $D$ 在可微函数组成的适当空间上满足 $D(af+bg)=aDf+bDg$。
+\examplepart 在基 $1,x,x^2$ 下，次数不超过二的多项式的求导矩阵为
+\[\begin{bmatrix}0&1&0\\0&0&2\\0&0&0\end{bmatrix}.\]
+它把系数 $(c_0,c_1,c_2)$ 送到 $(c_1,2c_2,0)$。
+\pitfall 指定对象集合还不够；必须说明运算及封闭性。例如“恰好二次”的多项式相加可能不再恰好二次。
+\exercise 常数函数为什么在求导算子的核中？因为其导数恒为零。
+\leanpart{验证整个实函数空间的数乘分配律。这里只形式化向量空间操作，未把任意函数都错误地视为可微。}

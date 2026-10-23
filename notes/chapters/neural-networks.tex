@@ -1,0 +1,106 @@
+\chapter{神经网络：从像素到序列}
+本章把计算规则、训练目标和经验解释分开。公式能描述网络如何运算；“学到了怎样的概念”需要实验，不能仅凭结构图断言。
+
+\lesson{neural-networks}{神经网络的基本单元}{NeuralNetworks.affine_composition}
+\idea 把输入表示为向量后，每一层先做带偏置的线性组合，再经过非线性函数。参数控制哪些输入影响哪些输出。
+\mathpart
+\[z^{(\ell)}=W^{(\ell)}a^{(\ell-1)}+b^{(\ell)},\qquad
+a^{(\ell)}=\sigma(z^{(\ell)}).\]
+例如 $\sigma(z)=1/(1+\e^{-z})$。若输入维度为 $n$、输出为 $m$，权重形状为 $m\times n$，偏置有 $m$ 个分量。
+\examplepart 单神经元 $z=2x_1-x_2+1$，输入 $(1,3)$ 时 $z=0$，Sigmoid 输出为 $1/2$。
+\pitfall 没有非线性的多层仿射网络仍可合并成一个仿射映射，深度本身不会产生任意复杂决策边界。
+\exercise $x\mapsto3(2x+1)-4$ 可合并为什么？$6x-1$；若中间插入 ReLU，一般不能这样整体合并。
+\leanpart{精确验证两个标量仿射层的复合公式，说明非线性激活为何重要。}
+\nextlesson
+
+\lesson{gradient-descent}{梯度下降如何学习}{NeuralNetworks.quadratic_gradient_step}
+\idea 损失把预测误差压缩为一个标量。梯度指出局部增长最快的方向，向反方向走小步可望减少损失。
+\mathpart $\theta_{k+1}=\theta_k-\eta\nabla L(\theta_k)$。一阶近似给出 $\Delta L\approx-\eta\|\nabla L\|^2$，但它只在步长足够小时可信。
+\examplepart 对 $L(x)=x^2$，更新为 $x_{+}=(1-2\eta)x$。当 $0\le\eta\le1$ 时损失不增；若 $0<\eta<1$ 且 $x\ne0$，严格减小。$\eta=1$ 时只是来回翻号。
+\pitfall 深网络的非凸损失一般不保证达到全局最优；训练损失低也不自动等于新数据上表现好。
+\exercise $x=3,\eta=0.1$，更新后损失？$x_+=2.4$，损失 $5.76$，原先为 $9$。
+\leanpart{完整证明上述一维二次损失在闭区间步长条件下不增加；没有推广为所有网络的收敛保证。}
+\nextlesson
+
+\lesson{neural-network-analysis}{检查网络究竟学到了什么}{NeuralNetworks.affine_input_sensitivity}
+\idea 隐层激活不必对应人类想象的边缘或笔画。观察权重、输入扰动和分布外样本，才能检验解释是否与实际计算一致。
+\mathpart 对仿射层，扰动满足 $\Delta z=W\Delta x$；在欧氏算子范数下 $\|\Delta z\|\le\|W\|\|\Delta x\|$。这是局部敏感性分析的起点。
+\examplepart $z=5x+b$，输入增加 $0.02$，激活前的数值增加 $0.1$。偏置不影响这一差值。对于像素图，平移会改变很多输入坐标，普通全连接层并不天然平移不变。
+\pitfall Softmax 的最大概率高，并不保证概率校准，也不意味着输入属于训练分布。
+\exercise 为什么只检查训练集准确率不够？模型可能记忆训练样本；还需独立测试及扰动检查。
+\leanpart{精确验证单输入仿射模型的扰动等式；范数界、校准与泛化的经验主张未形式化。}
+\nextlesson
+
+\lesson{backpropagation}{反向传播的直觉}{NeuralNetworks.gradient_accumulation}
+\idea 从输出误差倒推每个中间量的责任：一个节点影响损失的每条路径都要计入，路径上的导数相乘，汇合处相加。
+\mathpart 若 $L=L_1+L_2$，则 $\partial L/\partial w=\partial L_1/\partial w+\partial L_2/\partial w$。批量损失为平均值时，梯度也必须取平均。
+\examplepart 同一个参数 $w$ 出现在 $L(w)=(w-1)^2+(2w)^2$ 中，导数为 $2(w-1)+8w=10w-2$。只沿第一条路径回传会漏掉 $8w$。
+\pitfall 反向传播计算梯度；梯度下降使用梯度更新参数，两者是不同步骤。共享参数不能只保留最后一次出现的梯度。
+\exercise 上例最小点？解 $10w-2=0$ 得 $w=1/5$，二阶导数 $10>0$。
+\leanpart{完整证明两条可导损失分支相加时导数相加，作为共享梯度累积的标量核心。}
+\nextlesson
+
+\lesson{backpropagation-calculus}{反向传播的微积分}{NeuralNetworks.squared_loss_weight_gradient}
+\idea 将损失拆成短小的可导计算，再用链式法则组合，避免对整个表达式盲目展开。
+\mathpart 对 $z=wa+b,a_{\rm out}=\sigma(z),L=(a_{\rm out}-y)^2$，
+\[\frac{\partial L}{\partial w}=2(a_{\rm out}-y)\sigma'(z)a.\]
+多层网络写作 $\delta^{(\ell)}=((W^{(\ell+1)})^T\delta^{(\ell+1)})\odot\sigma'(z^{(\ell)})$，权重梯度为 $\delta^{(\ell)}(a^{(\ell-1)})^T$。
+\examplepart 线性输出时取 $a=2,b=1,y=4,w=1$，预测为 $3$，权重导数为 $2(3-4)2=-4$；减去负梯度使权重上升。
+\pitfall 若损失定义为 $\tfrac12(\hat y-y)^2$，公式中的 $2$ 消失；批量、均值、转置约定必须一致。
+\exercise 上例偏置导数是多少？$2(3-4)=-2$。
+\leanpart{完整证明线性输出的平方损失对权重的导数。非线性层及矩阵反传公式在正文推导，未由此单命题覆盖。}
+\nextlesson
+
+\lesson{mini-llm}{语言模型的简明图景}{NeuralNetworks.conditional_product_bounds}
+\idea 语言模型为下一个 token 分配条件概率，采样一个结果后把它放回上下文，继续预测。token 可以是词的一部分，不能总当成完整单词。
+\mathpart 概率链式分解为
+\[P(x_1,\ldots,x_T)=\prod_{t=1}^T P(x_t\mid x_1,\ldots,x_{t-1}).\]
+训练中常最小化正确 token 的负对数概率总和；推理中的采样温度改变概率分布的尖锐程度。
+\examplepart 两步条件概率分别为 $0.4,0.25$ 时，这条具体序列的联合概率为 $0.1$，不是 $0.65$。
+\pitfall 贪心地每次选最大概率 token，不一定得到全局概率最大的完整序列。
+\exercise 概率 $0.5,0.2,0.1$ 的三步序列概率？$0.01$，负对数概率将乘积变成和。
+\leanpart{验证两个合法概率的乘积仍在 $[0,1]$；完整条件概率的测度论链式法则未形式化。}
+\nextlesson
+
+\lesson{gpt}{Transformer 的整体结构}{NeuralNetworks.softmax_shift}
+\idea token 先嵌入为向量，再通过注意力与前馈层反复更新，最后映射为词表上的分数。位置信息使顺序能被模型感知。
+\mathpart logits $z_i$ 转成概率：$p_i=\e^{z_i}/\sum_j\e^{z_j}$。对全部分数加同一常数 $c$ 不改变概率，因为共同因子 $\e^c$ 会抵消。
+\examplepart 两个 logits 为 $(0,\ln3)$，得到概率 $(1/4,3/4)$。把两者都减去 $\ln3$ 后概率相同，这也是数值稳定 Softmax 的依据。
+\pitfall embedding 的某个方向可在特定实验中呈现语义关联，但不能把每一维机械地理解成一个固定概念。
+\exercise $z=(2,2)$ 的概率？$(1/2,1/2)$；这与 logits 的绝对大小无关。
+\leanpart{完整证明双分类 Softmax 的平移不变性。定理使用精确实指数；浮点稳定性仍属于数值实现问题。}
+\nextlesson
+
+\lesson{attention}{注意力：按上下文加权信息}{NeuralNetworks.attention_convex}
+\idea 查询向量表达“正在寻找什么”，键向量用于匹配，值向量提供被汇总的信息。每个位置根据自身查询选择不同的权重。
+\mathpart 以 token 为行：$Q=XW_Q,K=XW_K,V=XW_V$，
+\[\operatorname{Attention}(Q,K,V)=\operatorname{softmax}_{\rm row}\!\left(\frac{QK^T}{\sqrt{d_k}}+M\right)V.\]
+因果掩码 $M$ 禁止关注未来位置。每一行的有限权重非负且和为 $1$。
+\examplepart 两个标量值 $u=2,v=10$，权重 $(0.75,0.25)$ 得输出 $4$，位于 $[2,10]$ 内。
+\pitfall 加权平均的凸包约束只适用于单头的值汇总；输出投影、多个头及残差连接之后，最终向量不必仍在原值凸包内。
+\exercise 权重 $(0.2,0.8)$ 时结果？$8.4$。查询与键的维数相同，值维数可以不同。
+\leanpart{完整证明两标量值的凸组合处在二者之间，保留权重 $0\le w\le1$ 的条件。}
+\nextlesson
+
+\lesson{mlp}{前馈层如何表达特征与关联}{NeuralNetworks.mlp_rank_one}
+\idea 前馈层可以先检测输入中的某个方向，再沿另一个方向写回信息。这样能帮助理解关联的存储，但真实网络常使用分布式和叠加表示。
+\mathpart $\operatorname{MLP}(x)=W_2\sigma(W_1x+b_1)+b_2$。忽略偏置并在激活处于线性区时，单神经元贡献为 $v(k^Tx)$，等于秩至多为一的矩阵 $vk^T$ 作用于 $x$。
+\examplepart $k=(1,2),v=(3,-1),x=(2,1)$，检测值为 $4$，写回向量为 $(12,-4)$。
+\pitfall 这种构造说明网络“可以如何”表达一个关联，并不证明某个真实模型恰好如此，也不意味着一个神经元只存一个事实。
+\exercise 写出上例的 $vk^T$。答案 $\left[\begin{smallmatrix}3&6\\-1&-2\end{smallmatrix}\right]$，行列式为零。
+\leanpart{验证二维检测后写回等于相应外积矩阵作用的坐标公式；不是对模型知识存储机制的经验证明。}
+\nextlesson
+
+\section{交叉熵：与压缩课程共享的一课}
+这一课在官网同时出现在神经网络与“压缩与智能”序列。完整笔记、例子、KL 分解及 Lean 对照统一放在第~\ref{lesson:cross-entropy}~节，以免出现两份相互漂移的版本。
+
+\lesson{diffusion-models}{扩散模型：从噪声中逐步恢复}{NeuralNetworks.denoising_reconstruction}
+\idea 正向过程逐渐给数据加噪，反向模型学习在噪声水平及条件信息已知时估计噪声或干净数据。文本条件可通过联合表示和注意力影响生成。
+\mathpart 常见正向边际为
+\[x_t=\sqrt{\bar\alpha_t}\,x_0+\sqrt{1-\bar\alpha_t}\,\varepsilon,
+\qquad\varepsilon\sim\mathcal N(0,I).\]
+当 $\bar\alpha_t>0$，若噪声估计为 $\hat\varepsilon$，可构造 $\hat x_0=(x_t-\sqrt{1-\bar\alpha_t}\hat\varepsilon)/\sqrt{\bar\alpha_t}$。
+\examplepart 用简化标量系数 $a=0.8,b=0.6,x_0=2,\varepsilon=-1$，得到 $x_t=1$；已知真噪声时 $(1-0.6(-1))/0.8=2$。
+\pitfall 上述代数恢复要求知道噪声；模型实际只是估计它。单个带噪样本通常不能唯一确定原始图像。
+\exercise 若噪声估计多了 $\delta$，恢复误差是什么？$-(b/a)\delta$，说明 $a$ 很小时误差会被放大。
+\leanpart{完整验证非零信号系数下的代数恢复式；未形式化随机扩散过程、训练有效性或生成质量。客座原课署名 Stephen Welch。}
