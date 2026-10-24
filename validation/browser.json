@@ -66,6 +66,23 @@
   ],
   "responsive_width": 390,
   "javascript_errors": [],
+  "inline_experiments_checked": [
+    "linear-transformations",
+    "derivatives",
+    "integration",
+    "gradient-descent",
+    "attention",
+    "heat-equation",
+    "eulers-formula-dynamically",
+    "cross-entropy",
+    "taylor-series"
+  ],
+  "chapter_navigation": true,
+  "full_text_and_english_search": true,
+  "collapsible_examples_and_proofs": true,
+  "print_expansion_and_restore": true,
+  "mobile_navigation_keyboard": true,
+  "narrow_viewport_width": 320,
   "official_embed_url_checked": true,
   "external_youtube_playback_verified": false,
   "note": "External playback depends on network/YouTube policy; original links remain available."

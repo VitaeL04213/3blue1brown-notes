@@ -48,115 +48,175 @@ def tex_html(tex):
     tex = re.sub(r"\\ref\{lesson:([^}]+)\}", r"\\href{\1.html}{对应课程}", tex)
     return pypandoc.convert_text(tex, "html5", format="latex", extra_args=["--mathml", "--wrap=none"])
 
+from book_layout import shell as book_shell, REPO, PDF
+BOOK = json.loads((ROOT / "notes/book.json").read_text(encoding="utf-8"))
+
+def plain(markup):
+    markup = re.sub(r"<annotation\b[^>]*>.*?</annotation>", "", markup, flags=re.S)
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", markup))).strip()
+
+def split_exercise(tex):
+    for match in re.finditer(r"[？?。]",tex):
+        before=tex[:match.end()]
+        if len(re.findall(r"(?<!\\)\$",before))%2==0 and before.count(r"\[")==before.count(r"\]"):
+            if tex[match.end():].strip():
+                return before,tex[match.end():].strip()
+    return "先独立完成下面的自测，再展开核对。",tex
+
 entries = {}
 for chapter in sorted((ROOT / "notes/chapters").glob("*.tex")):
-    source = chapter.read_text(encoding="utf-8")
-    matches = list(re.finditer(r"\\lesson\{([^}]+)\}\{([^}]+)\}\{([^}]+)\}", source))
-    for i, match in enumerate(matches):
-        slug, title, theorem = match.groups()
-        body = source[match.end():matches[i+1].start() if i+1 < len(matches) else len(source)]
-        body = body.split(r"\nextlesson")[0].strip()
-        scope = re.search(r"\\leanpart\{(.*)\}\s*$", body, re.S)
-        assert scope, slug
-        recap = body[:scope.start()]
-        for cmd, heading in {"idea":"要点回看", "mathpart":"数学表述", "examplepart":"完整算例",
-                             "pitfall":"检查误区", "exercise":"自测与答案"}.items():
-            recap = recap.replace("\\"+cmd, "\\subsection*{"+heading+"}")
-        recap += "\n\\subsection*{Lean 证明与边界}\n" + scope[1]
-        guide = (ROOT / f"notes/guides/{slug}.tex").read_text(encoding="utf-8")
-        entries[slug] = {"title":title, "theorem":theorem, "chapter":chapter.stem,
-                         "guide_html":tex_html(guide), "recap_html":tex_html(recap),
-                         "guide_characters":len(re.findall(r"[\u4e00-\u9fff]", guide))}
-assert set(entries) == set(LESSONS) == set(MEDIA)
-for chapter_id in GROUPS:
-    chapter_lessons=[s for s in LESSONS if entries[s]["chapter"]==chapter_id]
-    review=(ROOT/f"notes/reviews/{chapter_id}.tex").read_text(encoding="utf-8")
-    entries[chapter_lessons[-1]]["recap_html"]+=tex_html(review)
-for name in SCENES.values():
-    shutil.copy2(ROOT / f"notes/figures/{name}.png", DOCS / f"media/{name}.png")
-    assert (DOCS / f"media/{name}.mp4").stat().st_size > 1000
+    source=chapter.read_text(encoding="utf-8")
+    matches=list(re.finditer(r"\\lesson\{([^}]+)\}\{([^}]+)\}\{([^}]+)\}",source))
+    for i,m in enumerate(matches):
+        slug,title,theorem=m.groups()
+        body=source[m.end():matches[i+1].start() if i+1<len(matches) else len(source)].split(r"\nextlesson")[0].strip()
+        scope=re.search(r"\\leanpart\{(.*)\}\s*$",body,re.S)
+        assert scope,slug
+        chunks=re.split(r"\\(idea|mathpart|examplepart|pitfall|exercise)\b",body[:scope.start()])
+        parts={chunks[j]:chunks[j+1].strip() for j in range(1,len(chunks),2)}
+        assert len(parts)==5,slug
+        guide=(ROOT/f"notes/guides/{slug}.tex").read_text(encoding="utf-8")
+        question,answer=split_exercise(parts["exercise"])
+        entries[slug]={"title":title,"theorem":theorem,"chapter":chapter.stem,
+                       "guide_html":tex_html(guide),"parts":{k:tex_html(v) for k,v in parts.items()},
+                       "question":tex_html(question),"answer":tex_html(answer),"scope":tex_html(scope[1]),
+                       "guide_characters":len(re.findall(r"[\u4e00-\u9fff]",guide))}
+assert set(entries)==set(LESSONS)==set(MEDIA)
+chapter_slugs={cid:[s for s in entries if entries[s]["chapter"]==cid] for cid in GROUPS}
+ordered=[]
+for c,(cid,slugs) in enumerate(chapter_slugs.items(),1):
+    for s,slug in enumerate(slugs,1):entries[slug]["number"]=f"{c}.{s}"
+    ordered.extend(slugs)
 
-def shell(title, body, prefix="", scripts=""):
-    return f'''<!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{esc(title)} · 3Blue1Brown 中文导学</title><meta name="description" content="通过引导推导、原课程视频、原创 Manim 动画与参数实验重建数学理解。">
-<link rel="stylesheet" href="{prefix}assets/style.css"></head>
-<body><a class="skip" href="#main">跳到正文</a>{body}
-<footer>独立中文导学教材 · 原课程：Grant Sanderson / 3Blue1Brown 及署名合作者 ·
-<a href="https://github.com/VitaeL04213/3blue1brown-notes">源码与 Lean 证明</a> ·
-原创讲解与图示采用 MIT；外部原视频的权利归原作者。</footer>{scripts}</body></html>'''
+sequence=[("index.html","扉页与阅读说明")]
+for i,(cid,slugs) in enumerate(chapter_slugs.items(),1):
+    sequence.append((f"chapters/{cid}.html",f"第 {i} 章　{GROUPS[cid][0]}"))
+    sequence.extend((f"lessons/{s}.html",entries[s]["number"]+"　"+entries[s]["title"]) for s in slugs)
+sequence.append(("references.html","来源与证明范围"))
 
-nav = '<a href="../index.html">教材目录</a><a href="../lab.html">交互实验室</a><a href="https://raw.githubusercontent.com/VitaeL04213/3blue1brown-notes/main/dist/3blue1brown-notes-zh.pdf">下载 PDF</a>'
-ordered = list(LESSONS)
-for n, slug in enumerate(ordered):
-    entry, lesson, cfg = entries[slug], LESSONS[slug], MEDIA[slug]
-    prompt, demo = cfg[0], cfg[1] if len(cfg)>1 else None
-    vid = lesson.get("video")
-    assert not vid or re.fullmatch(r"[A-Za-z0-9_-]{11}", vid), f"Invalid official video: {slug}"
-    video = f'''<section class="media-panel" aria-label="原课程视频">
-<h2>带着问题看原课</h2><p>{esc(prompt)}</p>
-<p><a href="{esc(lesson.get('youtube',''))}" target="_blank" rel="noopener">在 YouTube 打开原视频 ↗</a> ·
-<a href="{esc(lesson['url'])}" target="_blank" rel="noopener">官方课程页面 ↗</a></p>
-<button class="load-video" data-video="{vid}">加载原课程播放器</button>
-<div class="embed-slot"></div><small>点击后加载 YouTube 播放器，需要网络；若无法播放，可使用上方原链接。</small></section>''' if vid else f'''<section class="media-panel"><h2>带着问题读原课</h2><p>{esc(prompt)}</p><p><a href="{esc(lesson['url'])}" target="_blank" rel="noopener">打开官方图文与图示 ↗</a></p><small>官方目录未给本条目单列视频 ID；这里直接引用官方图文课，不另造视频对应关系。</small></section>'''
-    experiment = ""
+def render(path,title,body,current,prefix="",kind="front",toc="",scripts=""):
+    position=next((i for i,pair in enumerate(sequence) if pair[0]==path),None)
+    prev=sequence[position-1] if position is not None and position>0 else None
+    nxt=sequence[position+1] if position is not None and position+1<len(sequence) else None
+    write(DOCS/path,book_shell(title,body,GROUPS,entries,chapter_slugs,prefix,current,prev,nxt,kind,scripts,toc))
+
+def permalink(target):
+    return f'<a class="permalink" href="#{target}" aria-label="本段永久链接">¶</a>'
+
+def section_title(number,title,target):
+    return f'<h2 id="{target}"><span class="section-number">{number}</span> {title}{permalink(target)}</h2>'
+
+def proof_block(entry):
+    name=entry["theorem"]
+    if name=="not-applicable":return '<section class="remark" id="proof"><h3>阅读说明</h3>'+entry["scope"]+'</section>'
+    module,theorem=name.split(".",1)
+    source=(ROOT/f"ThreeBlueOneBrown/{module}.lean").read_text(encoding="utf-8")
+    match=re.search(r"^theorem "+re.escape(theorem)+r"\b.*?(?=\n(?:theorem |end |/\*|/--|/-)|\Z)",source,re.M|re.S)
+    assert match,name
+    line=source[:match.start()].count("\n")+1
+    return f'''<details class="knowl proof" id="proof" data-print-open><summary>Lean 对照 {entry["number"]}.1 <span>命题、证明与适用边界</span></summary>
+<div class="knowl-content">{entry["scope"]}<p class="proof-name">{esc(name)}</p><pre><code class="language-lean">{esc(match[0].strip())}</code></pre>
+<p><a href="{REPO}/blob/main/ThreeBlueOneBrown/{module}.lean#L{line}">查看完整定义与上下文 ↗</a> · <a href="../references.html#formalization">全书证明范围</a></p></div></details>'''
+
+search=[]
+for slug in ordered:
+    entry,lesson,cfg=entries[slug],LESSONS[slug],MEDIA[slug]
+    number=entry["number"]; cid=entry["chapter"]; prompt=cfg[0]; demo=cfg[1] if len(cfg)>1 else None
+    vid=lesson.get("video"); assert not vid or re.fullmatch(r"[A-Za-z0-9_-]{11}",vid)
+    headings=[]
+    def numbered_heading(match):
+        index=len(headings)+1; anchor=f"idea-{index}"; title=plain(match[1]);headings.append((anchor,title))
+        return section_title(f"{number}.{index}",title,anchor)
+    guide=re.sub(r'<h2\b[^>]*>(.*?)</h2>',numbered_heading,entry["guide_html"],flags=re.S)
+    video=f'''<p>{esc(prompt)}</p><p><a href="{esc(lesson['url'])}" target="_blank" rel="noopener">官方课程与图示 ↗</a>'''
+    if vid:
+        video+=f''' · <a href="{esc(lesson['youtube'])}" target="_blank" rel="noopener">原视频 ↗</a></p><button class="load-video" data-video="{vid}">加载原课程播放器</button><div class="embed-slot"></div><p class="caption">点击后连接 YouTube；播放器不可用时可通过上方原链接观看。</p>'''
+    else:video+='</p><p class="caption">本条目在官方目录中未单列视频，参照上述官方图文阅读。</p>'
+    media=f'<details class="knowl original-course" id="original"><summary>原课对照 <span>观课问题、视频与图示</span></summary><div class="knowl-content">{video}</div></details>'
+    experiment=""
     if demo:
-        scene = SCENES[demo]
-        experiment = f'''<section class="media-panel"><h2>先预测，再动手验证</h2>
-<p><a class="button" href="../lab.html#{demo}">打开 {DEMO_NAMES[demo]} →</a></p>
-<h3>原创 Manim 动画</h3>
-<video controls playsinline preload="none" poster="../media/{scene}.png" aria-label="{esc(CAPTIONS[scene])}">
-<source src="../media/{scene}.mp4" type="video/mp4">请使用支持 MP4 的浏览器。</video>
-<p class="caption">{esc(CAPTIONS[scene])} 无音频；画面中的文字与此说明提供等价信息。</p>
-<a href="../media/{scene}.mp4" download>下载 MP4</a> · <a href="../media/{scene}.gif" download>下载 GIF 动图</a></section>'''
-    prev = f'<a href="{ordered[n-1]}.html">← {esc(entries[ordered[n-1]]["title"])}</a>' if n else ""
-    nxt = f'<a href="{ordered[n+1]}.html">{esc(entries[ordered[n+1]]["title"])} →</a>' if n+1<len(ordered) else ""
-    theorem = entry["theorem"]
-    proof = ("公告页不设数学命题" if theorem == "not-applicable" else
-             f'<a href="https://github.com/VitaeL04213/3blue1brown-notes/blob/main/ThreeBlueOneBrown/{theorem.split(".")[0]}.lean">{esc(theorem)}</a>')
-    body = f'''<header class="topbar"><a class="brand" href="../index.html">3B1B <span>中文导学</span></a><nav>{nav}</nav></header>
-<main id="main" class="reading"><div class="eyebrow">{esc(GROUPS[entry["chapter"]][0])} / {n+1:02d}</div>
-<h1>{esc(entry["title"])}</h1><p class="lead">{esc(prompt)}</p>
-<article>{entry["guide_html"]}</article>{experiment}{video}
-<article>{entry["recap_html"]}</article><p class="proof-link">证明源码：{proof}</p>
-<nav class="pagination">{prev}{nxt}</nav></main>'''
-    write(DOCS / f"lessons/{slug}.html", shell(entry["title"], body, "../",
-        '<script src="../assets/reader.js" defer></script>'))
-    tex = "\\begin{quote}\\small\\textbf{观课提示}\\quad "+prompt+"\n\n"
-    tex += "\\href{"+lesson.get("youtube",lesson["url"])+"}{"+("原课程视频" if vid else "官方图文课程")+"}\\quad\\href{"+BASE+"/lessons/"+slug+".html}{本节网页与媒体}"
-    if demo: tex += "\\quad\\href{"+BASE+"/lab.html\\#"+demo+"}{参数实验}"
-    tex += "\n\\end{quote}\n"
+        scene=SCENES[demo]
+        experiment=f'''<figure class="interactive-figure" id="interactive"><figcaption><strong>交互图 {number}.1</strong>　{DEMO_NAMES[demo]}{permalink("interactive")}</figcaption>
+<p>{esc(prompt)}</p><img class="figure-preview" src="../media/{scene}.png" width="1280" height="720" alt="{esc(CAPTIONS[scene])}" loading="lazy">
+<details class="interactive-controls"><summary>动手实验：调整参数，检验预测</summary><div class="interactive-body"><iframe class="inline-lab" data-src="../lab.html?embed=1#{demo}" title="交互实验：{DEMO_NAMES[demo]}" loading="lazy"></iframe><p class="caption"><a href="../lab.html#{demo}" target="_blank" rel="noopener">在独立页面打开实验 ↗</a></p></div></details>
+<details class="animation-details"><summary>观看配套 Manim 动画</summary><video controls playsinline preload="none" poster="../media/{scene}.png" aria-label="{esc(CAPTIONS[scene])}"><source src="../media/{scene}.mp4" type="video/mp4"></video><p class="caption">{esc(CAPTIONS[scene])} 原创动画，无音频。</p><p class="caption"><a href="../media/{scene}.mp4" download>下载 MP4</a> · <a href="../media/{scene}.gif" download>下载 GIF</a></p></details></figure>'''
+    parts=entry["parts"]
+    related=''
+    if slug in ('gradient-descent','backpropagation','gpt','diffusion-models'):
+        related='<p class="related-reading">延伸阅读：<a href="cross-entropy.html">6.2 交叉熵</a>解释概率模型的训练代价。</p>'
+    if slug=='cross-entropy':
+        related='<p class="related-reading">本节也属于神经网络的延伸阅读，可结合<a href="gradient-descent.html">3.2 梯度下降</a>理解训练目标。</p>'
+    body=f'''<div class="breadcrumbs"><a href="../index.html">本书</a><span>›</span><a href="../chapters/{cid}.html">第 {number.split('.')[0]} 章　{GROUPS[cid][0]}</a></div>
+<header class="section-header"><p class="section-label">第 {number} 节</p><h1><span>{number}</span> {esc(entry["title"])}</h1><p class="section-intro">{esc(prompt)}</p></header>
+<div class="section-tools"><a href="#example">例题</a><a href="#exercise">练习</a><a href="#proof">Lean 对照</a><a href="#original">原课</a><button class="expand-knowl" aria-pressed="false">展开本节例题与解答</button></div>
+<article class="lesson-prose">{guide}{experiment}
+<section class="statement" id="statement"><h3>数学表述 {number}.1{permalink("statement")}</h3>{parts["idea"]}{parts["mathpart"]}</section>
+<details class="knowl example" id="example" data-print-open><summary>例 {number}.1 <span>把概念用于具体计算</span></summary><div class="knowl-content">{parts["examplepart"]}</div></details>
+<aside class="remark" id="pitfall"><h3>辨析 {number}.1</h3>{parts["pitfall"]}</aside>
+<section class="exercise" id="exercise"><h3>练习 {number}.1{permalink("exercise")}</h3>{entry["question"]}<details class="knowl solution" data-print-open><summary>展开解答与检查</summary><div class="knowl-content">{entry["answer"]}</div></details></section>
+{proof_block(entry)}{related}{media}</article>'''
+    items=headings+([("interactive","交互图")] if demo else [])+[("statement","数学表述"),("example","例题"),("exercise","练习"),("proof","Lean 对照"),("original","原课对照")]
+    local='<nav class="page-outline" aria-label="本节导航"><h2>本节内容</h2>'+''.join(f'<a href="#{a}">{esc(t)}</a>' for a,t in items)+'</nav>'
+    render(f"lessons/{slug}.html",number+" "+entry["title"],body,slug,"../","lesson",local)
+    search.append({"slug":slug,"number":number,"title":entry["title"],"chapter":GROUPS[cid][0],"english":lesson["title"],
+                   "text":plain(entry["guide_html"]+''.join(parts.values())+entry["scope"])})
+    # Keep the PDF's media fragments stable; webpage and PDF share the same TeX prose.
+    tex="\\begin{quote}\\small\\textbf{观课提示}\\quad "+prompt+"\n\n"
+    tex+="\\href{"+lesson.get("youtube",lesson["url"])+"}{"+("原课程视频" if vid else "官方图文课程")+"}\\quad\\href{"+BASE+"/lessons/"+slug+".html}{本节网页与媒体}"
+    if demo:tex+="\\quad\\href{"+BASE+"/lab.html\\#"+demo+"}{参数实验}"
+    tex+="\n\\end{quote}\n"
     if len(cfg)>2:
         scene=cfg[2]
-        tex += ("\\begin{figure}[htbp]\\centering\n\\includegraphics[width=0.98\\linewidth]{figures/"+scene+".png}\n"
-                "\\caption{"+CAPTIONS[scene]+"本项目原创 Manim 动画关键帧；完整动画与操作入口见本节网页。}\n\\end{figure}\n")
-    write(ROOT / f"notes/media/{slug}.tex", tex)
+        tex+=("\\begin{figure}[htbp]\\centering\n\\includegraphics[width=0.98\\linewidth]{figures/"+scene+".png}\n"
+              "\\caption{"+CAPTIONS[scene]+"本项目原创 Manim 动画关键帧；完整动画与操作入口见本节网页。}\n\\end{figure}\n")
+    write(ROOT/f"notes/media/{slug}.tex",tex)
 
-sections = []
-for cid, (name, desc) in GROUPS.items():
-    slugs = [s for s in ordered if entries[s]["chapter"] == cid]
-    if cid=="neural-networks":
-        slugs.insert(slugs.index("diffusion-models"),"cross-entropy")
-    links = "".join(f'<li><a href="lessons/{s}.html">{esc(entries[s]["title"])}</a></li>' for s in slugs)
-    sections.append(f'<section class="course"><h2>{name}</h2><p>{desc}</p><ol>{links}</ol></section>')
-body = f'''<header class="topbar"><a class="brand" href="index.html">3B1B <span>中文导学</span></a><nav>
-<a href="lab.html">交互实验室</a><a href="https://raw.githubusercontent.com/VitaeL04213/3blue1brown-notes/main/dist/3blue1brown-notes-zh.pdf">下载 PDF</a>
-<a href="https://github.com/VitaeL04213/3blue1brown-notes">GitHub</a></nav></header>
-<main id="main"><section class="hero"><div class="eyebrow">从看懂，到自己推出来</div>
-<h1>把数学直觉<br>连成一条推理的路。</h1>
-<p>从问题开始，跟随图像与文字一步步建立概念，再用算例、练习和 Lean 命题检查理解。</p>
-<a class="button" href="lessons/vectors.html">开始阅读 →</a> <a class="text-link" href="lab.html">先做一个实验</a>
-<div class="stats"><span><b>6</b> 组课程</span><span><b>66</b> 个条目</span><span><b>9</b> 组动画与实验</span><span><b>67</b> 个 Lean 定理</span></div></section>
-<section class="reading-guide"><h2>一节课，四次主动思考</h2><p>先阅读问题与引导推导；暂停并预测图形会怎样变化；观看原课或调整实验参数；最后遮住答案完成自测，再检查形式化命题的条件。</p>
-<p>本书依据课程主题独立组织中文讲解、例子与推导，不是逐字字幕译文。官方目录快照为 2026-10-24；交叉熵在两组课程中共享，公告页作为导读。Lean 只覆盖逐课标明的命题。</p></section>
-<div class="course-grid">{''.join(sections)}</div></main>'''
-write(DOCS/"index.html",shell("从直觉到证明",body))
+def contents_list(cid,prefix=''):
+    links=''.join(f'<li><a href="{prefix}lessons/{s}.html"><span>{entries[s]["number"]}</span>{esc(entries[s]["title"])}</a></li>' for s in chapter_slugs[cid])
+    return '<ol class="section-list">'+links+'</ol>'
+
+for i,(cid,(name,desc)) in enumerate(GROUPS.items(),1):
+    meta=BOOK[cid]
+    review=tex_html((ROOT/f"notes/reviews/{cid}.tex").read_text(encoding="utf-8"))
+    review=re.sub(r'<h1\b[^>]*>(.*?)</h1>',r'<h2>\1</h2>',review)
+    related='<p class="related-reading">本章也参照 <a href="../lessons/cross-entropy.html">6.2 交叉熵</a>，共用第六章的完整讲解。</p>' if cid=='neural-networks' else ''
+    body=f'''<div class="breadcrumbs"><a href="../index.html">本书</a><span>›</span>第 {i} 章</div><header class="section-header"><p class="section-label">第 {i} 章</p><h1>{name}</h1><p class="chapter-subtitle">{meta["subtitle"]}</p></header>
+<article class="chapter-introduction">{''.join('<p>'+esc(p)+'</p>' for p in meta['paragraphs'])}<div class="objectives"><h2>本章学习目标</h2><ul>{''.join('<li>'+esc(g)+'</li>' for g in meta['goals'])}</ul><p><strong>准备知识：</strong>{esc(meta['prerequisites'])}</p></div>
+<h2 id="sections">本章各节{permalink("sections")}</h2>{contents_list(cid,'../')}{related}
+<section class="chapter-review" id="review">{review}</section></article>'''
+    render(f"chapters/{cid}.html",f"第 {i} 章 {name}",body,cid,"../","chapter")
+
+chapter_rows=''.join(f'<li><a href="chapters/{cid}.html"><span>第 {i} 章</span><strong>{name}</strong><small>{BOOK[cid]["subtitle"]}</small></a></li>' for i,(cid,(name,_)) in enumerate(GROUPS.items(),1))
+front=f'''<section class="titlepage"><p class="book-kicker">一本可以阅读、操作与验证的数学教材</p><h1>从直觉到证明</h1><p class="book-subtitle">3Blue1Brown 官方课程序列 · 中文导学教材</p><p class="book-edition">LaTeX · Lean · Manim</p><div class="title-rule"></div><p class="book-description">从向量与变化出发，连接微积分、神经网络与数学建模。<br>让一幅图引出一个问题，让一段推导回答它。</p><p class="cover-actions"><a class="primary-link" href="chapters/linear-algebra.html">开始阅读第一章 →</a><a id="resume-reading" hidden>继续上次阅读</a></p><p class="edition-note">课程目录快照：2026 年 10 月 24 日 · 独立编写，非官方译本</p></section>
+<section class="front-section" id="reading"><h2>如何阅读这本书</h2><p>先沿着正文中的问题推进，尝试在下一段揭示结果前完成推理。遇到交互图，先预测参数改变后的现象，再动手检验。例题、练习解答与 Lean 证明可按需展开；这让阅读、练习和核对各有自己的节奏。</p><p>左侧目录显示全书六章，页首与页末可以连续翻页。检索框支持中文概念与原课英文标题。正文中的编号和段落链接可以直接引用；手机上使用“目录与搜索”打开导航。</p><p>初学者可先从第五章补齐代数、三角与复数，再依次学习第一、二章。已经掌握这些基础的读者可以直入第三、四章，遇到交叉熵时转到第六章。</p></section>
+<section class="front-section"><h2>全书六章</h2><ol class="chapter-list">{chapter_rows}</ol><p><a href="contents.html">查看展开的完整目录 →</a></p></section>
+<section class="front-section"><h2>图像、论述与证明</h2><p>66 个独立课程条目共用 LaTeX 正文，配有 9 组原创 Manim 动画和参数实验。原课程通过 61 个视频入口与 5 个图文入口引用。交叉熵同时服务神经网络与压缩主题，统一在第 6.2 节讲解。</p><p>67 个 Lean 命题的形式化范围在各节标明。图形帮助发现规律，纸笔推导说明理由，形式证明核对指定命题的条件；三者相互支持。<a href="references.html">阅读来源与证明范围</a>。</p><p class="design-credit">网页阅读结构参考 <a href="https://textbooks.math.gatech.edu/ila/">Interactive Linear Algebra</a> 的章节目录、行内展开与交互图组织方式。</p></section>'''
+render("index.html","扉页与阅读说明",front,"index")
+toc='<header class="section-header"><p class="section-label">全书目录</p><h1>从直觉到证明</h1><p>按章展开的完整阅读路径。每一节同时保留原课程入口与证明对照。</p></header>'
+for i,(cid,(name,_)) in enumerate(GROUPS.items(),1):
+    toc+=f'<section class="contents-chapter"><h2><a href="chapters/{cid}.html">第 {i} 章　{name}</a></h2>{contents_list(cid)}</section>'
+render("contents.html","全书目录",toc,"contents")
+references=f'''<header class="section-header"><p class="section-label">附录</p><h1>来源、证明范围与许可</h1></header><article>
+<h2 id="sources">原课程与编写方式</h2><p>本书围绕 <a href="https://www.3blue1brown.com/">3Blue1Brown</a> 的官方课程序列独立组织中文讲解、例子与推导。原作者为 Grant Sanderson 与署名合作者；扩散模型客座课程署名 Stephen Welch / Welch Labs。</p><p>每节“原课对照”保留对应的官方页面、视频和观课问题。未单列视频的条目直接链接官方图文，不另造视频对应关系。原视频按需连接外部播放器；教材正文、原创动画和实验可随仓库离线阅读。</p>
+<h2 id="formalization">Lean 证明的范围</h2><p>65 节数学课有形式化对照，公告页作为导读。67 个命名定理经过 Lean 检查，没有未完成证明或自设公理。某些命题是一般定理，某些是局部恒等式或特例；每节展开框明确说明已经证明什么，以及哪些内容仍是纸笔推导。</p><p>例如幂塔命题说明收敛时的极限满足不动点条件，不独自保证迭代收敛；热方程的有限模式计算不替代任意初值的存在性或傅里叶收敛理论。网络机制的代数关系也不等于对生成质量和泛化能力的保证。</p><p><a href="{REPO}/blob/main/FORMALIZATION.md">逐课形式化清单</a> · <a href="{REPO}/blob/main/VALIDATION.md">验证记录</a> · <a href="{REPO}/actions">自动构建结果</a></p>
+<h2 id="editions">网页与 PDF</h2><p>网页把教材组织成六章与连续编号的小节，提供行内解答、证明与交互图。PDF 适合连续阅读与打印；动画和参数操作通过书中的链接进入网页。二者共用核心 TeX 正文，网页另增章节导言与阅读导航。</p><p><a href="{PDF}">下载 PDF 教材</a> · <a href="{REPO}">下载 LaTeX、Lean 与 Manim 源码</a></p>
+<h2 id="license">署名与许可</h2><p>本项目的原创讲解、证明、动画和实验采用 MIT 许可。外部视频与原课图示的权利归原作者，通过官方播放器和原链接引用。本书与原课程没有官方隶属关系。</p><p>网页阅读形式参考 Dan Margalit 与 Joseph Rabinoff 编写的 <a href="https://textbooks.math.gatech.edu/ila/">Interactive Linear Algebra</a>。本网站使用独立实现的界面与本项目的教材内容。</p><p><a href="{REPO}/issues">反馈与勘误</a></p></article>'''
+render("references.html","来源与证明范围",references,"references")
+
+lab='''<header class="section-header lab-intro"><p class="section-label">交互图索引</p><h1>数学实验室</h1><p>先预测，再改变一个参数，用正文中的公式解释结果。</p></header><div class="lab-layout"><nav class="lab-menu" aria-label="实验选择" id="lab-menu"></nav><section class="lab-stage"><h2 id="title"></h2><p id="question"></p><canvas id="plot" width="900" height="460" role="img" aria-label="数学实验图形；下方提供参数与计算结果"></canvas><p class="legend" id="legend"></p><div class="controls" id="controls"></div><div class="actions"><button id="play" aria-pressed="false">播放变化</button><button id="reset" class="secondary">重置参数</button></div><div class="readout" id="readout" role="status" aria-live="polite"></div><div class="lab-note"><h3>怎样解释观察</h3><p id="explanation"></p><p id="limits"></p></div><p id="lesson-link"></p><details class="animation-details lab-video"><summary>配套 Manim 动画</summary><video id="movie" controls playsinline preload="metadata"></video><p class="caption" id="movie-caption"></p><a id="movie-download" download>下载 MP4</a></details></section></div><noscript>交互实验需要 JavaScript。正文、原课链接与 MP4 动画可独立阅读或播放。</noscript>'''
+render("lab.html","交互图索引",lab,"lab",kind="lab",scripts='<script src="assets/models.js" defer></script><script src="assets/lab.js" defer></script>')
+write(DOCS/"assets/search-index.js","window.BookSearch = "+json.dumps(search,ensure_ascii=False,separators=(',',':'))+";\n")
 write(DOCS/".nojekyll","")
+for name in SCENES.values():
+    shutil.copy2(ROOT/f"notes/figures/{name}.png",DOCS/f"media/{name}.png")
+    assert (DOCS/f"media/{name}.mp4").stat().st_size>1000
 write(ROOT/"validation/textbook-structure.json",json.dumps({
- "lesson_pages":len(entries),"guides":len(entries),"original_video_links":sum(bool(l.get("video")) for l in LESSONS.values()),
+ "lesson_pages":len(entries),"chapter_pages":6,"guides":len(entries),"numbered_sections":len(entries),
+ "original_video_links":sum(bool(l.get("video")) for l in LESSONS.values()),
  "manim_animations":len(SCENES),"interactive_experiments":len(SCENES),
+ "inline_experiment_locations":sum(bool(c[1]) for c in MEDIA.values() if len(c)>1),
  "guided_prose_characters":sum(e["guide_characters"] for e in entries.values()),
  "minimum_guided_prose_characters":min(e["guide_characters"] for e in entries.values()),
  "per_lesson":{s:e["guide_characters"] for s,e in entries.items()},
 },ensure_ascii=False,indent=2)+"\n")
-print(f"Built {len(entries)} reading pages, PDF media links, and index.")
+print(f"Built {len(entries)} numbered sections, 6 chapter introductions, front matter, search, and inline figures.")

@@ -63,7 +63,7 @@ let view;
 function xy(x,y){return [75+(x-view[0])/(view[1]-view[0])*750,390-(y-view[2])/(view[3]-view[2])*340];}
 function line(x1,y1,x2,y2,color,width=2,dash=[]){let a=xy(x1,y1),b=xy(x2,y2);ctx.beginPath();ctx.setLineDash(dash);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke();ctx.setLineDash([]);}
 function dot(x,y,color,r=5){ctx.beginPath();ctx.fillStyle=color;ctx.arc(...xy(x,y),r,0,2*Math.PI);ctx.fill();}
-function text(x,y,s,color=C.white){ctx.fillStyle=color;ctx.font="17px sans-serif";ctx.fillText(s,x,y);}
+function text(x,y,s,color=C.white){ctx.fillStyle=color;ctx.font=(canvas.clientWidth<500?30:17)+"px sans-serif";if(x===8)ctx.fillText(s,x,y,62);else ctx.fillText(s,x,y);}
 function frame(x0,x1,y0,y1){
  view=[x0,x1,y0,y1];ctx.clearRect(0,0,900,460);ctx.fillStyle="#101e31";ctx.fillRect(0,0,900,460);
  for(let i=0;i<=4;i++){const x=x0+(x1-x0)*i/4,y=y0+(y1-y0)*i/4;
@@ -129,7 +129,7 @@ function draw(){
 }
 function stop(){playing=false;cancelAnimationFrame(raf);$("play").textContent="播放变化";$("play").setAttribute("aria-pressed","false");}
 function select(){
- stop();current=location.hash.slice(1);if(!demos[current])current="linear";const d=demos[current];values={};
+ stop();current=location.hash.slice(1);if(!Object.hasOwn(demos,current))current="linear";const d=demos[current];values={};
  for(const [key,label,min,max,step,initial] of d.controls)values[key]=initial;
  $("title").textContent=d.title;$("question").textContent=d.question;$("explanation").textContent=d.explanation;$("limits").textContent=d.limits;$("legend").textContent=d.legend;
  $("plot").setAttribute("aria-label",d.title+"。"+d.legend+"。下方实时显示计算结果。");
@@ -158,3 +158,11 @@ $("play").addEventListener("click",()=>{
  raf=requestAnimationFrame(tick);
 });
 window.addEventListener("hashchange",select);select();
+new ResizeObserver(()=>draw()).observe(canvas);
+// Embedded figures report their content height so reading never requires a nested scrollbar.
+if(new URLSearchParams(location.search).get("embed")==="1"){
+ let reported=0;
+ const report=()=>{const height=Math.ceil(document.querySelector("main").getBoundingClientRect().height)+8;
+  if(Math.abs(height-reported)>2){reported=height;parent.postMessage({type:"3b1b-lab-size",height},location.origin==="null"?"*":location.origin);}};
+ new ResizeObserver(report).observe(document.querySelector("main"));report();
+}

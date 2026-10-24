@@ -1,9 +1,12 @@
 {
   "lesson_pages": 66,
+  "chapter_pages": 6,
   "guides": 66,
+  "numbered_sections": 66,
   "original_video_links": 61,
   "manim_animations": 9,
   "interactive_experiments": 9,
+  "inline_experiment_locations": 38,
   "guided_prose_characters": 25438,
   "minimum_guided_prose_characters": 328,
   "per_lesson": {
