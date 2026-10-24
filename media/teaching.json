@@ -1,0 +1,247 @@
+{
+  "vectors": [
+    "先观察同一个箭头平移后哪些性质保持，再把向量相加解释成两段位移的合成。",
+    "linear"
+  ],
+  "span": [
+    "改变线性组合系数时，终点能到达哪里？特别留意两根基向量共线后的变化。",
+    "linear"
+  ],
+  "linear-transformations": [
+    "先盯住两根基向量，再预测任意格点的去向；解释矩阵为什么按列记录这些信息。",
+    "linear",
+    "LinearMap"
+  ],
+  "matrix-multiplication": [
+    "分别跟踪先剪切后缩放与先缩放后剪切，找出两种结果最早出现差异的步骤。",
+    "linear"
+  ],
+  "3d-transformations": [
+    "观察三根基向量如何确定三维动作，并检查旋转时长度是否保持。"
+  ],
+  "determinant": [
+    "追踪单位方形的有向面积，区分剪切、反射和压扁这三种情况。",
+    "linear"
+  ],
+  "inverse-matrices": [
+    "找出哪些输入会落到同一个输出，并用零空间解释这种信息丢失。",
+    "linear"
+  ],
+  "nonsquare-matrices": [
+    "先数清输入与输出维度，再观察投影丢掉了哪一个方向。"
+  ],
+  "dot-products": [
+    "把点积看成投影测量，留意尺子的长度如何影响读数。"
+  ],
+  "cross-products": [
+    "同时检查叉积的垂直方向、面积大小和输入顺序改变后的符号。"
+  ],
+  "cross-products-extended": [
+    "固定底面，改变第三条边，解释哪些变化影响有向体积。"
+  ],
+  "cramers-rule": [
+    "留意替换一列怎样消去另一份系数，并用面积比解释求解公式。"
+  ],
+  "change-of-basis": [
+    "区分向量在空间中的位置与其坐标，按翻译、作用、翻译回来的顺序阅读公式。",
+    "linear"
+  ],
+  "eigenvalues": [
+    "先预测哪些方向会保持在原直线上，再检查这些方向能否组成一组基。",
+    "linear"
+  ],
+  "quick-eigen": [
+    "把两根写成中心加减偏移，核对迹和行列式分别提供了什么信息。"
+  ],
+  "abstract-vector-spaces": [
+    "把函数当成向量，跟踪求导对每个基函数的作用。"
+  ],
+  "essence-of-calculus": [
+    "观察面积拆分中的小块近似，指出误差在哪里、为什么会随着切分变细而减小。",
+    "integral"
+  ],
+  "derivatives": [
+    "从两侧让非零步长接近零，分别观察割线与切线。",
+    "derivative",
+    "Derivative"
+  ],
+  "derivatives-power-rule": [
+    "找出新增面积或体积的一阶部分，并说明哪些角落在差商极限中消失。",
+    "derivative"
+  ],
+  "derivatives-trig-functions": [
+    "把圆周运动的速度投影到两个坐标轴，解释导数的正负号。",
+    "complex"
+  ],
+  "chain-rule-and-product-rule": [
+    "比较矩形两边同时变化与两级变化串联，辨认为什么一个相加、一个相乘。",
+    "derivative"
+  ],
+  "eulers-number": [
+    "把底数与局部相对增长率对应起来，区分离散增长和连续增长。"
+  ],
+  "implicit-differentiation": [
+    "沿约束曲线移动，观察两个坐标必须如何互相补偿，并留意垂直切线。"
+  ],
+  "limits": [
+    "区分函数在点上的值与附近的趋势，检查左右靠近是否得到同一结果。",
+    "derivative"
+  ],
+  "epsilon-delta": [
+    "先指定输出误差，再寻找统一有效的输入范围；不能只验证几个样本。"
+  ],
+  "l-hopitals-rule": [
+    "先识别未定式，再追踪分子分母的消失速度，记录适用条件。"
+  ],
+  "integration": [
+    "观察小矩形累积以及误差方向，再把积分解释成端点变化。",
+    "integral",
+    "Integral"
+  ],
+  "area-and-slope": [
+    "移动面积边界，只看新添窄带，说明平均高度为什么趋向边界高度。",
+    "integral"
+  ],
+  "higher-order-derivatives": [
+    "分别解释函数值、斜率和斜率的变化，寻找下降但向上弯曲的例子。"
+  ],
+  "taylor-series": [
+    "逐次匹配值、斜率和更高导数，观察近似在离开中心后怎样变化。",
+    "taylor",
+    "Taylor"
+  ],
+  "taylor-series-geometric-view": [
+    "把二阶修正看成一块有向三角形，说明什么时候是精确面积。",
+    "taylor"
+  ],
+  "derivatives-and-transforms": [
+    "把函数看成数轴上点的移动，判断局部间距的放大与反向。",
+    "derivative"
+  ],
+  "divergence-and-curl": [
+    "同时放入小方框和小桨轮，分别判断净流出与局部环流。"
+  ],
+  "neural-networks": [
+    "区分输入、权重和激活，并解释为什么连续仿射层需要非线性才有新的表达能力。"
+  ],
+  "gradient-descent": [
+    "先预测不同学习率下是靠近、振荡还是发散，再运行同一个二次损失实验。",
+    "gradient",
+    "GradientDescent"
+  ],
+  "neural-network-analysis": [
+    "把对神经元的解释当成待检验假设，观察输入扰动是否支持它。"
+  ],
+  "backpropagation": [
+    "沿每条影响路径相乘，在汇合处相加，留意共享参数不能漏掉分支。",
+    "gradient"
+  ],
+  "backpropagation-calculus": [
+    "分开计算损失、激活与权重之间的局部导数，最后检查符号和矩阵形状。",
+    "gradient"
+  ],
+  "mini-llm": [
+    "追踪一次预测、采样和追加上下文，区分单步概率与整段序列概率。",
+    "attention"
+  ],
+  "gpt": [
+    "沿着数据形状走过嵌入、注意力、前馈和输出分数，检查 Softmax 的归一化。",
+    "attention"
+  ],
+  "attention": [
+    "分别追踪查询、键和值，观察分数如何变成每行和为一的权重。",
+    "attention",
+    "Attention"
+  ],
+  "mlp": [
+    "区分检测方向与写回方向，用一个通道的外积理解两次线性作用。"
+  ],
+  "diffusion-models": [
+    "区分已知噪声时的代数反演与实际模型估计噪声的统计任务。"
+  ],
+  "differential-equations": [
+    "先从状态画速度箭头，再讨论轨迹；不要把方向场当成唯一性证明。"
+  ],
+  "pdes": [
+    "观察中心相对邻居的高低，解释为什么温度变化由空间二阶差分决定。",
+    "heat"
+  ],
+  "heat-equation": [
+    "比较低频和高频模式，预测哪一项先衰减，再核对边界条件。",
+    "heat",
+    "FourierHeat"
+  ],
+  "fourier-series": [
+    "把信号与反向旋转相乘，观察匹配频率如何留下非零平均。",
+    "heat"
+  ],
+  "complex-exponents": [
+    "同时观察位置和速度方向，分别解释指数实部和虚部的作用。",
+    "complex"
+  ],
+  "laplace-transform": [
+    "比较旋转与衰减两个参数，留意公式的收敛域不能省略。"
+  ],
+  "laplace-for-odes": [
+    "逐步记录分部积分产生的初值项，最后将反演结果代回原方程。"
+  ],
+  "eulers-formula-dynamically": [
+    "暂停在四分之一圈和半圈，读取复平面坐标并解释欧拉恒等式。",
+    "complex",
+    "ComplexRotation"
+  ],
+  "matrix-exponents": [
+    "把矩阵理解为速度规则，使用平方零例子区分矩阵指数与逐元素指数。",
+    "linear"
+  ],
+  "exponential-and-epidemics": [
+    "区分数量、增长量和相对增长率，检查指数模型何时需要容量限制。"
+  ],
+  "lockdown-math-announcement": [
+    "把公告作为学习路线导读，记录后续每个新概念解决了什么问题。"
+  ],
+  "ldm-quadratic": [
+    "先找两根的平均值，再求偏移；用根的和与积核对答案。"
+  ],
+  "ldm-trigonometry": [
+    "从单位圆读出符号和投影，把和角公式理解成两次旋转。",
+    "complex"
+  ],
+  "ldm-complex-numbers": [
+    "比较坐标展开与旋转缩放两种乘法解释，检查倒数如何撤销动作。",
+    "complex"
+  ],
+  "ldm-eulers-formula": [
+    "观察指数的加法规则怎样对应旋转复合，同时记住整圈周期性。",
+    "complex"
+  ],
+  "ldm-imaginary-interest": [
+    "仔细区分有限切向步与精确圆周运动，追踪有限步的模长误差。",
+    "complex"
+  ],
+  "ldm-logarithms": [
+    "把对数读作倍率对应的指数，并检查底数与真数条件。"
+  ],
+  "ldm-natural-logs": [
+    "比较相同绝对增长与相同比例增长，用倒数面积解释对数尺度。"
+  ],
+  "ldm-power-towers": [
+    "先定义有限迭代，再检查收敛；区分不动点方程与稳定性。"
+  ],
+  "ldm-i-to-i": [
+    "写清选择的复对数分支，再进行指数运算，追踪整圈角度的信息。",
+    "complex"
+  ],
+  "ldm-tips-to-problem-solving": [
+    "寻找能减少未知信息的表示，并在得到答案后返回原问题检查可行性。"
+  ],
+  "entropy": [
+    "对比确定来源与公平二元来源，区分理想平均长度和单符号整数码长。",
+    "entropy",
+    "Entropy"
+  ],
+  "cross-entropy": [
+    "固定真实分布，只改变模型分布，观察多出的平均编码代价。",
+    "entropy"
+  ]
+}

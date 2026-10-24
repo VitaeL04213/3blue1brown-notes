@@ -1,0 +1,72 @@
+{
+  "experiments": [
+    {
+      "experiment": "linear",
+      "controls": true,
+      "play_pause": true,
+      "reset": true,
+      "mp4_metadata": true
+    },
+    {
+      "experiment": "derivative",
+      "controls": true,
+      "play_pause": true,
+      "reset": true,
+      "mp4_metadata": true
+    },
+    {
+      "experiment": "integral",
+      "controls": true,
+      "play_pause": true,
+      "reset": true,
+      "mp4_metadata": true
+    },
+    {
+      "experiment": "gradient",
+      "controls": true,
+      "play_pause": true,
+      "reset": true,
+      "mp4_metadata": true
+    },
+    {
+      "experiment": "attention",
+      "controls": true,
+      "play_pause": true,
+      "reset": true,
+      "mp4_metadata": true
+    },
+    {
+      "experiment": "heat",
+      "controls": true,
+      "play_pause": true,
+      "reset": true,
+      "mp4_metadata": true
+    },
+    {
+      "experiment": "complex",
+      "controls": true,
+      "play_pause": true,
+      "reset": true,
+      "mp4_metadata": true
+    },
+    {
+      "experiment": "entropy",
+      "controls": true,
+      "play_pause": true,
+      "reset": true,
+      "mp4_metadata": true
+    },
+    {
+      "experiment": "taylor",
+      "controls": true,
+      "play_pause": true,
+      "reset": true,
+      "mp4_metadata": true
+    }
+  ],
+  "responsive_width": 390,
+  "javascript_errors": [],
+  "official_embed_url_checked": true,
+  "external_youtube_playback_verified": false,
+  "note": "External playback depends on network/YouTube policy; original links remain available."
+}

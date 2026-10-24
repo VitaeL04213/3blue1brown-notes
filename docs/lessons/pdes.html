@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>偏微分方程与热扩散 · 3Blue1Brown 中文导学</title><meta name="description" content="通过引导推导、原课程视频、原创 Manim 动画与参数实验重建数学理解。">
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#main">跳到正文</a><header class="topbar"><a class="brand" href="../index.html">3B1B <span>中文导学</span></a><nav><a href="../index.html">教材目录</a><a href="../lab.html">交互实验室</a><a href="https://raw.githubusercontent.com/VitaeL04213/3blue1brown-notes/main/dist/3blue1brown-notes-zh.pdf">下载 PDF</a></nav></header>
+<main id="main" class="reading"><div class="eyebrow">微分方程 / 46</div>
+<h1>偏微分方程与热扩散</h1><p class="lead">观察中心相对邻居的高低，解释为什么温度变化由空间二阶差分决定。</p>
+<article><h2 class="unnumbered" id="状态不再是几个数而是一整条曲线">状态不再是几个数，而是一整条曲线</h2>
+<p>一根杆在各位置有不同温度，所以状态是温度分布 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">u(x,t)</annotation></semantics></math>。时间改变时，整条曲线都变。偏导数让我们分别固定位置观察时间变化，或固定时间观察空间变化，两者承担不同物理角色。</p>
+<p>为什么热方程出现空间二阶导数，而不是温度本身？一个位置比两侧邻居都热，就会向两侧散热；比邻居冷则吸热。决定变化的是中心相对于邻域平均的偏离。三点模型给出 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mn>2</mn><mi>u</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>u</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>+</mo><mi>h</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">u(x-h)-2u(x)+u(x+h)</annotation></semantics></math>，除以 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>h</mi><mn>2</mn></msup><annotation encoding="application/x-tex">h^2</annotation></semantics></math> 后趋向曲率。</p>
+<h2 class="unnumbered" id="空间斜率与温度变化之间隔着一层差分">空间斜率与温度变化之间隔着一层差分</h2>
+<p>在常系数模型中，热通量与负温度梯度成正比；某点温度变化来自流入与流出的差，所以对通量再取一次空间变化，便得到二阶导数。线性温度分布虽然有热流，但各小段流入流出平衡，内部温度可以暂时不变。</p>
+<p>端点怎样处理会改变整个问题。保持端点温度固定，与隔热端点无热流，是不同边界条件；同一个初始曲线在不同边界下会演化不同。只给方程而不给初始和边界信息，通常不足以选出具体解。</p>
+<p>若做离散模拟，还要检查时间步稳定性。把空间分得更细却不相应调整时间步，可能让数值解振荡甚至爆炸，那不一定是物理现象。接下来我们寻找一些形状简单、能精确追踪的模式，用来解释也用来校验模拟。</p>
+</article><section class="media-panel"><h2>先预测，再动手验证</h2>
+<p><a class="button" href="../lab.html#heat">打开 傅里叶与热扩散 →</a></p>
+<h3>原创 Manim 动画</h3>
+<video controls playsinline preload="none" poster="../media/FourierHeat.png" aria-label="周期边界下，低频（蓝）与高频（黄）以不同速度衰减，白线为总和。">
+<source src="../media/FourierHeat.mp4" type="video/mp4">请使用支持 MP4 的浏览器。</video>
+<p class="caption">周期边界下，低频（蓝）与高频（黄）以不同速度衰减，白线为总和。 无音频；画面中的文字与此说明提供等价信息。</p>
+<a href="../media/FourierHeat.mp4" download>下载 MP4</a> · <a href="../media/FourierHeat.gif" download>下载 GIF 动图</a></section><section class="media-panel" aria-label="原课程视频">
+<h2>带着问题看原课</h2><p>观察中心相对邻居的高低，解释为什么温度变化由空间二阶差分决定。</p>
+<p><a href="https://www.youtube.com/watch?v=ly4S0oi3Yz8" target="_blank" rel="noopener">在 YouTube 打开原视频 ↗</a> ·
+<a href="https://www.3blue1brown.com/lessons/pdes/" target="_blank" rel="noopener">官方课程页面 ↗</a></p>
+<button class="load-video" data-video="ly4S0oi3Yz8">加载原课程播放器</button>
+<div class="embed-slot"></div><small>点击后加载 YouTube 播放器，需要网络；若无法播放，可使用上方原链接。</small></section>
+<article><h2 class="unnumbered" id="要点回看">要点回看</h2>
+<p>温度同时依赖位置和时间。热从较热处流向较冷处，局部的“比邻居更高还是更低”决定温度怎样变化。</p>
+<h2 class="unnumbered" id="数学表述">数学表述</h2>
+<p>一维均匀介质模型为 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>t</mi></msub><mo>=</mo><mi>κ</mi><msub><mi>u</mi><mrow><mi>x</mi><mi>x</mi></mrow></msub></mrow><annotation encoding="application/x-tex">u_t=\kappa u_{xx}</annotation></semantics></math>，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>κ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\kappa&gt;0</annotation></semantics></math>。离散空间中， <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mrow><mi>x</mi><mi>x</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mfrac><mrow><mi>u</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mn>2</mn><mi>u</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>u</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>+</mo><mi>h</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><msup><mi>h</mi><mn>2</mn></msup></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">u_{xx}(x)\approx\frac{u(x-h)-2u(x)+u(x+h)}{h^2}.</annotation></semantics></math> 这个二阶差分是局部平均恢复趋势的代数版本。</p>
+<h2 class="unnumbered" id="完整算例">完整算例</h2>
+<p>邻点温度为 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>,</mo><mn>10</mn><mo>,</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">4,10,6</annotation></semantics></math>，中心二阶差分分子为 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">-10</annotation></semantics></math>，所以中心倾向降温。若为 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">6,2,8</annotation></semantics></math>，分子为 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>，中心倾向升温。</p>
+<h2 class="unnumbered" id="检查误区">检查误区</h2>
+<p>需要给初始温度分布及边界条件；固定端温度与绝热边界是不同问题。显式数值时间步也受稳定性限制。</p>
+<h2 class="unnumbered" id="自测与答案">自测与答案</h2>
+<p>为什么两个解相加仍满足齐次热方程？时间导数与空间二阶导数都线性。</p>
+<h2 class="unnumbered" id="lean-证明与边界">Lean 证明与边界</h2>
+<p>验证三点二阶差分算子对相加的线性性；连续 PDE 的分析及离散极限未由此命题覆盖。</p>
+</article><p class="proof-link">证明源码：<a href="https://github.com/VitaeL04213/3blue1brown-notes/blob/main/ThreeBlueOneBrown/DifferentialEquations.lean">DifferentialEquations.heat_stencil</a></p>
+<nav class="pagination"><a href="differential-equations.html">← 微分方程与向量场</a><a href="heat-equation.html">用基本模式求解热方程 →</a></nav></main>
+<footer>独立中文导学教材 · 原课程：Grant Sanderson / 3Blue1Brown 及署名合作者 ·
+<a href="https://github.com/VitaeL04213/3blue1brown-notes">源码与 Lean 证明</a> ·
+原创讲解与图示采用 MIT；外部原视频的权利归原作者。</footer><script src="../assets/reader.js" defer></script></body></html>

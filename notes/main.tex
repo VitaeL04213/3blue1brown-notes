@@ -1,20 +1,20 @@
 \documentclass[UTF8,11pt,oneside,fontset=fandol]{ctexbook}
 \usepackage[a4paper,margin=25mm,headheight=15pt]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools,bm}
-\usepackage{booktabs,longtable,array,xcolor,tikz,fancyhdr}
+\usepackage{booktabs,longtable,array,xcolor,tikz,fancyhdr,graphicx}
 \usetikzlibrary{arrows.meta,positioning,calc}
 \definecolor{ink}{HTML}{17324D}
 \definecolor{blue}{HTML}{166C9D}
 \definecolor{brown}{HTML}{A46935}
 \usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue,bookmarksnumbered=true,hypertexnames=false]{hyperref}
 \usepackage{bookmark}
-\hypersetup{pdftitle={3Blue1Brown 中文数学笔记：LaTeX 与 Lean},pdfauthor={VitaeL04213}}
+\hypersetup{pdftitle={3Blue1Brown 中文导学教材：从直觉到证明},pdfauthor={VitaeL04213}}
 \setlength{\parskip}{0.35em}
 \setlength{\parindent}{2em}
 \setlength{\emergencystretch}{3em}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small 3Blue1Brown 中文数学笔记}
+\fancyhead[L]{\small 3Blue1Brown 中文导学教材}
 \fancyhead[R]{\small\nouppercase{\leftmark}}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
@@ -25,14 +25,17 @@
 \newcommand{\ii}{\mathrm i}
 \newcommand{\lesson}[3]{\section{#2}\label{lesson:#1}
   {\small\noindent\href{https://www.3blue1brown.com/lessons/#1/}{官方课程：\nolinkurl{#1}}\par}
-  \def\currentlean{#3}}
-\newcommand{\idea}{\paragraph{概念与直觉}}
-\newcommand{\mathpart}{\paragraph{数学表述}}
-\newcommand{\examplepart}{\paragraph{算一遍}}
+  \def\currentlean{#3}
+  \input{guides/#1}
+  \input{media/#1}}
+\newcommand{\idea}{\subsection*{要点回看}\paragraph{核心概念}}
+\newcommand{\mathpart}{\paragraph{整理成数学语言}}
+\newcommand{\examplepart}{\paragraph{完整算例}}
 \newcommand{\pitfall}{\paragraph{易错点}}
 \newcommand{\exercise}{\paragraph{自测与答案}}
 \newcommand{\leanpart}[1]{\paragraph{Lean 对照}{\small\expandafter\nolinkurl\expandafter{\currentlean}}\par #1}
-\newcommand{\nextlesson}{\clearpage}
+\newcommand{\nextlesson}{\par\medskip}
+\newcommand{\chapterreview}[1]{\par\noindent\begin{minipage}{\linewidth}\input{reviews/#1}\end{minipage}\par}
 \begin{document}
 \begin{titlepage}
 \color{ink}
@@ -41,9 +44,9 @@
 \vspace{17mm}
 {\Huge\bfseries 3Blue1Brown\par}
 \vspace{5mm}
-{\Huge\bfseries 中文数学笔记\par}
+{\Huge\bfseries 中文导学教材\par}
 \vspace{8mm}
-{\LARGE LaTeX $+$ Lean 4\par}
+{\LARGE 引导论述 $\cdot$ 动画实验 $\cdot$ Lean 4\par}
 \vspace{15mm}
 \begin{tikzpicture}[scale=1.05,>=Stealth]
   \draw[step=0.5,gray!20,very thin] (-0.5,-0.5) grid (8,4);
@@ -56,13 +59,17 @@
   \draw[->,line width=1.6pt,ink] (0,0)--(7,3.5) node[above] {$T(u+v)$};
 \end{tikzpicture}
 \vfill
-{\large 6 组课程\quad 66 节独立课\quad 中文伴读与证明索引\par}
+{\large 6 组课程\quad 66 个条目\quad 从直觉到推导与验证\par}
 \vspace{6mm}
 {\large 目录快照：2026 年 10 月 24 日\par}
 {\normalsize 独立学习笔记；非 3Blue1Brown 官方出版物。\par}
 \end{titlepage}
 \frontmatter
 \chapter{阅读说明}
+每节先提出一个具体问题，再用连续论述解释为什么引入概念、怎样选择表示、如何逐步得到公式。正文之后的要点回看、算例与自测用于整理和检查理解。建议先遮住答案独立预测，再观看动画或改变实验参数，最后核对 Lean 命题中的假设；不要让观看替代推导。
+
+配套网页提供原课链接、61 个原视频播放器、9 组原创 Manim 动画和9 个可操作实验。另5个目录条目未单列视频，直接链接官方图文与图示。PDF 放入关键帧以及每课的原课、网页和相关实验入口；静态 PDF 不直接播放动画。网页地址：\url{https://vitael04213.github.io/3blue1brown-notes/}。观课提示定位应关注的概念；未核实的时间点不作标注。
+
 本书按官网五个课程型主题目录整理：线性代数、微积分、神经网络、微分方程及 Lockdown Math；另外纳入有明确集数的“压缩与智能”两集。官网把补充视频也放入这些目录，因此包含散度与旋度、拉普拉斯变换、扩散模型等扩展课。交叉熵同时属于两组，只写一次正文，并在另一处交叉引用。公告页作为学习导读计入，不人为编造数学定理。
 
 范围为该日期已经公开的上述课程序列，共 67 个目录位置、66 节独立课。未把官网“全部”中的每一个独立专题、演讲或外部频道视频算作课程，也不包含未来更新。逐条英文题名、发布日期、原课和视频链接见仓库的 \path{sources/catalog.json} 与 \path{COURSES.md}。
@@ -74,15 +81,21 @@
 
 有些 Lean 结果直接复用 mathlib 中已经证明的一般定理，有些是本书的坐标推导或具体例子。通过编译的含义是这些形式命题在 Lean 与 mathlib 的基础下成立；它不意味着视频的一切解释、统计经验或未形式化的分析结论都已经验证。没有使用 \texttt{sorry}、\texttt{admit}、自设公理或 \texttt{native\_decide}。精确的形式化覆盖表见 \path{FORMALIZATION.md}。
 
-建议先读直觉，遮住答案完成自测，再对照 Lean 签名里的假设。线性代数与微积分是神经网络和微分方程的先修；Lockdown Math 可先于它们阅读；信息论适合在概率基础之后阅读。遇到“只验证……”的条目，请把其余部分当作纸笔论证继续检查。
+先修路线：基础数学，然后线性代数与微积分，再读神经网络和微分方程；信息论适合在概率基础之后阅读。
 \tableofcontents
 \mainmatter
 \input{chapters/linear-algebra}
+\chapterreview{linear-algebra}
 \input{chapters/calculus}
+\chapterreview{calculus}
 \input{chapters/neural-networks}
+\chapterreview{neural-networks}
 \input{chapters/differential-equations}
+\chapterreview{differential-equations}
 \input{chapters/lockdown-math}
+\chapterreview{lockdown-math}
 \input{chapters/compression}
+\chapterreview{compression}
 \backmatter
 \chapter{来源与复现}
 原课程由 Grant Sanderson 及其署名合作者创作；扩散模型客座课程署名 Stephen Welch / Welch Labs。本书未附带原视频、原图、字幕全文或原网站正文。所有示意图均为本项目重绘的数学图形。

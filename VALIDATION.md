@@ -1,37 +1,36 @@
 # 验证记录
 
-验证日期：2026-10-24（Asia/Shanghai）。以下为本次交付的本地检查；后续提交的云端状态以 [GitHub Actions](https://github.com/VitaeL04213/3blue1brown-notes/actions) 为准。
+验证日期：2026-10-24（Asia/Shanghai）。本文件记录教材重构版的本地检查；提交对应的云端结果见 [GitHub Actions](https://github.com/VitaeL04213/3blue1brown-notes/actions)。
 
 | 检查 | 结果 |
 |---|---|
-| 官方课目录 | 6 组，67 个位置，66 节独立课 |
-| 官方页面读取 | 66 / 66 成功；记录不等同于观看视频 |
-| LaTeX 正文章节 | 66 / 66 有概念、公式、例题、易错点、自测答案与 Lean 边界 |
-| 数学课程对应 | 65 / 65 有形式命题，另 1 页公告明确豁免 |
-| Lean 构建 | `lake build` 成功，67 个命名定理；最终构建无警告 |
-| 未完成证明构造 | `sorry` / `admit` / 自设 `axiom` / `native_decide` 均未使用 |
-| 依赖公理审计 | 67 个定理已检查，仅出现 `propext`、`Classical.choice`、`Quot.sound` |
-| PDF | Tectonic 0.17.0 编译成功，72 页 A4 |
-| PDF 文本检查 | 无空白页，无替代字符，无 `??` 引用，146 个链接注释 |
-| PDF 视觉检查 | 已浏览 72 页缩略图，并放大检查公式密集页与最终修改页；未发现溢出、重叠或缺字 |
+| 官方目录覆盖 | 6 组、67 个目录位置、66 个独立条目 |
+| 引导讲解 | 66 份逐课正文、6 份章节综合推导；逐课引导部分共 25,438 个汉字，不含回顾、算例与综合练习 |
+| 原课引用 | 61 个官方视频播放器；另 5 个条目使用官方图文入口 |
+| 网页公式 | 1,426 个原生 MathML 表达式，无未渲染 TeX |
+| 站内资源 | 66 个阅读页面、动画、关键帧和本地链接均通过完整性检查 |
+| Manim | 9 段 720p / 30 fps MP4 已实际渲染，另提供 9 个 GIF |
+| 参数实验 | 9 组模型的几何、分析与概率性质通过数值交叉检查 |
+| 浏览器功能 | 9 组滑块、播放暂停、重置和 MP4 元数据检查通过 |
+| 手机布局 | 390 像素视口检查通过，无横向溢出；无 JavaScript 页面错误 |
+| PDF | Tectonic 0.17.0 编译成功；页数、图数和 SHA-256 见下方机器记录 |
+| PDF 文本 | 无空白页、替代字符或未解析引用 |
+| PDF 视觉 | 已浏览全部页面联系表，并放大检查正文、公式、插图与手机网页；未发现缺字、重叠或越界 |
+| Lean | 67 个命名定理，重新构建成功；源码未修改 |
+| 形式化边界 | 65 节数学课逐课标注，公告不设定理；综合练习为纸笔推导 |
+| 证明审计 | 无 sorry、admit、自设 axiom 或 native_decide；仅依赖常规基础公理 |
 
-固定依赖：
+可复查证据：
 
-- Lean：`leanprover/lean4:v4.19.0`
-- mathlib：`v4.19.0`，提交 `c44e0c8ee63ca166450922a373c7409c5d26b00b`
-- 传递依赖：[lake-manifest.json](lake-manifest.json)
+- [PDF 检查与校验值](validation/pdf.json)
+- [逐课正文长度及媒体统计](validation/textbook-structure.json)
+- [浏览器检查](validation/browser.json)
+- [Manim 输出清单与校验值](media/manifest.json)
+- [Lean 构建输出](validation/lean-build.txt)
+- [逐定理依赖公理](validation/axioms.txt)
+- [原课程来源获取记录](sources/retrieval.json)
+- [实际形式化范围](FORMALIZATION.md)
 
-可核查证据：
+浏览器自动检查验证原视频 ID 与播放器嵌入地址，但不把它当成外部 YouTube 实际播放成功的证明。外部播放还取决于网络和服务策略，每页保留官方原链接。原创 MP4 的媒体元数据已在浏览器中读取；动画内容与关键帧也作了视觉复核。
 
-- [最终 Lean 构建输出](validation/lean-build.txt)
-- [逐定理公理依赖](validation/axioms.txt)
-- [逐课来源读取记录](sources/retrieval.json)
-- [逐课笔记与形式命题映射](sources/coverage.json)
-
-PDF SHA-256：
-
-```text
-79fd5747bf86b942b1dc6122c4d73ca6ab655be6009520feac6d3d7ca0d888d0
-```
-
-这些检查验证交付物的构建、覆盖一致性和列明的形式命题；并未将整套课程的全部叙述、经验事实与未形式化定理称为机器证明。未形式化部分的边界逐课列在 [FORMALIZATION.md](FORMALIZATION.md)。
+结构检查和文字长度不能替代编辑质量判断；有限精度的实验也不能替代数学证明。Lean 的通过结论仅适用于列明的形式命题，不覆盖全部教材论述或模型的经验性能。

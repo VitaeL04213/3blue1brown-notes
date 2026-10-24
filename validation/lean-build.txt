@@ -1,5 +1,1 @@
-✔ [6656/6660] Built ThreeBlueOneBrown.DifferentialEquations
-✔ [6657/6660] Built ThreeBlueOneBrown.Calculus
-✔ [6658/6660] Built ThreeBlueOneBrown.Information
-✔ [6659/6660] Built ThreeBlueOneBrown
 Build completed successfully.

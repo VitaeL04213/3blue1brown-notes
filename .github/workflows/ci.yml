@@ -8,6 +8,29 @@ permissions:
   contents: read
 
 jobs:
+  textbook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Install textbook build tools
+        run: python3 -m pip install pypandoc_binary==1.15 playwright==1.64.1
+      - name: Rebuild reading pages from TeX
+        run: |
+          python3 scripts/build_site.py
+          git diff --exit-code -- docs notes/media validation/textbook-structure.json
+      - name: Check mathematical models and lesson links
+        run: |
+          node scripts/check_models.cjs
+          python3 scripts/check_textbook.py
+      - name: Check interactive controls and mobile layout
+        run: |
+          python3 -m playwright install --with-deps chromium
+          python3 scripts/check_browser.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: textbook-browser-validation
+          path: validation/browser.json
   lean:
     runs-on: ubuntu-latest
     timeout-minutes: 30

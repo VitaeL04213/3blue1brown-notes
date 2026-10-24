@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>检查网络究竟学到了什么 · 3Blue1Brown 中文导学</title><meta name="description" content="通过引导推导、原课程视频、原创 Manim 动画与参数实验重建数学理解。">
+<link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#main">跳到正文</a><header class="topbar"><a class="brand" href="../index.html">3B1B <span>中文导学</span></a><nav><a href="../index.html">教材目录</a><a href="../lab.html">交互实验室</a><a href="https://raw.githubusercontent.com/VitaeL04213/3blue1brown-notes/main/dist/3blue1brown-notes-zh.pdf">下载 PDF</a></nav></header>
+<main id="main" class="reading"><div class="eyebrow">神经网络 / 36</div>
+<h1>检查网络究竟学到了什么</h1><p class="lead">把对神经元的解释当成待检验假设，观察输入扰动是否支持它。</p>
+<article><h2 class="unnumbered" id="把好听的解释变成可以检验的假设">把好听的解释变成可以检验的假设</h2>
+<p>我们容易把隐藏神经元想象成边缘、笔画或概念检测器，但这种解释必须与实际参数和行为相符。先固定网络，找出什么输入能强烈激活某个单元，再查看看似相同的特征在不同背景下是否仍产生类似响应。一次漂亮的示例不足以建立稳定解释。</p>
+<p>把输入稍微改变，观察输出怎样变，是更直接的实验。仿射层满足 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mi>z</mi><mo>=</mo><mi>W</mi><mi>Δ</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\Delta z=W\Delta x</annotation></semantics></math>：偏置在相减时消失，所以敏感性由权重和扰动方向共同决定。某方向的小变化可能被放大，另一些方向可能被忽略。</p>
+<h2 class="unnumbered" id="准确稳定与可信不是同一个量">准确、稳定与可信不是同一个量</h2>
+<p>即使原图被正确分类，平移、旋转或加一点扰动后也可能变化；普通全连接层并不会自动知道这些变化应保持类别。高置信度也只是模型输出分布尖锐，并不保证它遇到的是熟悉数据，更不保证解释正确。</p>
+<p>设计检查时可以分三步：保留独立测试样本观察泛化；做有控制的扰动检验稳定性；对置信度分组比较预测与实际频率。三步回答不同问题，不应让一个总体准确率代替所有分析。</p>
+<p>本节的小线性算例让你能精确追踪一次扰动，但真实网络的解释还涉及非线性与数据分布。读课程中的可视化时，应同时问“这张图支持了什么结论”和“还排除了哪些替代解释”。数学公式与实验证据在这里承担不同角色。</p>
+</article><section class="media-panel"><h2>带着问题读原课</h2><p>把对神经元的解释当成待检验假设，观察输入扰动是否支持它。</p><p><a href="https://www.3blue1brown.com/lessons/neural-network-analysis/" target="_blank" rel="noopener">打开官方图文与图示 ↗</a></p><small>官方目录未给本条目单列视频 ID；这里直接引用官方图文课，不另造视频对应关系。</small></section>
+<article><h2 class="unnumbered" id="要点回看">要点回看</h2>
+<p>隐层激活不必对应人类想象的边缘或笔画。观察权重、输入扰动和分布外样本，才能检验解释是否与实际计算一致。</p>
+<h2 class="unnumbered" id="数学表述">数学表述</h2>
+<p>对仿射层，扰动满足 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mi>z</mi><mo>=</mo><mi>W</mi><mi>Δ</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\Delta z=W\Delta x</annotation></semantics></math>；在欧氏算子范数下 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="postfix">∥</mo><mi>Δ</mi><mi>z</mi><mo stretchy="false" form="postfix">∥</mo><mo>≤</mo><mo stretchy="false" form="postfix">∥</mo><mi>W</mi><mo stretchy="false" form="postfix">∥</mo><mo stretchy="false" form="postfix">∥</mo><mi>Δ</mi><mi>x</mi><mo stretchy="false" form="postfix">∥</mo></mrow><annotation encoding="application/x-tex">\|\Delta z\|\le\|W\|\|\Delta x\|</annotation></semantics></math>。这是局部敏感性分析的起点。</p>
+<h2 class="unnumbered" id="完整算例">完整算例</h2>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mn>5</mn><mi>x</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">z=5x+b</annotation></semantics></math>，输入增加 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.02</mn><annotation encoding="application/x-tex">0.02</annotation></semantics></math>，激活前的数值增加 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.1</mn><annotation encoding="application/x-tex">0.1</annotation></semantics></math>。偏置不影响这一差值。对于像素图，平移会改变很多输入坐标，普通全连接层并不天然平移不变。</p>
+<h2 class="unnumbered" id="检查误区">检查误区</h2>
+<p>Softmax 的最大概率高，并不保证概率校准，也不意味着输入属于训练分布。</p>
+<h2 class="unnumbered" id="自测与答案">自测与答案</h2>
+<p>为什么只检查训练集准确率不够？模型可能记忆训练样本；还需独立测试及扰动检查。</p>
+<h2 class="unnumbered" id="lean-证明与边界">Lean 证明与边界</h2>
+<p>精确验证单输入仿射模型的扰动等式；范数界、校准与泛化的经验主张未形式化。</p>
+</article><p class="proof-link">证明源码：<a href="https://github.com/VitaeL04213/3blue1brown-notes/blob/main/ThreeBlueOneBrown/NeuralNetworks.lean">NeuralNetworks.affine_input_sensitivity</a></p>
+<nav class="pagination"><a href="gradient-descent.html">← 梯度下降如何学习</a><a href="backpropagation.html">反向传播的直觉 →</a></nav></main>
+<footer>独立中文导学教材 · 原课程：Grant Sanderson / 3Blue1Brown 及署名合作者 ·
+<a href="https://github.com/VitaeL04213/3blue1brown-notes">源码与 Lean 证明</a> ·
+原创讲解与图示采用 MIT；外部原视频的权利归原作者。</footer><script src="../assets/reader.js" defer></script></body></html>

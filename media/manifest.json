@@ -1,0 +1,205 @@
+{
+  "generator": "Manim Community 0.19.0",
+  "source": "media/scenes.py",
+  "ownership": "Original mathematical visualizations by this project.",
+  "videos": [
+    {
+      "scene": "Attention",
+      "video": "docs/media/Attention.mp4",
+      "poster": "notes/figures/Attention.png",
+      "poster_seconds": 3.5,
+      "sha256": "c0781d03d1e38961bf569e3523d07a49a41389c58389e963807e0acfa945c8f8",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "9.000000"
+        }
+      },
+      "gif": "docs/media/Attention.gif"
+    },
+    {
+      "scene": "ComplexRotation",
+      "video": "docs/media/ComplexRotation.mp4",
+      "poster": "notes/figures/ComplexRotation.png",
+      "poster_seconds": 3.5,
+      "sha256": "b6de42d74a73cb9356a3c5cdbfb9efac38c33cebc933cec1aef7687871957e59",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "9.000000"
+        }
+      },
+      "gif": "docs/media/ComplexRotation.gif"
+    },
+    {
+      "scene": "Derivative",
+      "video": "docs/media/Derivative.mp4",
+      "poster": "notes/figures/Derivative.png",
+      "poster_seconds": 3.5,
+      "sha256": "c02f14547c76db2d9377864c29225c21a559eb64d87fac673d61133ede9a5986",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "8.000000"
+        }
+      },
+      "gif": "docs/media/Derivative.gif"
+    },
+    {
+      "scene": "Entropy",
+      "video": "docs/media/Entropy.mp4",
+      "poster": "notes/figures/Entropy.png",
+      "poster_seconds": 3.5,
+      "sha256": "d15312b666ed4d5deb8aadca3c7319578a7ad380daa67a57c3724ecaa1359416",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "9.000000"
+        }
+      },
+      "gif": "docs/media/Entropy.gif"
+    },
+    {
+      "scene": "FourierHeat",
+      "video": "docs/media/FourierHeat.mp4",
+      "poster": "notes/figures/FourierHeat.png",
+      "poster_seconds": 3.5,
+      "sha256": "9dd91e5b32f61ea2e742b3722da6f552393d571d05dcee040aa043da16bf19c9",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "9.000000"
+        }
+      },
+      "gif": "docs/media/FourierHeat.gif"
+    },
+    {
+      "scene": "GradientDescent",
+      "video": "docs/media/GradientDescent.mp4",
+      "poster": "notes/figures/GradientDescent.png",
+      "poster_seconds": 3.5,
+      "sha256": "79fe61be06bed6415917e9c3eb63f1efbf340ec7e9f1527085e28f4a58edc44b",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "7.900000"
+        }
+      },
+      "gif": "docs/media/GradientDescent.gif"
+    },
+    {
+      "scene": "Integral",
+      "video": "docs/media/Integral.mp4",
+      "poster": "notes/figures/Integral.png",
+      "poster_seconds": 3.5,
+      "sha256": "9595e88817779bb733f2996f564323b14958b38713cd34311dfa4881889ef641",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "8.500000"
+        }
+      },
+      "gif": "docs/media/Integral.gif"
+    },
+    {
+      "scene": "LinearMap",
+      "video": "docs/media/LinearMap.mp4",
+      "poster": "notes/figures/LinearMap.png",
+      "poster_seconds": 3.5,
+      "sha256": "246902bcc5458f0216e157c49c0ee43f375b25af6e2c310f55b326b411a331ee",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "10.000000"
+        }
+      },
+      "gif": "docs/media/LinearMap.gif"
+    },
+    {
+      "scene": "Taylor",
+      "video": "docs/media/Taylor.mp4",
+      "poster": "notes/figures/Taylor.png",
+      "poster_seconds": 3.5,
+      "sha256": "c6fdf52dcfd9d7a27da60f456953ed8c8ca093438e8be6cfa75ecaa3e01d068f",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "9.000000"
+        }
+      },
+      "gif": "docs/media/Taylor.gif"
+    }
+  ]
+}

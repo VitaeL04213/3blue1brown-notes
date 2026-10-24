@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>交互实验室 · 3Blue1Brown 中文导学</title><link rel="stylesheet" href="assets/style.css"></head>
+<body><a class="skip" href="#main">跳到实验</a><header class="topbar"><a class="brand" href="index.html">3B1B <span>中文导学</span></a><nav><a href="index.html">教材目录</a><a href="https://github.com/VitaeL04213/3blue1brown-notes">源码与证明</a></nav></header>
+<main id="main" class="lab-main"><div class="eyebrow">先作预测 · 改一个参数 · 用公式解释差异</div><div class="lab-layout">
+<nav class="lab-menu" aria-label="实验选择" id="lab-menu"></nav><section class="lab-stage"><h1 id="title"></h1><p id="question"></p>
+<canvas id="plot" width="900" height="460" role="img" aria-label="数学实验图形；下方提供参数与计算结果"></canvas>
+<p class="legend" id="legend"></p><div class="controls" id="controls"></div><div class="actions"><button id="play" aria-pressed="false">播放变化</button><button id="reset" class="secondary">重置参数</button></div>
+<div class="readout" id="readout" role="status" aria-live="polite"></div><div class="lab-note"><h2>怎样解释观察</h2><p id="explanation"></p><p id="limits"></p></div>
+<p id="lesson-link"></p><section class="media-panel lab-video"><h2>配套 Manim 动画</h2><video id="movie" controls playsinline preload="metadata"></video><p class="caption" id="movie-caption"></p><a id="movie-download" download>下载 MP4</a></section>
+</section></div><noscript>参数实验需要启用 JavaScript。教材正文、原课程链接及 MP4 动画可以独立阅读或播放。</noscript></main>
+<footer>本项目原创可视化 · 图形用于观察与解释，有限精度计算不能代替证明。所有实验可暂停，滑块支持键盘方向键。</footer>
+<script src="assets/models.js"></script><script src="assets/lab.js"></script></body></html>

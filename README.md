@@ -1,89 +1,102 @@
-# 3Blue1Brown 中文课程笔记 · LaTeX + Lean 4
+# 3Blue1Brown 中文导学教材 · LaTeX + Lean + Manim
 
 [![Notes and Lean](https://github.com/VitaeL04213/3blue1brown-notes/actions/workflows/ci.yml/badge.svg)](https://github.com/VitaeL04213/3blue1brown-notes/actions/workflows/ci.yml)
 
-按 2026-10-24 的[官方目录](https://www.3blue1brown.com/)编写的独立中文伴读笔记：**6 组课程、66 节独立课、72 页 PDF、67 个 Lean 定理**。每节含概念、数学表述、算例、易错点、自测答案与形式化边界。
+**[在线阅读教材](https://vitael04213.github.io/3blue1brown-notes/)** · **[交互实验室](https://vitael04213.github.io/3blue1brown-notes/lab.html)** · **[下载 92 页 PDF](dist/3blue1brown-notes-zh.pdf)**
 
-**[阅读 PDF](dist/3blue1brown-notes-zh.pdf)** · [逐课目录与原课链接](COURSES.md) · [形式化覆盖](FORMALIZATION.md) · [验证记录](VALIDATION.md)
+围绕官方课程序列独立编写的中文导学教材：6 组课程、66 个独立条目、67 个通过 Lean 检查的定理。每课从问题出发，用连续论述解释概念为何出现、表示如何选择、公式如何推导，再用算例、自测和形式化边界检查理解。
+
+逐课引导正文包含约 2.5 万个汉字，另有每章综合推导练习、数学回顾与详细算例。LaTeX 和网页共用正文，既可连续阅读，也可回到原课对照学习。
+
+![原创 Manim 动画：剪切与压扁](docs/media/LinearMap.gif)
+
+先预测两根基向量将落在哪里，再到[矩阵实验](https://vitael04213.github.io/3blue1brown-notes/lab.html#linear)调整两列，观察面积和定向。
+
+## 怎样使用
+
+1. 先读每节的问题与引导推导，尝试自己完成下一步。
+2. 按观课提示观看原视频或官方图文，再播放对应动画。
+3. 改一个实验参数，先预测后观察，用公式解释差异。
+4. 遮住答案完成自测；最后核对 Lean 定理里的条件和覆盖范围。
+
+网页按需嵌入 **61 个官方原视频**；另外 **5 个目录条目未单列视频 ID**，直接链接官方图文和图示。原视频需要网络访问，无法加载时仍保留原链接。没有编造对应关系或未核实的时间点。
+
+**9 组原创 Manim 动画**均提供中文说明、MP4 和 GIF；**9 个参数实验**支持播放、暂停、重置和键盘调节。PDF 包含动画关键帧及网页入口；动画和参数操作在网页中进行。完整媒体清单与重制方法见 [媒体说明](media/README.md)。
 
 ## 覆盖范围
 
-| 官方课程目录 / 系列 | 目录位置 | 正文 |
+官方目录快照：2026-10-24。
+
+| 课程 | 目录位置 | 阅读入口 |
 |---|---:|---|
-| Linear Algebra | 16 | [线性代数](notes/chapters/linear-algebra.tex) |
-| Calculus | 17 | [微积分及补充课](notes/chapters/calculus.tex) |
-| Neural Networks | 11 | [神经网络、Transformer、扩散模型](notes/chapters/neural-networks.tex) |
-| Differential Equations | 10 | [微分方程、傅里叶、拉普拉斯](notes/chapters/differential-equations.tex) |
-| Lockdown Math | 11 | [基础代数、复数与对数，含公告](notes/chapters/lockdown-math.tex) |
-| Compression & Intelligence | 2 | [熵与交叉熵](notes/chapters/compression.tex) |
+| 线性代数 | 16 | [向量与坐标](https://vitael04213.github.io/3blue1brown-notes/lessons/vectors.html) |
+| 微积分及补充课 | 17 | [从面积发现微积分](https://vitael04213.github.io/3blue1brown-notes/lessons/essence-of-calculus.html) |
+| 神经网络、Transformer、扩散模型 | 11 | [神经网络基本单元](https://vitael04213.github.io/3blue1brown-notes/lessons/neural-networks.html) |
+| 微分方程、傅里叶、拉普拉斯 | 10 | [从局部规律到演化](https://vitael04213.github.io/3blue1brown-notes/lessons/differential-equations.html) |
+| Lockdown Math | 11 | [基础数学导读](https://vitael04213.github.io/3blue1brown-notes/lessons/lockdown-math-announcement.html) |
+| 压缩与智能 | 2 | [熵与编码](https://vitael04213.github.io/3blue1brown-notes/lessons/entropy.html) |
 
-67 个目录位置中，**交叉熵重复出现一次**，故为 66 节独立课。65 节数学课各有 Lean 对照；公告页不设数学定理。采用官网主题目录中的顺序并保留补充课；不同年份视频的章号与官网正文的章号可能不同。
+共 67 个目录位置；交叉熵在两组中共享，所以是 66 个独立条目。公告页作为导读，65 节数学课有 Lean 对照。范围为上述官方课程序列，不包括所有独立专题、外部演讲或未来新课。[逐课目录](COURSES.md)保留完整英文标题和来源。
 
-“所有课程”在此指上述五个课程型目录，以及明确编号的“压缩与智能”系列。其他分类中的独立专题、演讲、外部频道视频、未来新课不在本次范围内。完整英文题名、发布日期、视频与页面链接保存在 [目录快照](sources/catalog.json)。
+这是原创中文伴读教材，包含独立的例子、推导与教学组织，不是逐字字幕翻译，也不声称逐帧观看全部视频。官网提供正文的课程参照其概念组织，只有视频入口的部分依据核实主题独立展开标准数学。来源记录见 [retrieval.json](sources/retrieval.json)。
 
-## 笔记与证明怎样配合
+## 证明覆盖
 
-这是围绕课程主题独立组织的中文数学伴读，含原创例子与推导，**不是字幕全文翻译，也未声称逐帧观看全部视频**。官网有文字课的部分参照其概念组织；官网只有视频入口的部分，依据核实的题目、简介及标准数学独立重构。66 个官方页面的获取结果见 [来源记录](sources/retrieval.json)。
+[FORMALIZATION.md](FORMALIZATION.md)逐课列出实际验证的命题与边界。67 个定理由 Lean 检查，无未完成证明或自设公理。
 
-LaTeX 正文中的 `Lean 对照` 列出实际命题：有的是完整一般定理，有的是特例或局部恒等式。比如：
+- 有些证明是一般定理，有些是特例或局部恒等式。
+- 微积分基本定理保留可导性与可积性条件，克拉默法则保留非零行列式条件。
+- 幂塔命题证明“若迭代收敛，其极限是不动点”，不把收敛当成已证结论。
+- KL 非负性针对严格正且归一化的有限分布。
+- 一般 PDE 理论、傅里叶收敛、网络泛化与生成质量没有被局部计算冒充为完整形式化。
 
-- 微积分基本定理保留区间可导性和导函数可积性假设。
-- 克拉默法则保留非零行列式条件。
-- 幂塔定理证明“**若收敛**，极限为不动点”，没有把收敛当作结论。
-- KL 非负性证明针对严格正、归一化的有限分布。
-- 傅里叶收敛、一般 PDE 解理论、网络泛化与生成质量等没有被局部代数例子冒充为完整形式化。
-
-67 个定理均由 Lean 检查，不含 `sorry`、`admit`、自设 `axiom` 或 `native_decide`。它们依赖 Lean / mathlib 的常规逻辑基础，不能理解成“无任何基础公理”。详见 [逐课边界](FORMALIZATION.md)。
+章节综合练习提供纸笔推导，形式化范围仍以逐课命题为准。[验证记录](VALIDATION.md)包含 PDF、网页、实验与 Lean 的实际检查结果。
 
 ## 本地复现
 
-### Lean
+### 阅读网页
 
-先按 [Lean 官方安装说明](https://lean-lang.org/install/)配置 Elan。项目固定 **Lean 4.19.0** 与 **mathlib v4.19.0**；锁文件还固定了传递依赖提交。
+下载仓库后可直接打开 docs/index.html。正文的 MathML、原创动画和交互实验不依赖第三方 CDN；原视频仍需要网络。也可启动本地服务：
 
-```sh
-git clone https://github.com/VitaeL04213/3blue1brown-notes.git
-cd 3blue1brown-notes
-lake exe cache get
-lake build
-python scripts/audit.py
-lake env lean scripts/AxiomAudit.lean
-```
+    python -m http.server 8000 --directory docs
 
-首次构建需要下载 Lean 与数学库缓存，可能占用数 GB 磁盘。后续构建复用 `.lake/`。`scripts/audit.py` 检查目录覆盖和命题链接，不能替代 `lake build`。
+浏览器打开 http://localhost:8000。
+
+### 编写与重建网页
+
+    python -m pip install -r requirements-authoring.txt
+    python scripts/build_site.py
+    node scripts/check_models.cjs
+    python scripts/check_textbook.py
+
+网页从 notes/guides/、notes/chapters/ 和 notes/reviews/ 生成。每课的观课提示与实验关联保存在 media/teaching.json。生成的 notes/media/ 同时供 PDF 使用。
+
+浏览器回归检查：
+
+    python -m playwright install chromium
+    python scripts/check_browser.py
 
 ### PDF
 
-使用 [Tectonic](https://tectonic-typesetting.github.io/) 0.17.0，或安装含 `ctex`、Fandol 中文字体、TikZ、AMS 与 hyperref 的 XeLaTeX：
+使用 Tectonic 0.17.0 或含 ctex、Fandol、TikZ、AMS、hyperref 的 XeLaTeX：
 
-```sh
-python scripts/build_pdf.py
-```
+    python scripts/build_pdf.py
 
-若 Tectonic 不在 PATH：
+若编译器不在 PATH，指定 --tectonic /absolute/path/to/tectonic。输出到 dist/；正文使用 Fandol 字体。9 张关键帧已经随仓库提供，重编 PDF 不需要先安装 Manim。
 
-```sh
-python scripts/build_pdf.py --tectonic /absolute/path/to/tectonic
-```
+### Lean
 
-输出为 `dist/3blue1brown-notes-zh.pdf`，构建日志在 `build/latex.log`。源码使用 Fandol 字体，不依赖某台机器的商业中文字体。首次运行 Tectonic 需要网络下载 TeX 包。
+先按 [Lean 官方说明](https://lean-lang.org/install/)配置 Elan，再运行：
 
-## 仓库结构
+    lake exe cache get
+    lake build
+    python scripts/audit.py
+    lake env lean scripts/AxiomAudit.lean
 
-```text
-notes/                    中文 LaTeX 主文件与六章正文
-ThreeBlueOneBrown/         六个 Lean 模块
-ThreeBlueOneBrown.lean     导入所有证明，lake build 的入口
-sources/                  官方目录、获取记录、笔记/定理映射
-scripts/                  PDF 构建、目录审计、来源刷新、依赖公理检查
-dist/                     可直接阅读的 PDF
-.github/workflows/ci.yml   Lean 和 PDF 持续构建
-```
-
-修改正文或命题后，运行 `python scripts/audit.py --write-index` 更新目录、覆盖表与公理审计入口。刷新官网清单是显式操作：`python scripts/catalog.py --refresh --snapshot-date YYYY-MM-DD`；网站结构改变时解析器会失败，需人工检查，不能自动把新增课程标成已完成。正文仍须逐节编写与审阅。
+固定 Lean 4.19.0、mathlib v4.19.0 和全部传递依赖提交。首次下载数学库缓存可能占用数 GB，后续复用本地缓存。
 
 ## 来源与许可
 
-原课程归 Grant Sanderson / 3Blue1Brown 及署名合作者；扩散模型客座课署名 Stephen Welch / Welch Labs。本项目无官方隶属关系，不附原视频、原图、字幕全文或网页正文。
+原课程归 Grant Sanderson / 3Blue1Brown 及署名合作者；扩散模型客座课程署名 Stephen Welch / Welch Labs。本项目没有官方隶属关系。
 
-[MIT 许可](LICENSE)仅适用于本项目独立编写的笔记、证明、脚本和图示，不改变第三方作品或 mathlib 自身的许可。
+原创讲解、证明、Manim 场景和参数实验使用 [MIT 许可](LICENSE)。外部原视频通过官方播放器引用，原图示通过官方图文页引用；其权利仍归原作者。没有把第三方素材重新许可为本项目内容。
