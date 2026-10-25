@@ -43,7 +43,7 @@ def shell(title, body, groups, entries, chapter_slugs, prefix="", current="index
     return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)} · 从直觉到证明</title><meta name="description" content="3Blue1Brown 官方课程序列的独立中文导学教材：连续论述、交互图、原课程与 Lean 证明。">
-<link rel="stylesheet" href="{prefix}assets/style.css"><script>if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.classList.add('lab-embedded');</script></head>
+<link rel="stylesheet" href="{prefix}assets/style.css"><link rel="stylesheet" href="{prefix}assets/spread.css"><script>if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.classList.add('lab-embedded');</script></head>
 <body data-prefix="{prefix}" data-page="{e(current)}" data-type="{page_type}"><a class="skip" href="#main">跳到正文</a>
 <header class="book-header"><a class="book-brand" href="{prefix}index.html"><span>从直觉到证明</span><small>3Blue1Brown 中文导学教材</small></a><nav aria-label="全书工具"><a href="{prefix}contents.html">目录</a><a href="{PDF}">PDF</a><a href="{REPO}">GitHub</a></nav></header>
 <div class="reading-toolbar"><button id="toggle-contents" aria-controls="book-sidebar" aria-expanded="true">☰ <span>目录与搜索</span></button><div class="toolbar-location">{e(title)}</div><button id="print-page" aria-label="打印当前小节">打印</button></div>

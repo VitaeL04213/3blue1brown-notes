@@ -4,6 +4,7 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
+from pdf_text import write_searchable
 
 ROOT=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser()
@@ -33,5 +34,6 @@ if not (out/'main.pdf').exists(): sys.exit('Compiler returned without a PDF.')
 if 'Missing character:' in '\n'.join(logs): sys.exit('Missing glyphs detected; inspect build/latex.log.')
 dest=ROOT/'dist/3blue1brown-notes-zh.pdf'
 dest.parent.mkdir(parents=True,exist_ok=True)
-shutil.copyfile(out/'main.pdf',dest)
+mapped=write_searchable(out/'main.pdf',dest,compiler if args.tectonic or shutil.which('tectonic') else None)
+print('Unicode text maps: '+str(mapped))
 print('PDF built: '+str(dest))

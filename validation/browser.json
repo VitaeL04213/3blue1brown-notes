@@ -1,89 +1,54 @@
 {
-  "experiments": [
-    {
-      "experiment": "linear",
-      "controls": true,
-      "play_pause": true,
-      "reset": true,
-      "mp4_metadata": true
-    },
-    {
-      "experiment": "derivative",
-      "controls": true,
-      "play_pause": true,
-      "reset": true,
-      "mp4_metadata": true
-    },
-    {
-      "experiment": "integral",
-      "controls": true,
-      "play_pause": true,
-      "reset": true,
-      "mp4_metadata": true
-    },
-    {
-      "experiment": "gradient",
-      "controls": true,
-      "play_pause": true,
-      "reset": true,
-      "mp4_metadata": true
-    },
-    {
-      "experiment": "attention",
-      "controls": true,
-      "play_pause": true,
-      "reset": true,
-      "mp4_metadata": true
-    },
-    {
-      "experiment": "heat",
-      "controls": true,
-      "play_pause": true,
-      "reset": true,
-      "mp4_metadata": true
-    },
-    {
-      "experiment": "complex",
-      "controls": true,
-      "play_pause": true,
-      "reset": true,
-      "mp4_metadata": true
-    },
-    {
-      "experiment": "entropy",
-      "controls": true,
-      "play_pause": true,
-      "reset": true,
-      "mp4_metadata": true
-    },
-    {
-      "experiment": "taylor",
-      "controls": true,
-      "play_pause": true,
-      "reset": true,
-      "mp4_metadata": true
-    }
-  ],
-  "responsive_width": 390,
-  "javascript_errors": [],
-  "inline_experiments_checked": [
-    "linear-transformations",
-    "derivatives",
-    "integration",
-    "gradient-descent",
+  "experiments_checked": [
+    "vectors",
+    "linear",
+    "compose",
+    "spatial",
+    "projection",
+    "eigen",
+    "derivative",
+    "integral",
+    "gradient",
+    "network",
     "attention",
-    "heat-equation",
-    "eulers-formula-dynamically",
-    "cross-entropy",
-    "taylor-series"
+    "noise",
+    "heat",
+    "phase",
+    "complex",
+    "iteration",
+    "entropy",
+    "taylor"
   ],
+  "linked_lesson_states_checked": 198,
+  "manim_metadata_checked": [
+    "LinearMap",
+    "Derivative",
+    "Integral",
+    "GradientDescent",
+    "Attention",
+    "FourierHeat",
+    "ComplexRotation",
+    "Entropy",
+    "Taylor"
+  ],
+  "desktop_widths_checked": [
+    1920,
+    1440,
+    1280
+  ],
+  "mobile_widths_checked": [
+    390,
+    320
+  ],
+  "javascript_errors": [],
+  "endpoint_drag_mouse_and_keyboard": true,
+  "spatial_orbit_preserves_values": true,
+  "known_numeric_examples_and_domain_limits": true,
+  "step_reset_after_manual_edits": true,
+  "full_text_english_search_and_resume": true,
   "chapter_navigation": true,
-  "full_text_and_english_search": true,
-  "collapsible_examples_and_proofs": true,
   "print_expansion_and_restore": true,
-  "mobile_navigation_keyboard": true,
-  "narrow_viewport_width": 320,
+  "mobile_step_return_and_menu_keyboard": true,
   "official_embed_url_checked": true,
-  "external_youtube_playback_verified": false,
-  "note": "External playback depends on network/YouTube policy; original links remain available."
+  "external_youtube_playback_verified": false
 }

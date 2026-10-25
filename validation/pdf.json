@@ -1,9 +1,9 @@
 {
-  "pages": 92,
-  "text_characters": 80757,
+  "pages": 123,
+  "text_characters": 112696,
   "empty_pages": [],
   "replacement_characters": 0,
   "undefined_references": 0,
-  "pdf_sha256": "b028813f03ff876fff40d66f5a350300d8a99d821feff59a2ce725ba33b0967d",
+  "pdf_sha256": "e3dfa7666d1706f3f2efae290e99f45f89a7d0399c2f618e39f1bc8e2f76627e",
   "embedded_images": 9
 }

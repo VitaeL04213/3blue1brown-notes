@@ -1,0 +1,200 @@
+{
+  "vectors": {
+    "lesson": "vectors",
+    "definition_title": "线性组合",
+    "definition": "给定向量 $u,v$ 与标量 $s,t$，向量 $su+tv$ 称为它们的线性组合。系数记录每个方向参与的份额；负系数表示反向。",
+    "claim_title": "向量平移不改变合位移",
+    "claim": "在同一向量空间中，先走 $u$ 再走 $v$ 的总位移为 $u+v$，与先走 $v$ 再走 $u$ 相同。",
+    "proof": [
+      "用坐标表示 $u=(u_1,u_2)$、$v=(v_1,v_2)$。第一条路径的终点是 $(u_1+v_1,u_2+v_2)$，第二条路径的终点是 $(v_1+u_1,v_2+u_2)$。",
+      "实数加法交换律使两点一致。这里比较的是终点位移；两条路径的中间位置可以不同，所以不能把结论改写为两次运动在每一时刻都相同。"
+    ]
+  },
+  "linear": {
+    "lesson": "linear-transformations",
+    "definition_title": "线性映射",
+    "definition": "映射 $T$ 线性，是指它保持向量加法与标量乘法：$T(u+v)=T(u)+T(v)$，$T(cu)=cT(u)$。平移一般不满足这个定义。",
+    "claim_title": "基向量的像决定整个映射",
+    "claim": "设 $e_1,e_2$ 是平面的标准基。若 $T$ 线性，则对任意坐标 $x,y$，有 $T(xe_1+ye_2)=xT(e_1)+yT(e_2)$。",
+    "proof": [
+      "先用加法保持性把两项分开，再分别把标量移出 $T$，就得到结论。把 $T(e_1)$ 与 $T(e_2)$ 写成矩阵的两列，右侧正是矩阵乘向量的列组合。",
+      "因此我们不必给平面上每个点单独记录去向。不过反过来只观察两根箭头，尚不能证明未知映射线性；线性是推论所需的前提。"
+    ]
+  },
+  "compose": {
+    "lesson": "matrix-multiplication",
+    "definition_title": "映射的复合次序",
+    "definition": "若 $B$ 把输入送到中间空间，$A$ 再作用于中间结果，则复合映射写成 $A\\circ B$，矩阵写成 $AB$。最右侧的矩阵先作用。",
+    "claim_title": "矩阵乘法的列规则",
+    "claim": "复合矩阵 $AB$ 的第 $j$ 列是 $A$ 作用在 $B$ 的第 $j$ 列所得的向量。各矩阵的输入输出维度须匹配。",
+    "proof": [
+      "把标准基向量 $e_j$ 送入复合映射。第一步得到 $Be_j$，它就是 $B$ 的第 $j$ 列；第二步得到 $A(Be_j)$。",
+      "一个矩阵的第 $j$ 列也等于它作用在 $e_j$ 上的结果，所以复合矩阵的各列只能按此规则组成。交换 $A$、$B$ 会改变动作顺序，通常也改变结果。"
+    ]
+  },
+  "spatial": {
+    "lesson": "cross-products",
+    "definition_title": "叉积",
+    "definition": "对三维向量 $u,v$，定义 $u\\times v=(u_2v_3-u_3v_2,\\ u_3v_1-u_1v_3,\\ u_1v_2-u_2v_1)$，方向采用右手定向。",
+    "claim_title": "叉积与两个输入都垂直",
+    "claim": "对任意 $u,v\\in\\mathbb R^3$，有 $u\\cdot(u\\times v)=0$ 且 $v\\cdot(u\\times v)=0$。叉积可能是零向量。",
+    "proof": [
+      "展开第一个点积，得到 $u_1u_2v_3-u_1u_3v_2+u_2u_3v_1-u_2u_1v_3+u_3u_1v_2-u_3u_2v_1$。各项两两抵消，因此和为零。",
+      "对第二个点积做同样展开即可。零向量也满足两个点积为零，所以该结论没有宣称平行输入仍产生一个有确定方向的非零法向量。"
+    ]
+  },
+  "projection": {
+    "lesson": "dot-products",
+    "definition_title": "沿一条非零方向的正交投影",
+    "definition": "对非零向量 $u$，定义 $\\operatorname{proj}_u(v)=\\dfrac{u\\cdot v}{u\\cdot u}u$。投影是向量，点积是标量，两者不能互相替代。",
+    "claim_title": "投影后的剩余量与投影方向垂直",
+    "claim": "设 $u\\ne0$，令 $r=v-\\operatorname{proj}_u(v)$。则 $u\\cdot r=0$。",
+    "proof": [
+      "由点积的线性性，$u\\cdot r=u\\cdot v-\\dfrac{u\\cdot v}{u\\cdot u}(u\\cdot u)=0$。分母可约去，是因为实内积下非零向量满足 $u\\cdot u>0$。",
+      "因此 $v$ 被分成沿 $u$ 的部分与垂直于 $u$ 的部分。若 $u=0$，公式没有定义；图形窗口会报告这一退化情形，而不生成一个任意的投影方向。"
+    ]
+  },
+  "eigen": {
+    "lesson": "eigenvalues",
+    "definition_title": "特征向量与特征值",
+    "definition": "若非零向量 $v$ 满足 $Av=\\lambda v$，称 $v$ 为 $A$ 的特征向量，$\\lambda$ 为对应特征值。允许 $\\lambda=0$；禁止把零向量当作特征向量。",
+    "claim_title": "一例对称矩阵的两个特征方向",
+    "claim": "矩阵 $A=\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}$ 沿 $(1,1)$ 的倍率为三，沿 $(1,-1)$ 的倍率为一。",
+    "proof": [
+      "直接计算 $A(1,1)=(3,3)=3(1,1)$，以及 $A(1,-1)=(1,-1)$。两个输入都非零，故满足定义。",
+      "它们线性无关，任何平面向量都可分解为这两个方向的组合。在线性作用下，分别把两个分量乘以三和一再相加即可得到输出。这是此矩阵可对角化的具体解释，不代表所有矩阵都具有完整特征基。"
+    ]
+  },
+  "derivative": {
+    "lesson": "derivatives",
+    "definition_title": "某一点的导数",
+    "definition": "若极限存在，定义 $f'(a)=\\lim_{h\\to0,\\ h\\ne0}\\dfrac{f(a+h)-f(a)}h$。这里先在非零步长处计算，再讨论读数的极限。",
+    "claim_title": "平方函数的差商与误差",
+    "claim": "对 $f(x)=x^2$ 及 $h\\ne0$，差商为 $2a+h$；因此 $f'(a)=2a$，差商的绝对误差恰为 $|h|$。",
+    "proof": [
+      "展开 $(a+h)^2-a^2=2ah+h^2$，因 $h\\ne0$，除以 $h$ 得 $2a+h$。",
+      "与候选极限 $2a$ 相减后仅剩 $h$。对任意正容差，只要步长的绝对值更小，读数误差也更小；这给出了极限所需的控制，而非在 $h=0$ 处进行除法。"
+    ]
+  },
+  "integral": {
+    "lesson": "integration",
+    "definition_title": "可变上限的面积函数",
+    "definition": "设 $f$ 在区间上连续，固定左端点 $a$，定义 $F(x)=\\int_a^x f(t)\\,dt$。这是随终点变化的有向累积量。",
+    "claim_title": "连续速率的累积恢复原速率",
+    "claim": "在区间内部，面积函数满足 $F'(x)=f(x)$。",
+    "proof": [
+      "把增量写成 $F(x+h)-F(x)=\\int_x^{x+h}f(t)\\,dt$。减去 $f(x)h$ 后，剩余量为 $\\int_x^{x+h}(f(t)-f(x))\\,dt$。",
+      "连续性保证足够短的区间内 $|f(t)-f(x)|$ 任意小。因此剩余量的绝对值至多为该小量乘 $|h|$。除以 $|h|$ 后取极限，差商与 $f(x)$ 的差趋零；正负步长都适用。"
+    ]
+  },
+  "gradient": {
+    "lesson": "gradient-descent",
+    "definition_title": "梯度下降的一维更新",
+    "definition": "对可微损失 $L$，给定学习率 $\\eta$，按 $w_{k+1}=w_k-\\eta L'(w_k)$ 更新参数。学习率控制使用局部斜率的步幅。",
+    "claim_title": "二次损失的精确稳定区间",
+    "claim": "对 $L(w)=w^2$，任意初值的迭代在 $0<\\eta<1$ 时收敛到零；非零初值在 $\\eta>1$ 时误差绝对值增长。",
+    "proof": [
+      "因为 $L'(w)=2w$，更新式成为 $w_{k+1}=(1-2\\eta)w_k$，从而 $w_k=(1-2\\eta)^kw_0$。",
+      "几何序列趋零当且仅当倍率的绝对值小于一（非零初值）。解 $|1-2\\eta|<1$ 得 $0<\\eta<1$。端点 $\\eta=0$ 不更新，$\\eta=1$ 对非零初值等幅往返，均不属于该收敛区间。"
+    ]
+  },
+  "network": {
+    "lesson": "backpropagation-calculus",
+    "definition_title": "单个 ReLU 单元与平方损失",
+    "definition": "记 $z=w_1x_1+w_2x_2+b$、$a=\\max(0,z)$、$L=(a-y)^2$。输入与目标固定时，损失是参数的复合函数。",
+    "claim_title": "严格激活区域中的权重梯度",
+    "claim": "在 $z>0$ 的邻域中，$\\partial L/\\partial w_1=2(a-y)x_1$。在 $z<0$ 的邻域中，该梯度为零。",
+    "proof": [
+      "当 $z>0$ 时，ReLU 在邻域内就是恒等函数，链式法则给出 $2(a-y)\\cdot1\\cdot x_1$。当 $z<0$ 时，它在邻域内恒为零，局部损失因而不随该参数变化。",
+      "结论刻意避开 $z=0$。ReLU 在零处没有经典导数，复合损失是否恰好可导还要另看具体参数与目标；程序采用的反向传播约定不能替代这项数学判断。"
+    ]
+  },
+  "attention": {
+    "lesson": "attention",
+    "definition_title": "归一化指数权重",
+    "definition": "给定实数分数 $s_j$ 与正温度 $T$，令 $a_j=e^{s_j/T}/\\sum_k e^{s_k/T}$。各权重为正，且总和为一。",
+    "claim_title": "一次注意力读取是凸组合",
+    "claim": "若标量值都在区间 $[m,M]$ 中，则加权输出 $\\sum_j a_jv_j$ 也在 $[m,M]$ 中。",
+    "proof": [
+      "逐项有 $a_jm\\le a_jv_j\\le a_jM$，因为各权重非负。求和后得到 $m\\sum_j a_j\\le\\sum_j a_jv_j\\le M\\sum_j a_j$。",
+      "使用权重和为一便得到结论。本命题只约束这一次加权汇总，未约束接下来的线性输出变换、残差相加或整个网络的数值范围。"
+    ]
+  },
+  "noise": {
+    "lesson": "diffusion-models",
+    "definition_title": "单步信号与噪声混合",
+    "definition": "取 $0<\\alpha<1$，设 $x_t=\\sqrt{\\alpha}x_0+\\sqrt{1-\\alpha}\\epsilon$。给定噪声估计 $\\widehat\\epsilon$，按此等式解出重建值 $\\widehat x_0$。",
+    "claim_title": "噪声估计误差的传播",
+    "claim": "重建误差满足 $\\widehat x_0-x_0=-\\sqrt{(1-\\alpha)/\\alpha}\\,(\\widehat\\epsilon-\\epsilon)$。",
+    "proof": [
+      "将观测的定义代入 $\\widehat x_0=(x_t-\\sqrt{1-\\alpha}\\widehat\\epsilon)/\\sqrt{\\alpha}$，原信号项直接留下 $x_0$，剩余两项合并即可。",
+      "分母合法来自 $\\alpha>0$。当 $\\alpha$ 很小时，误差倍率很大；即使代数恒等式正确，也不能由它推出噪声估计足够准确或整套生成过程收敛。"
+    ]
+  },
+  "heat": {
+    "lesson": "heat-equation",
+    "definition_title": "周期热方程的一个模式",
+    "definition": "在首尾相接的区间 $[0,2\\pi]$ 上，取整数频率 $n$，考虑 $u(x,t)=A e^{-n^2t}\\sin(nx)$。扩散系数归一化为一。",
+    "claim_title": "正弦模式满足热方程",
+    "claim": "上述模式满足 $u_t=u_{xx}$，且初值为 $u(x,0)=A\\sin(nx)$。有限个此类模式相加仍满足该方程。",
+    "proof": [
+      "对时间求导得到 $-n^2A e^{-n^2t}\\sin(nx)$；对空间求两次导数得到同一个表达式。整数频率保证周期边界匹配。",
+      "对有限和可以逐项求导，故线性组合仍满足方程。推广到无限级数时，逐项求导需要额外收敛条件；有限叠加的验证不自动证明任意初值问题的解存在。"
+    ]
+  },
+  "phase": {
+    "lesson": "differential-equations",
+    "definition_title": "线性平面速度场",
+    "definition": "考虑 $x'=\\lambda x-\\omega y$、$y'=\\omega x+\\lambda y$，其中 $\\lambda,\\omega$ 为常数。前者控制径向伸缩，后者控制角向转动。",
+    "claim_title": "长度平方的增长只由径向项控制",
+    "claim": "沿任意可微解，$\\dfrac d{dt}(x^2+y^2)=2\\lambda(x^2+y^2)$。特别地，$\\lambda=0$ 时长度不变。",
+    "proof": [
+      "由乘积法则，导数为 $2xx'+2yy'$。代入速度场，两个交叉项 $-2\\omega xy$ 与 $2\\omega xy$ 抵消，剩下 $2\\lambda(x^2+y^2)$。",
+      "因此转动不会单独改变长度，正负径向项则分别使长度平方增长或衰减。这是本线性系统的精确计算，并非任意速度场都可如此分离。"
+    ]
+  },
+  "complex": {
+    "lesson": "ldm-complex-numbers",
+    "definition_title": "复数的模长",
+    "definition": "对 $z=a+bi$，定义 $|z|=\\sqrt{a^2+b^2}$。它等于复平面中从原点到该点的距离。",
+    "claim_title": "乘以 i 保持长度并旋转直角",
+    "claim": "若 $z=a+bi$，则 $iz=-b+ai$，且 $|iz|=|z|$；对非零 $z$，该操作是逆时针直角旋转。",
+    "proof": [
+      "由 $i^2=-1$，有 $i(a+bi)=ai-b$。坐标变换为 $(a,b)\\mapsto(-b,a)$，新旧长度平方均为 $a^2+b^2$，点积则为 $-ab+ab=0$。",
+      "再检查 $(1,0)$ 被送到 $(0,1)$，就确定了旋转方向。零向量同样保持长度，但没有可供比较的辐角。"
+    ]
+  },
+  "iteration": {
+    "lesson": "ldm-power-towers",
+    "definition_title": "幂塔的有限迭代",
+    "definition": "给定底数 $b>0$ 和起点 $x_0$，定义 $x_{k+1}=b^{x_k}$。所谓无限幂塔的取值，需要先说明这个序列的极限是否存在。",
+    "claim_title": "收敛的迭代必到达不动点",
+    "claim": "若 $x_k$ 收敛到有限实数 $L$，则 $L=b^L$。该方程只是收敛的必要条件。",
+    "proof": [
+      "收敛序列平移一项仍趋于 $L$，所以 $x_{k+1}\\to L$。函数 $x\\mapsto b^x$ 在实数上连续，故 $b^{x_k}\\to b^L$。",
+      "迭代两边逐项相等，极限的唯一性给出 $L=b^L$。证明从“序列收敛”开始，不能倒过来用同一个推理宣称只要方程有解，所有初值的迭代就会收敛。"
+    ]
+  },
+  "entropy": {
+    "lesson": "cross-entropy",
+    "definition_title": "有限分布的交叉熵与 KL 散度",
+    "definition": "对正概率分布 $p,q$，定义 $H(p,q)=-\\sum_i p_i\\log_2q_i$，$H(p)=-\\sum_i p_i\\log_2p_i$，$D(p\\Vert q)=\\sum_i p_i\\log_2(p_i/q_i)$。",
+    "claim_title": "模型失配增加平均编码代价",
+    "claim": "有 $H(p,q)=H(p)+D(p\\Vert q)$，且 $D(p\\Vert q)\\ge0$；在此正概率情形，等号当且仅当 $p=q$。",
+    "proof": [
+      "把 $\\log_2(p_i/q_i)$ 拆成两个对数并求和，立即得到分解。为证明非负，用 $\\ln u\\le u-1$，代入 $u=q_i/p_i$，得到 $p_i\\ln(p_i/q_i)\\ge p_i-q_i$。",
+      "求和后右侧为零，再除以正数 $\\ln2$ 即得结论。对数不等式仅在 $u=1$ 时取等，因此所有正权重项同时取等恰好要求 $p_i=q_i$。含零概率时需另外约定边界与无穷代价。"
+    ]
+  },
+  "taylor": {
+    "lesson": "taylor-series",
+    "definition_title": "指数函数在零点的泰勒多项式",
+    "definition": "定义 $P_n(x)=\\sum_{k=0}^n x^k/k!$。每一项用于匹配指数函数在零点的一个更高阶导数。",
+    "claim_title": "在固定区间内控制截断误差",
+    "claim": "若 $|x|\\le R$，则 $|e^x-P_n(x)|\\le e^R R^{n+1}/(n+1)!$。此界对区间中的所有点同时成立。",
+    "proof": [
+      "由带拉格朗日余项的泰勒公式，余项为 $e^\\xi x^{n+1}/(n+1)!$，其中 $\\xi$ 位于零和 $x$ 之间。指数函数具有公式所需的各阶导数。",
+      "因为 $|\\xi|\\le R$，有 $e^\\xi\\le e^R$；再用 $|x|^{n+1}\\le R^{n+1}$ 得到上界。图中单点实际误差通常更小；统一上界的作用是事先保证整个使用区间的精度。"
+    ]
+  }
+}

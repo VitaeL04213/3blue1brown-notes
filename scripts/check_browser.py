@@ -1,8 +1,9 @@
-"""Local browser integration and responsive-layout checks on the authored site."""
+"""Exercise the actual reading UI, 198 linked states, geometry and responsive spreads."""
 from pathlib import Path
-import json, threading, functools
+import json, threading, functools, math
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from playwright.sync_api import sync_playwright
+from walkthroughs import STEPS, EXPERIMENTS
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/"build/browser-review";OUT.mkdir(parents=True,exist_ok=True)
@@ -14,35 +15,33 @@ class Quiet(SimpleHTTPRequestHandler):
 server=ThreadingHTTPServer(("127.0.0.1",0),functools.partial(Quiet,directory=str(ROOT/"docs")))
 threading.Thread(target=server.serve_forever,daemon=True).start()
 base=f"http://127.0.0.1:{server.server_port}"
-errors=[];results=[]
+errors=[];results=[];linked=0;movies=[]
 with sync_playwright() as p:
     browser=p.chromium.launch()
-    page=browser.new_page(viewport={"width":1360,"height":1000},device_scale_factor=1)
-    page.route("https://www.youtube-nocookie.com/**",
-               lambda route:route.fulfill(status=200,content_type="text/html",
-                                          body="<p>External player URL test only.</p>"))
+    page=browser.new_page(viewport={"width":1440,"height":1000},device_scale_factor=1)
+    page.route("https://www.youtube-nocookie.com/**",lambda route:route.fulfill(status=200,content_type="text/html",body="<p>URL test only.</p>"))
     page.on("pageerror",lambda e:errors.append(str(e)))
-    page.goto(base+"/index.html")
+    def visit(path):
+        page.goto(base+path)
+        if "lessons/" in path or "lab.html" in path:page.wait_for_function("!!window.BookExperiment")
+    def state():return page.evaluate("BookExperiment.snapshot()")
+    def set_control(key,value):
+        page.locator("#control-"+key).evaluate("(el,v)=>{el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));}",value)
+    def preset(name):page.evaluate("(name)=>BookExperiment.applyPreset(name)",name)
+    def read():return page.locator("#readout").inner_text()
+    visit("/index.html")
     assert page.locator(".chapter-list li").count()==6
-    assert page.locator(".toc-chapter").count()==6
-    page.screenshot(path=str(OUT/"index.png"),full_page=True)
     search=page.locator("#book-search")
     search.fill("行列式")
     page.wait_for_function("document.querySelector('#search-results').textContent.includes('行列式')")
     assert page.locator("#search-results a[href$='determinant.html']").count()==1
-    search.fill("平移")
-    page.wait_for_function("[...document.querySelectorAll('#search-results mark')].some(el=>el.textContent==='平移')")
-    assert page.locator("#search-results a[href$='linear-transformations.html']").count()==1
     search.fill("Backpropagation calculus")
-    page.wait_for_function("document.querySelectorAll('#search-results a').length===1 && document.querySelector('#search-results a')?.getAttribute('href').includes('backpropagation-calculus')")
-    page.locator("#search-results a").first.click()
+    page.wait_for_function("document.querySelectorAll('#search-results a').length===1 && document.querySelector('#search-results a')?.href.includes('backpropagation-calculus')")
+    page.locator("#search-results a").click()
     assert page.url.endswith("backpropagation-calculus.html")
-    page.goto(base+"/lessons/linear-transformations.html")
+    visit("/lessons/linear-transformations.html")
     assert "1.3" in page.locator("h1").inner_text()
     assert page.locator(".book-sidebar a[aria-current=page]").get_attribute("href").endswith("linear-transformations.html")
-    assert not page.locator("#example").evaluate("el=>el.open")
-    page.locator("#example summary").click()
-    assert page.locator("#example").evaluate("el=>el.open")
     page.locator(".expand-knowl").click()
     assert page.locator("details[data-print-open]:not([open])").count()==0
     page.locator(".expand-knowl").click()
@@ -51,105 +50,146 @@ with sync_playwright() as p:
     assert page.locator("details[data-print-open]:not([open])").count()==0
     page.evaluate("window.dispatchEvent(new Event('afterprint'))")
     assert page.locator("details[data-print-open][open]").count()==0
-    page.goto(base+"/index.html")
+    visit("/index.html")
     assert page.locator("#resume-reading").get_attribute("href")=="lessons/linear-transformations.html"
-    page.goto(base+"/chapters/linear-algebra.html")
+    visit("/chapters/linear-algebra.html")
     assert page.locator(".section-list li").count()==16
     page.locator(".page-turn.bottom [rel=next]").click()
     assert "1.1" in page.locator("h1").inner_text()
     page.locator(".page-turn.top [rel=next]").click()
     assert "1.2" in page.locator("h1").inner_text()
-    for slug in ["linear","derivative","integral","gradient","attention","heat","complex","entropy","taylor"]:
-        page.goto(base+"/lab.html#"+slug)
-        page.wait_for_selector("#controls input")
-        initial=page.locator("#readout").inner_text()
-        control=page.locator("#controls input").first
-        control.evaluate("(el)=>{el.value=el.max;el.dispatchEvent(new Event('input',{bubbles:true}));}")
-        changed=page.locator("#readout").inner_text()
-        assert initial!=changed,slug
+
+    # Every lesson's controls must select a deterministic, complete state, even after edits.
+    for slug,data in STEPS.items():
+        visit("/lessons/"+slug+".html")
+        assert state()["demo"]==data["demo"]
+        for i,name in enumerate(data["presets"]):
+            c=EXPERIMENTS[data["demo"]]["controls"][0]
+            set_control(c[0],c[3])
+            page.locator(".step-play").nth(i).click()
+            expected={c[0]:c[5] for c in EXPERIMENTS[data["demo"]]["controls"]}
+            expected.update(EXPERIMENTS[data["demo"]]["presets"][name])
+            actual=state()["values"]
+            assert all(math.isclose(actual[k],v,abs_tol=1e-9) for k,v in expected.items()),(slug,i,actual,expected)
+            assert page.locator(".step-play[aria-pressed=true]").count()==1
+            assert page.locator(".return-step").get_attribute("href")==f"#step-{i+1}"
+            linked+=1
+
+    for name,d in EXPERIMENTS.items():
+        visit("/lab.html#"+name)
+        before=state()["values"]
+        c=d["controls"][0];set_control(c[0],c[3])
+        assert state()["values"]!=before,name
         page.locator("#reset").click()
-        assert page.locator("#readout").inner_text()==initial,slug
+        assert state()["values"]==before,name
+        page.locator("#play").click();page.wait_for_timeout(100)
+        assert state()["playing"]
         page.locator("#play").click()
-        page.wait_for_timeout(220)
-        assert page.locator("#play").get_attribute("aria-pressed")=="true"
-        page.locator("#play").click()
-        assert page.locator("#play").get_attribute("aria-pressed")=="false"
-        page.locator("#reset").click()
-        page.wait_for_function("document.querySelector('#movie').readyState>=1")
-        assert page.locator("#movie").evaluate("(v)=>v.duration")>5
-        page.screenshot(path=str(OUT/(slug+".png")),full_page=True)
-        results.append({"experiment":slug,"controls":True,"play_pause":True,"reset":True,"mp4_metadata":True})
-    page.goto(base+"/lab.html#derivative")
-    page.locator("#control-h").evaluate("(el)=>{el.value=0;el.dispatchEvent(new Event('input',{bubbles:true}));}")
-    assert "未定义" in page.locator("#readout").inner_text()
-    page.goto(base+"/lab.html#entropy")
-    page.locator("#control-q").evaluate("(el)=>{el.value=.5;el.dispatchEvent(new Event('input',{bubbles:true}));}")
-    assert "KL(p∥q) = 0 bit" in page.locator("#readout").inner_text()
-    page.goto(base+"/lessons/linear-transformations.html")
-    assert page.locator("math").count()>5
-    page.locator("#original summary").click()
-    page.locator(".load-video").click()
-    assert "kYB8IZa5AuE" in page.locator(".embed-slot iframe").get_attribute("src")
-    page.locator("#original summary").click()
-    page.evaluate("window.scrollTo({top:0,behavior:'instant'})")
-    page.screenshot(path=str(OUT/"lesson-desktop.png"),full_page=True)
-    inline_lessons=["linear-transformations","derivatives","integration","gradient-descent","attention","heat-equation","eulers-formula-dynamically","cross-entropy","taylor-series"]
-    inline_results=[]
-    for lesson in inline_lessons:
-        page.goto(base+"/lessons/"+lesson+".html")
-        page.locator(".interactive-controls summary").click()
-        frame=page.frame_locator("iframe.inline-lab")
-        frame.locator("#controls input").first.wait_for()
-        original=frame.locator("#readout").inner_text()
-        frame.locator("#controls input").first.evaluate("el=>{el.value=el.max;el.dispatchEvent(new Event('input',{bubbles:true}));}")
-        assert frame.locator("#readout").inner_text()!=original,lesson
-        frame.locator("#reset").click()
-        assert frame.locator("#readout").inner_text()==original,lesson
-        assert not frame.locator(".book-header").is_visible()
-        page.wait_for_function("(()=>{const f=document.querySelector('.inline-lab');return f.clientHeight>=f.contentDocument.querySelector('main').getBoundingClientRect().height})()")
-        assert frame.locator("html").evaluate("el=>el.scrollWidth<=innerWidth+1"),lesson
-        inline_results.append(lesson)
-    page.goto(base+"/lessons/linear-transformations.html#proof")
+        assert not state()["playing"]
+        # Camera updates must not alter mathematical data.
+        page.locator("#zoom-in").click()
+        assert state()["camera"]["zoom"]>1
+        values=state()["values"]
+        page.locator("#reset-view").click()
+        assert state()["values"]==values and state()["camera"]["zoom"]==1
+        if d.get("scene"):
+            page.locator("#movie-area summary").click()
+            page.locator("#movie").evaluate("(v)=>{v.preload='metadata';v.load();}")
+            page.wait_for_function("document.querySelector('#movie').readyState>=1")
+            assert page.locator("#movie").evaluate("v=>v.duration")>5
+            movies.append(d["scene"])
+        results.append(name)
+
+    # Independently known numerical examples, domain limits and actual endpoint manipulation.
+    visit("/lab.html#linear");preset("solve")
+    assert "A x = (4, 7)" in read() and "det A = 5" in read()
+    preset("collapse");assert "det A = 0" in read()
+    preset("reflect");assert "det A = -1" in read()
+    preset("shear")
+    handle=state()["handles"][0];box=page.locator("#plot").bounding_box()
+    old=state()["values"]
+    page.mouse.move(box["x"]+handle["x"],box["y"]+handle["y"]);page.mouse.down()
+    page.mouse.move(box["x"]+handle["x"]+20,box["y"]+handle["y"]-12,steps=5);page.mouse.up()
+    assert state()["values"]["x"]!=old["x"] and state()["values"]["y"]!=old["y"]
+    old=state()["values"];page.locator("#plot").focus();page.keyboard.press("ArrowRight")
+    assert state()["values"]["x"]!=old["x"]
+    visit("/lab.html#compose");preset("ab");a=read();preset("ba");assert read()!=a
+    visit("/lab.html#spatial");preset("cross")
+    assert "u × v = (0, 0, 1)" in read() and "底面面积 = 1" in read()
+    values=state()["values"];camera=state()["camera"];box=page.locator("#plot").bounding_box()
+    page.mouse.move(box["x"]+25,box["y"]+70);page.mouse.down()
+    page.mouse.move(box["x"]+75,box["y"]+90,steps=5);page.mouse.up()
+    assert state()["camera"]["yaw"]!=camera["yaw"] and state()["values"]==values
+    visit("/lab.html#projection");set_control("ux",0);set_control("uy",0);assert "未定义" in read()
+    visit("/lab.html#eigen");preset("large");assert "λ₁ = 3" in read() and "det[v,Av] = 0" in read()
+    visit("/lab.html#derivative");preset("zero");assert "差商 = 未定义" in read() and "导数 = 0" in read()
+    preset("log");set_control("a",-1);assert "导数 = 未定义" in read()
+    visit("/lab.html#gradient");preset("small");assert "wₖ = 0.2592" in read()
+    visit("/lab.html#network");preset("active");assert "∂L/∂w₁ = -2" in read()
+    preset("off");assert "∂L/∂w₁ = 0" in read()
+    set_control("x1",1.5);assert "折点" in read()
+    visit("/lab.html#attention");preset("equal");assert "加权输出 = 6" in read()
+    visit("/lab.html#noise");preset("known");assert "重建误差 = 0" in read()
+    preset("noisy");assert "重建误差 = -1.5" in read()
+    visit("/lab.html#phase");preset("rotate");assert "散度 = 0" in read() and "旋度 = 2" in read()
+    visit("/lab.html#entropy");preset("match");assert "KL(p∥q) = 0 bit" in read()
+    set_control("q",.8);assert "0.321928" in read()
+    visit("/lab.html#iteration");preset("escape");set_control("base",1.6);set_control("k",12);assert "超过可显示范围" in read()
+
+    widths=[1920,1440,1280]
+    for width in widths:
+        page.set_viewport_size({"width":width,"height":1000})
+        visit("/lessons/linear-transformations.html")
+        page.locator(".step-play").nth(1).click()
+        left=page.locator(".reading-column").bounding_box();right=page.locator(".experiment-pane").bounding_box()
+        assert right["x"]>=left["x"]+left["width"],(width,left,right)
+        assert right["width"]>=350 and left["width"]>=340,(width,left,right)
+        assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+1"),width
+        page.evaluate("window.scrollTo({top:420,behavior:'instant'})");page.wait_for_timeout(80)
+        r=page.locator(".experiment-pane").bounding_box()
+        assert r["y"]>=124 and r["y"]<180,(width,r)
+        page.screenshot(path=str(OUT/f"spread-{width}.png"))
+    for slug in ["cross-products","attention","derivatives","diffusion-models","eigenvalues"]:
+        visit("/lessons/"+slug+".html")
+        page.locator(".step-play").nth(1).click()
+        page.evaluate("window.scrollTo({top:420,behavior:'instant'})");page.wait_for_timeout(60)
+        page.screenshot(path=str(OUT/f"spread-{slug}.png"))
+    visit("/lessons/linear-transformations.html#proof")
     assert page.locator("#proof").evaluate("el=>el.open")
     assert "theorem linear_combination" in page.locator("#proof pre").inner_text()
-    page.goto(base+"/lessons/linear-transformations.html")
-    page.locator(".interactive-controls summary").click()
-    page.frame_locator("iframe.inline-lab").locator("#controls input").first.wait_for()
-    page.locator("#interactive").screenshot(path=str(OUT/"inline-figure.png"))
-    page.set_viewport_size({"width":390,"height":844})
-    for suffix in ["/index.html","/chapters/linear-algebra.html","/lab.html#attention","/lessons/cross-entropy.html"]:
-        page.goto(base+suffix)
-        assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+1"),suffix
-        name="mobile-"+suffix.split("/")[-1].replace(".html","").replace("#","-")+".png"
-        page.screenshot(path=str(OUT/name),full_page=True)
-    assert not page.locator("#book-sidebar").is_visible()
+    page.locator("#original summary").click();page.locator(".load-video").click()
+    assert "kYB8IZa5AuE" in page.locator(".embed-slot iframe").get_attribute("src")
+    for width in [390,320]:
+        page.set_viewport_size({"width":width,"height":844})
+        for path in ["/index.html","/chapters/linear-algebra.html","/lab.html#spatial","/lessons/linear-transformations.html","/lessons/cross-entropy.html"]:
+            visit(path)
+            assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+1"),(width,path)
+        page.locator(".step-play").nth(1).click()
+        page.wait_for_timeout(600)
+        assert page.locator("#step-status").inner_text().startswith("02")
+        page.locator(".return-step").click();page.wait_for_timeout(600)
+        assert page.url.endswith("#step-2")
+        page.screenshot(path=str(OUT/f"mobile-step-{width}.png"))
+    for slug in STEPS:
+        visit('/lessons/'+slug+'.html')
+        assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+1"),('narrow lesson',slug)
     page.locator("#toggle-contents").click()
     assert page.locator("#book-sidebar").is_visible()
     assert page.locator("#book-search").evaluate("el=>el===document.activeElement")
     page.locator("#book-search").fill("注意力")
     page.wait_for_function("document.querySelector('#search-results').textContent.includes('注意力')")
-    page.screenshot(path=str(OUT/"mobile-navigation.png"))
     page.keyboard.press("Escape")
     assert not page.locator("#book-sidebar").is_visible()
     assert page.locator("#toggle-contents").get_attribute("aria-expanded")=="false"
-    page.locator(".interactive-controls summary").click()
-    frame=page.frame_locator("iframe.inline-lab")
-    frame.locator("#control-q").wait_for()
-    assert frame.locator("html").evaluate("el=>el.scrollWidth<=innerWidth+1")
-    page.wait_for_function("(()=>{const f=document.querySelector('.inline-lab');return f.clientHeight>=f.contentDocument.querySelector('main').getBoundingClientRect().height})()")
-    page.locator("#interactive").screenshot(path=str(OUT/"mobile-inline.png"))
-    page.set_viewport_size({"width":320,"height":720})
-    page.goto(base+"/lessons/linear-transformations.html")
-    assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+1")
     browser.close()
 server.shutdown()
 assert not errors,errors
-report={"experiments":results,"responsive_width":390,"javascript_errors":errors,
-        "inline_experiments_checked":inline_results,"chapter_navigation":True,
-        "full_text_and_english_search":True,"collapsible_examples_and_proofs":True,
-        "print_expansion_and_restore":True,"mobile_navigation_keyboard":True,
-        "narrow_viewport_width":320,
-        "official_embed_url_checked":True,"external_youtube_playback_verified":False,
-        "note":"External playback depends on network/YouTube policy; original links remain available."}
+report={"experiments_checked":results,"linked_lesson_states_checked":linked,"manim_metadata_checked":movies,
+        "desktop_widths_checked":widths,"mobile_widths_checked":[390,320],"javascript_errors":errors,
+        "endpoint_drag_mouse_and_keyboard":True,"spatial_orbit_preserves_values":True,
+        "known_numeric_examples_and_domain_limits":True,"step_reset_after_manual_edits":True,
+        "full_text_english_search_and_resume":True,"chapter_navigation":True,
+        "print_expansion_and_restore":True,"mobile_step_return_and_menu_keyboard":True,
+        "official_embed_url_checked":True,"external_youtube_playback_verified":False}
 (ROOT/"validation/browser.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-print(json.dumps({"experiments_passed":len(results),"javascript_errors":len(errors),"mobile_overflow":False}))
+print(json.dumps({"experiments_passed":len(results),"linked_steps":linked,"javascript_errors":len(errors),"overflow":False}))

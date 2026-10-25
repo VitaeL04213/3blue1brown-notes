@@ -2,15 +2,19 @@
 
 [![Notes and Lean](https://github.com/VitaeL04213/3blue1brown-notes/actions/workflows/ci.yml/badge.svg)](https://github.com/VitaeL04213/3blue1brown-notes/actions/workflows/ci.yml)
 
-**[在线阅读教材](https://vitael04213.github.io/3blue1brown-notes/)** · **[交互实验室](https://vitael04213.github.io/3blue1brown-notes/lab.html)** · **[下载 92 页 PDF](dist/3blue1brown-notes-zh.pdf)**
+**[在线阅读教材](https://vitael04213.github.io/3blue1brown-notes/)** · **[左右联动示例](https://vitael04213.github.io/3blue1brown-notes/lessons/linear-transformations.html)** · **[交互实验室](https://vitael04213.github.io/3blue1brown-notes/lab.html)** · **[下载 123 页 PDF](dist/3blue1brown-notes-zh.pdf)**
 
 围绕官方课程序列独立编写的中文导学教材：6 组课程、66 个独立条目、67 个通过 Lean 检查的定理。每课从问题出发，用连续论述解释概念为何出现、表示如何选择、公式如何推导，再用算例、自测和形式化边界检查理解。
 
-逐课引导正文包含约 2.5 万个汉字，另有每章综合推导练习、数学回顾与详细算例。LaTeX 和网页共用正文，既可连续阅读，也可回到原课对照学习。
+原有逐课引导正文包含 25,438 个汉字；新增 198 段逐步讲解，共 16,604 个汉字，以及 18 组定义、命题与纸笔证明。另有每章综合推导练习、数学回顾与详细算例。LaTeX 和网页共用这些内容，既可连续阅读，也可回到原课对照学习。
 
 网页现按 [Interactive Linear Algebra](https://textbooks.math.gatech.edu/ila/) 的教材阅读形式整合：扉页、六章导言、连续编号的小节与附录组成一条完整阅读路径。固定侧栏展开章节目录，标明当前位置，并支持中文全文与原课英文标题搜索。
 
-例题、练习解答和实际 Lean 命题可在正文中展开。9 类参数实验嵌入 38 处相关小节，直接操作后继续阅读；还支持上次阅读位置、段落永久链接、手机目录和打印时自动展开解答。原有小节网址保持可用。
+宽屏采用**左侧逐步讲解、右侧同步实验**，使用完整可用宽度。66 节各有三个“演示本步”按钮，直接复位到对应的图形状态，再由读者自由修改。18 类实验支持参数输入、拖动端点、缩放与平移；空间图还可以旋转视角。矩阵图将输入、输出并排，复合图显示中间步骤。
+
+写作组织参考 [Linear Algebra Done Right](https://ladr.pretext.plus/frontmatter.html) 的“定义—命题—证明”结构。图形操作参考用户 fork 的 [gt-linalg](https://github.com/VitaeL04213/gt-linalg) 中向量拖拽、矩阵作用和联动视图的设计。本项目使用原创论述与独立实现的图形程序；没有复制参考书正文或该仓库的代码。
+
+例题、练习解答、纸笔证明和实际 Lean 命题可分别展开。新增纸笔论证的形式化范围仍以原有 Lean 命题为准。支持阅读续接、段落永久链接、手机目录、手机上实验与当前步骤之间的跳转，以及打印时自动展开解答。原有小节网址保持可用。
 
 ![原创 Manim 动画：剪切与压扁](docs/media/LinearMap.gif)
 
@@ -20,12 +24,12 @@
 
 1. 先读每节的问题与引导推导，尝试自己完成下一步。
 2. 按观课提示观看原视频或官方图文，再播放对应动画。
-3. 在正文交互图中改一个参数，先预测后观察，用公式解释差异。
+3. 点击左文的“演示本步”观察右图，再拖动端点或修改一个参数，用文字与公式解释差异。
 4. 独立完成自测后展开解答；最后核对 Lean 定理里的条件和覆盖范围。
 
 网页按需嵌入 **61 个官方原视频**；另外 **5 个目录条目未单列视频 ID**，直接链接官方图文和图示。原视频需要网络访问，无法加载时仍保留原链接。没有编造对应关系或未核实的时间点。
 
-**9 组原创 Manim 动画**均提供中文说明、MP4 和 GIF；**9 个参数实验**支持播放、暂停、重置和键盘调节。PDF 包含动画关键帧及网页入口；动画和参数操作在网页中进行。完整媒体清单与重制方法见 [媒体说明](media/README.md)。
+**9 组原创 Manim 动画**均提供中文说明、MP4 和 GIF；**18 类参数实验**支持播放、暂停、重置、数字输入和键盘操作。PDF 包含同源逐步讲解、动画关键帧及网页入口；动画和参数操作在网页中进行。完整媒体清单与重制方法见 [媒体说明](media/README.md)。
 
 ## 覆盖范围
 
@@ -73,7 +77,7 @@
     node scripts/check_models.cjs
     python scripts/check_textbook.py
 
-网页从 notes/guides/、notes/chapters/ 和 notes/reviews/ 生成。每课的观课提示与实验关联保存在 media/teaching.json。生成的 notes/media/ 同时供 PDF 使用。
+网页从 notes/guides/、notes/chapters/ 和 notes/reviews/ 生成。逐步论述与对应演示情形在 notes/intuition-*.json，18 组定义和证明在 notes/principles.json，实验参数与预设在 media/experiments.json。构建同时生成供 PDF 使用的 notes/intuition/ 和 notes/media/。每课的原课观察提示保存在 media/teaching.json。
 
 新增的章节导言与学习目标保存在 notes/book.json；网页壳层由 scripts/book_layout.py 统一生成。核心 TeX 正文与 PDF 保持一致，网页另有导航、章节导言和行内交互布局。
 
@@ -88,7 +92,7 @@
 
     python scripts/build_pdf.py
 
-若编译器不在 PATH，指定 --tectonic /absolute/path/to/tectonic。输出到 dist/；正文使用 Fandol 字体。9 张关键帧已经随仓库提供，重编 PDF 不需要先安装 Manim。
+若编译器不在 PATH，指定 --tectonic /absolute/path/to/tectonic。输出到 dist/；正文使用 Fandol 字体。构建会从实际使用的字体补齐缺失的 Unicode 映射，保证中文可搜索与复制；使用 requirements-authoring.txt 中的 pypdf 和 fonttools。可运行 python scripts/check_pdf_text.py 检查中文与网页节号的一致性。9 张关键帧已经随仓库提供，重编 PDF 不需要先安装 Manim。
 
 ### Lean
 

@@ -3,6 +3,7 @@ from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 import json, re
+from walkthroughs import STEPS, EXPERIMENTS, PRINCIPLES
 
 ROOT=Path(__file__).resolve().parents[1]
 catalog=json.loads((ROOT/"sources/catalog.json").read_text(encoding="utf-8"))
@@ -37,7 +38,7 @@ for page in (ROOT/"docs").rglob("*.html"):
         assert target.exists(),f"Broken link: {page}: {url}"
         if u.fragment and target.suffix==".html":
             fragment=unquote(u.fragment)
-            dynamic_lab=target.name=="lab.html" and fragment in {"linear","derivative","integral","gradient","attention","heat","complex","entropy","taylor"}
+            dynamic_lab=target.name=="lab.html" and fragment in EXPERIMENTS
             assert dynamic_lab or fragment in pages[target].ids,f"Broken anchor: {page}: {url}"
     for video in parser.videos:assert re.fullmatch(r"[A-Za-z0-9_-]{11}",video)
     assert not re.search(r'<span class="math[^"]*">\\[([]',raw),"Unrendered TeX: "+str(page)
@@ -49,6 +50,14 @@ for slug in lessons:
     assert len(text.split("\n\n"))>=4,slug
     assert (ROOT/f"notes/media/{slug}.tex").exists()
     assert (ROOT/f"docs/lessons/{slug}.html").exists()
+    data=STEPS[slug]
+    assert len(data['steps'])==3 and len(data['presets'])==3,slug
+    assert all(p in EXPERIMENTS[data['demo']]['presets'] for p in data['presets']),slug
+    assert all(len(re.findall(r'[\u4e00-\u9fff]',text))>=60 for _,text in data['steps']),slug
+    assert (ROOT/f'notes/intuition/{slug}.tex').exists(),slug
+    raw=(ROOT/f'docs/lessons/{slug}.html').read_text(encoding='utf-8')
+    assert raw.count('class="step-play"')==3 and raw.count('id="experiment-root"')==1,slug
+    assert 'iframe class="inline-lab"' not in raw,slug
     if lessons[slug].get("video"):
         assert lessons[slug]["video"] in (ROOT/f"docs/lessons/{slug}.html").read_text(encoding="utf-8")
 assert len(list((ROOT/"docs/media").glob("*.mp4")))==9
@@ -72,4 +81,5 @@ assert len(index)==66 and len({entry['number'] for entry in index})==66
 assert {entry['slug']:entry['number'] for entry in index}['entropy']=='6.1'
 assert {entry['slug']:entry['number'] for entry in index}['cross-entropy']=='6.2'
 print(json.dumps({"lessons":len(lessons),"rendered_math_expressions":total_math,
- "manim_animations":9,"broken_local_links":0,"unrendered_math":0,"continuous_reading_pages":len(visited)}))
+ "manim_animations":9,"interactive_experiments":len(EXPERIMENTS),"linked_steps":sum(len(s['steps']) for s in STEPS.values()),
+ "paper_arguments":len(PRINCIPLES),"broken_local_links":0,"unrendered_math":0,"continuous_reading_pages":len(visited)}))

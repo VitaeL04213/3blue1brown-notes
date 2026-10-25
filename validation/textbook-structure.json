@@ -5,8 +5,11 @@
   "numbered_sections": 66,
   "original_video_links": 61,
   "manim_animations": 9,
-  "interactive_experiments": 9,
-  "inline_experiment_locations": 38,
+  "interactive_experiments": 18,
+  "inline_experiment_locations": 66,
+  "guided_steps": 198,
+  "named_paper_arguments": 18,
+  "step_prose_characters": 16604,
   "guided_prose_characters": 25438,
   "minimum_guided_prose_characters": 328,
   "per_lesson": {

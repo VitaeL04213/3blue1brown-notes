@@ -18,7 +18,7 @@ jobs:
       - name: Rebuild reading pages from TeX
         run: |
           python3 scripts/build_site.py
-          git diff --exit-code -- docs notes/media validation/textbook-structure.json
+          git diff --exit-code -- docs notes/media notes/intuition validation/textbook-structure.json
       - name: Check mathematical models and lesson links
         run: |
           node scripts/check_models.cjs
@@ -66,7 +66,10 @@ jobs:
           tar -xzf tectonic.tar.gz -C "$RUNNER_TEMP/tectonic"
           echo "$RUNNER_TEMP/tectonic" >> "$GITHUB_PATH"
       - name: Compile Chinese book
-        run: python3 scripts/build_pdf.py
+        run: |
+          python3 -m pip install pypdf==6.21.2 fonttools==4.67.0
+          python3 scripts/build_pdf.py
+          python3 scripts/check_pdf_text.py
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: 3blue1brown-notes-zh

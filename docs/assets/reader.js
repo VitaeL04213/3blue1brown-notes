@@ -53,15 +53,16 @@
   const id=button.dataset.video;if(!/^[A-Za-z0-9_-]{11}$/.test(id))return;
   const frame=document.createElement("iframe");frame.src="https://www.youtube-nocookie.com/embed/"+id+"?rel=0";frame.title="3Blue1Brown 原课程视频";frame.allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen";frame.allowFullscreen=true;frame.referrerPolicy="strict-origin-when-cross-origin";button.parentElement.querySelector(".embed-slot").replaceChildren(frame);button.remove();
  }));
- document.querySelectorAll(".interactive-controls").forEach(details=>{
-  function load(){const frame=details.querySelector("iframe");if(details.open&&!frame.hasAttribute("src"))frame.src=frame.dataset.src;}
-  details.addEventListener("toggle",load);load();
- });
- window.addEventListener("message",event=>{
-  if(event.origin!==location.origin||event.data?.type!=="3b1b-lab-size"||!Number.isFinite(event.data.height))return;
-  const frame=[...document.querySelectorAll("iframe.inline-lab")].find(el=>el.contentWindow===event.source);
-  if(frame)frame.style.height=Math.max(350,Math.min(2600,event.data.height))+"px";
- });
+ const stepButtons=[...document.querySelectorAll('.step-play')];
+ function clearStep(){stepButtons.forEach(b=>{b.setAttribute('aria-pressed','false');b.closest('.intuition-step').classList.remove('active');});}
+ stepButtons.forEach(button=>button.addEventListener('click',()=>{
+  clearStep();button.setAttribute('aria-pressed','true');button.closest('.intuition-step').classList.add('active');
+  const title=button.closest('.intuition-step').querySelector('h3').textContent;
+  document.dispatchEvent(new CustomEvent('book:step',{detail:{demo:button.dataset.demo,preset:button.dataset.preset,title}}));
+  const back=document.querySelector('.return-step');back.href='#'+button.dataset.step;back.textContent='返回当前步骤：'+title+' ↓';
+  if(matchMedia('(max-width:1100px)').matches)document.getElementById('interactive').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth',block:'start'});
+ }));
+ document.addEventListener('experiment:changed',clearStep);
  const expand=document.querySelector(".expand-knowl");
  if(expand)expand.addEventListener("click",()=>{const open=expand.getAttribute("aria-pressed")!=="true";document.querySelectorAll("details[data-print-open]").forEach(el=>el.open=open);expand.setAttribute("aria-pressed",String(open));expand.textContent=open?"收起例题与解答":"展开本节例题与解答";});
  let printClosed=[];
