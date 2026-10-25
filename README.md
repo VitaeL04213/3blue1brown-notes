@@ -62,6 +62,8 @@
 
 ## 本地复现
 
+复用本书的创作流程，可使用 [交互式数学教材创作模板](templates/INTERACTIVE_TEXTBOOK_TEMPLATE.md)：包含项目设定、章节与单课写法、图文联动设计、LaTeX/Lean 对照、验证流程及可交给协作者的任务说明。
+
 ### 阅读网页
 
 下载仓库后可直接打开 docs/index.html。正文的 MathML、原创动画和交互实验不依赖第三方 CDN；原视频仍需要网络。也可启动本地服务：
