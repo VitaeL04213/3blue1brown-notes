@@ -29,4 +29,4 @@ def compose(slug, entries, convert):
     else:
         anchor=p['lesson']; related=entries[anchor]
         principle=f'<p class="principle-link">与本图相连的定义与证明：<a href="{anchor}.html#principle">{related["number"]} · {escape(p["claim_title"])}</a>。本节的具体条件与形式化范围见下文。</p>'
-    return steps,principle,'\n\n'.join(tex)+'\n'
+    return steps,principle,'\n\n'.join(tex).rstrip()+'\n'
